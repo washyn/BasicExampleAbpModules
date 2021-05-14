@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Detalle>
+
+
+
+<a class="btn btn-primary" asp-controller="Detalle" asp-action="Create">Crear</a>
+
+<table class="table table-bordered table-sm">
+    <thead>
+    <tr>
+        <th>Entero</th>
+        <th>Flotante</th>
+        <th>Cadena</th>
+        <th>Opciones</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(a => item.Entero)
+                </td>
+                <td>
+                    @Html.DisplayFor(a => item.Flotante)
+                </td>
+                <td>
+                    @Html.DisplayFor(a => item.Cadena)
+                </td>
+                <td>
+                    <a class="btn btn-success btn-sm" asp-controller="Detalle" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

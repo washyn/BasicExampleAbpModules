@@ -1,0 +1,59 @@
+﻿@model WebApplicationMvc.ViewModels.DetalleCreateViewModel
+
+<form asp-controller="Detalle" asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Booleano"></label>
+        <input asp-for="Booleano"/>
+        <span asp-validation-for="Booleano"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Cadena"></label>
+        <input asp-for="Cadena"/>
+        <span asp-validation-for="Cadena"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Decimanl"></label>
+        <input asp-for="Decimanl"/>
+        <span asp-validation-for="Decimanl"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Entero"></label>
+        <input asp-for="Entero"/>
+        <span asp-validation-for="Entero"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Fecha"></label>
+        <input asp-for="Fecha"/>
+        <span asp-validation-for="Fecha"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Hora"></label>
+        <input asp-for="Hora"/>
+        <span asp-validation-for="Hora"></span>
+    </div>
+
+    
+    <div class="form-group">
+        <label asp-for="FechaHora"></label>
+        <input asp-for="FechaHora"/>
+        <span asp-validation-for="FechaHora"></span>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts
+{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
