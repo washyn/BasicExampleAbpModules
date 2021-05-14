@@ -1,35 +1,63 @@
-﻿@model IEnumerable<Detalle>
+﻿@model IEnumerable<WebApplicationMvc.ViewModels.DetalleListItemViewModel>
 
+<div class="row">
+    <div class="col-12">
+        <a class="btn btn-primary float-right" asp-controller="Detalle" asp-action="Create">Crear</a>
+    </div>
+</div>
 
-
-<a class="btn btn-primary" asp-controller="Detalle" asp-action="Create">Crear</a>
-
-<table class="table table-bordered table-sm">
-    <thead>
-    <tr>
-        <th>Entero</th>
-        <th>Flotante</th>
-        <th>Cadena</th>
-        <th>Opciones</th>
-    </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="row my-4">
+    <div class="col-12">
+        <table class="table table-bordered table-sm">
+            <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(a => item.Entero)
-                </td>
-                <td>
-                    @Html.DisplayFor(a => item.Flotante)
-                </td>
-                <td>
-                    @Html.DisplayFor(a => item.Cadena)
-                </td>
-                <td>
-                    <a class="btn btn-success btn-sm" asp-controller="Detalle" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
-                </td>
+                <th>Id</th>
+                <th>Flotante</th>
+                <th>Enum</th>
+                <th>Cadena</th>
+                <th>Fecha Hora</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Archivo</th>
+                <th>Opciones</th>
             </tr>
-        }
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(a => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(a => item.Flotante)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(a => item.Enum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(a => item.Cadena)
+                    </td>
+                    <td>
+                        @item.FechaHora.ToString()
+                    </td>
+                    <td>
+                        @item.Fecha.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.Hora.ToShortTimeString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(a => item.NombreArchivo)
+                    </td>
+                    <td>
+                        <a class="btn btn-success btn-sm" asp-controller="Detalle" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                        <a class="btn btn-danger btn-sm" asp-controller="Detalle" asp-action="ShowForDelete" asp-route-id="@item.Id">Eliminar</a>
+                        <a class="btn btn-info btn-sm" asp-controller="Detalle" asp-action="ShowDetails" asp-route-id="@item.Id">Detalle</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

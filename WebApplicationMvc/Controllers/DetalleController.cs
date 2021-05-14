@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,9 @@ using WebApplicationMvc.ViewModels;
 
 namespace WebApplicationMvc.Controllers
 {
+    /// <summary>
+    /// El crud ya esta, talvez hay q revisar algun detalle pero no creo
+    /// </summary>
     public class DetalleController : Controller
     {
         private readonly ApplicationDbContex _dbContex;
@@ -20,9 +24,22 @@ namespace WebApplicationMvc.Controllers
             _dbContex = dbContex;
         }
 
+        
         public IActionResult Index()
         {
-            var datos = _dbContex.Detalles.AsNoTracking();
+            var datos = _dbContex.Detalles
+                .AsNoTracking()
+                .Select(a => new DetalleListItemViewModel
+                {
+                    Cadena = a.Cadena,
+                    Enum = a.Enum,
+                    Fecha = a.Fecha,
+                    Flotante = a.Flotante,
+                    Hora = a.Hora,
+                    Id = a.Id,
+                    FechaHora = a.FechaHora,
+                    NombreArchivo = a.NombreArchivo
+                });
             return View(datos);
         }
         
@@ -30,15 +47,81 @@ namespace WebApplicationMvc.Controllers
         {
             if (id.HasValue)
             {
-                // search
+                var detail = _dbContex.Detalles.FirstOrDefault(a => a.Id == id);
+                if (detail is not null)
+                {
+                    return View(detail);
+                }
+            }
+            return NotFound();
+        }
+        
+        
+        public IActionResult Edit(int? id)
+        {
+            if (id.HasValue)
+            {
+                var model = _dbContex.Detalles
+                    .Where(b => b.Id == id)
+                    .Select(a => new DetalleEditViewModel()
+                {
+                    Booleano = a.booleano,
+                    Cadena = a.Cadena,
+                    Decimanl = a.decimanl,
+                    Entero = a.Entero,
+                    Enum = a.Enum,
+                    Fecha = a.Fecha,
+                    Flotante = a.Flotante,
+                    Hora = a.Hora,
+                    FechaHora = a.FechaHora,
+                    Id = a.Id
+                })
+                    .FirstOrDefault();
+                return View(model);
             }
             return View();
         }
         
-        public IActionResult Edit(int? id)
+        [HttpPost]
+        public IActionResult Edit(DetalleEditViewModel input)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                // TODO: esto no es correcto se puede guardar el archivo en un folder
+                // o un array de bytes en base de datos como blob
+
+                var modelEdit = _dbContex.Detalles.FirstOrDefault(a => a.Id == input.Id);
+                
+                modelEdit.booleano = input.Booleano;
+                modelEdit.decimanl = input.Decimanl;
+                modelEdit.Cadena = input.Cadena;
+                modelEdit.Entero = input.Entero;
+                modelEdit.Enum = input.Enum;
+                modelEdit.Fecha = input.Fecha;
+                modelEdit.Flotante = input.Flotante;
+                modelEdit.Hora = input.Hora;
+                modelEdit.FechaHora = input.FechaHora;
+                
+                if (input.Archivo != null)
+                {
+                    byte[] fileData;
+                    var ms = new MemoryStream();
+                    input.Archivo.CopyTo(ms);
+                    fileData = ms.ToArray();
+                    var fileContent = Convert.ToBase64String(fileData);
+
+                    modelEdit.NombreArchivo = input.Archivo.FileName;
+                    modelEdit.Archivo = fileContent;
+                }
+                
+                _dbContex.Detalles.Update(modelEdit);
+                _dbContex.SaveChanges();
+                
+                return RedirectToAction(nameof(Index));
+            }
+            return View(input);
         }
+        
         
         public IActionResult Create()
         {
@@ -50,7 +133,7 @@ namespace WebApplicationMvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dbContex.Detalles.Add(new Detalle()
+                var newModel = new Detalle()
                 {
                     Entero = input.Entero,
                     Cadena = input.Cadena,
@@ -59,11 +142,71 @@ namespace WebApplicationMvc.Controllers
                     Hora = input.Hora,
                     decimanl = input.Decimanl,
                     booleano = input.Booleano,
-                });
+                    Enum = input.Enum,
+                    Flotante = input.Flotante,
+                };
+
+                if (input.Archivo != null)
+                {
+                    var ms = new MemoryStream();
+                    input.Archivo.CopyTo(ms);
+                    var fileData = ms.ToArray();
+                    var fileContent = Convert.ToBase64String(fileData);
+                    
+                    newModel.Archivo = fileContent;
+                    newModel.NombreArchivo = input.Archivo.FileName;
+                }
+                
+                _dbContex.Detalles.Add(newModel);
                 _dbContex.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             return View(input);
         }
+        
+        
+        
+        public IActionResult ShowForDelete(int? id)
+        {
+            if (id.HasValue)
+            {
+                var detail = _dbContex.Detalles.FirstOrDefault(a => a.Id == id);
+                if (detail is not null)
+                {
+                    return View(detail);
+                }
+            }
+            return NotFound();
+        }
+        
+        public IActionResult Delete(int? id)
+        {
+            if (id.HasValue)
+            {
+                var detail = _dbContex.Detalles.FirstOrDefault(a => a.Id == id);
+                if (detail is not null)
+                {
+                    _dbContex.Detalles.Remove(detail);
+                    _dbContex.SaveChanges();
+                    return RedirectToAction(nameof(Index));
+                }
+                
+            }
+
+            return NotFound();
+        }
+
+        public IActionResult GetFile(int? id)
+        {
+            if (id.HasValue)
+            {
+                var model = _dbContex.Detalles.FirstOrDefault(a => a.Id == id);
+                return File(Convert.FromBase64String(model.Archivo),
+                    System.Net.Mime.MediaTypeNames.Application.Octet, model.NombreArchivo);
+            }
+
+            return NotFound();
+        }
+        
     }
 }

@@ -5,12 +5,9 @@ using WebApplicationMvc.Models;
 
 namespace WebApplicationMvc.ViewModels
 {
-    /// <summary>
-    /// ViewModel esta clase se utiliza como intermediario para crear una entidad
-    /// Se Agrego propiedades de diferentes tipos y la manera de usarlos
-    /// </summary>
-    public class DetalleCreateViewModel
+    public class DetalleEditViewModel
     {
+        public int Id { get; set; }
         public int Entero { get; set; }
         
         public float Flotante { get; set; }
@@ -38,6 +35,5 @@ namespace WebApplicationMvc.ViewModels
 
         
         public IFormFile Archivo { get; set; }
-        
     }
 }

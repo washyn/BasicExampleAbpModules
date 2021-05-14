@@ -70,11 +70,9 @@
                         <input asp-for="NombreArchivo" class="form-control" disabled/>
                         <span asp-validation-for="NombreArchivo" class="text-danger"></span>
                     </div>
-                    @if (Model.Archivo is not null)
-                    {
-                        <a class="btn btn-outline-info" asp-controller="Detalle" asp-action="GetFile" asp-route-id="@Model.Id">Descargar archivo</a>
-                    }
-
+                    <a asp-controller="Detalle" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger float-right">
+                        Eliminar registro
+                    </a>
                 </form>
             </div>
         </div>
