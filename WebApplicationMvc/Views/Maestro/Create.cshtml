@@ -1,0 +1,85 @@
+﻿@model WebApplicationMvc.ViewModels.Maestro.MaestroCreateEditViewModel
+
+@* Se muestra el uso de tag-helpers, que son etiquetas de ayuda de asp net *@
+@* Permiten generar codigo de formulario en base al modelo que se definio para poder crear un registro *@
+
+@* public int? Entero { get; set; } *@
+@* public float? Flotante { get; set; } *@
+@* public PruebaEnum? Enum { get; set; } *@
+@* public string? Cadena { get; set; } *@
+@* public DateTime? FechaHora { get; set; } *@
+@* public DateTime? Fecha { get; set; } *@
+@* public DateTime? Hora { get; set; } *@
+@* public decimal? Decimal { get; set; } *@
+
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <form asp-controller="Maestro" asp-action="Create">
+
+            
+            <div class="form-group">
+                <label asp-for="Entero" class="control-label"></label>
+                <input asp-for="Entero" class="form-control"/>
+                <span asp-validation-for="Entero" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Flotante" class="control-label"></label>
+                <input asp-for="Flotante" class="form-control"/>
+                <span asp-validation-for="Flotante" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Cadena" class="control-label"></label>
+                <input asp-for="Cadena" class="form-control"/>
+                <span asp-validation-for="Cadena" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Enum" class="control-label"></label>
+                <select asp-for="Enum" asp-items="@Html.GetEnumSelectList<PruebaEnum>()" class="form-control">
+                    <option value="">Seleccione una opcion</option>
+                </select>
+                <span asp-validation-for="Enum" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FechaHora" class="control-label"></label>
+                <input asp-for="FechaHora" class="form-control"/>
+                <span asp-validation-for="FechaHora" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" class="form-control"/>
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Hora" class="control-label"></label>
+                <input asp-for="Hora" class="form-control"/>
+                <span asp-validation-for="Hora" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Decimal" class="control-label"></label>
+                <input asp-for="Decimal" class="form-control"/>
+                <span asp-validation-for="Decimal" class="text-danger"></span>
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    <div class="col-3"></div>
+</div>
+
+@section Scripts
+{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

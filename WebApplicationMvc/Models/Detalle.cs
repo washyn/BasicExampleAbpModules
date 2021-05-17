@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace WebApplicationMvc.Models
 {
     /// <summary>
-    /// La Clase que representa una columna en la base de datos
+    /// La Clase que representa una columna en la base de datos,
+    /// la tabla en base de datos se genero a partir de este modelo con ef core
     /// </summary>
     public class Detalle
     {
@@ -25,6 +26,11 @@ namespace WebApplicationMvc.Models
         public bool booleano { get; set; }
         public string NombreArchivo { get; set; }
         public string Archivo { get; set; }
+
+        
+        
+        public int? MaestroId { get; set; }
+        public Maestro Maestro { get; set; }
     }
 
 

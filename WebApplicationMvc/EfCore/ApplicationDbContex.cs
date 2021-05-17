@@ -6,6 +6,7 @@ namespace WebApplicationMvc.EfCore
     public class ApplicationDbContex : DbContext
     {
         public DbSet<Detalle> Detalles { get; set; }
+        public DbSet<Maestro> Maestros { get; set; }
 
         public ApplicationDbContex(DbContextOptions<ApplicationDbContex> options)
         : base(options)

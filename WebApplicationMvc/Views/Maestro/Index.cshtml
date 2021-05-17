@@ -1,0 +1,82 @@
+﻿@model IEnumerable<WebApplicationMvc.ViewModels.Maestro.MaestroListItemViewModel>
+
+@* public long Id { get; set; } *@
+@* public int? Entero { get; set; } *@
+@* public float? Flotante { get; set; } *@
+@* public PruebaEnum? Enum { get; set; } *@
+@* public string? Cadena { get; set; } *@
+@* public DateTime? FechaHora { get; set; } *@
+@* public DateTime? Fecha { get; set; } *@
+@* public DateTime? Hora { get; set; } *@
+@* public decimal? Decimal { get; set; } *@
+@* public DateTime FechaCreacion { get; set; } = DateTime.Now; *@
+@* public DateTime FechaActualizacion { get; set; } *@
+@* public bool? Booleano { get; set; } = false; *@
+@* public string ValorNoMapeado { get; set; } *@
+@* public int CantidadDetalles { get; set; } *@
+
+
+<div class="row">
+    <div class="col-12">
+        <a class="btn btn-primary float-right" asp-controller="Maestro" asp-action="Create">Crear</a>
+    </div>
+</div>
+
+<div class="row my-4">
+    <div class="col-12">
+        <table class="table table-bordered table-sm">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Entero nullable</th>
+                <th>Flotante nullable</th>
+                <th>Enum nullable</th>
+
+                <th>Cadena nullable</th>
+                <th>Fecha creacion</th>
+                <th>Booleano def val</th>
+                @* <th>Fecha</th> *@
+                @* <th>Hora</th> *@
+                @* <th>Archivo</th> *@
+                <th>Opciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(a => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(a => item.Entero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(a => item.Flotante)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(a => item.Enum)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(a => item.Cadena)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(a => item.FechaCreacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(a => item.Booleano)
+                    </td>
+                    
+                    <td>
+                        <a class="btn btn-success btn-sm" asp-controller="Maestro" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                        <a class="btn btn-danger btn-sm" asp-controller="Maestro" asp-action="ShowForDelete" asp-route-id="@item.Id">Eliminar</a>
+                        <a class="btn btn-info btn-sm" asp-controller="Maestro" asp-action="ShowDetails" asp-route-id="@item.Id">Detalle</a>
+                    </td>
+                    
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
