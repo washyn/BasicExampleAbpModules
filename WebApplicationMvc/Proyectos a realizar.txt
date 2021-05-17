@@ -10,6 +10,8 @@ Agregar el select realacional y estara el crud de maestro detalle
 
 3.- 2 consultas, diferenciada por los filtros (minimos 3 filtros) para cada tabla.
 
+
+
 4.- 2 tipos de reportes incluyendo cada una de las tablas y 1 reporte final incluyendo las tablas (puede ser Report Viewer o Syncfusion) NO CRYSTAL REPORT.
 
 5.- Un Login de 3 tablas: usuario , perfil y menu de accesos. 

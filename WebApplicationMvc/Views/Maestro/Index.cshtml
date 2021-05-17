@@ -22,6 +22,120 @@
     </div>
 </div>
 
+
+@* PruebaEnum? pruebaEnum, bool? booleano *@
+
+<form asp-controller="Maestro" asp-action="Index" method="get">
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group row">
+                <label for="" class="col-sm-5 col-form-label">Buscar tipo</label>
+                <div class="col-sm-7">
+
+                    @* selected value *@
+                    
+                    @{
+                        var enumSelected = (PruebaEnum?)ViewData["pruebaEnum"];
+
+                        var selectList = new List<SelectListItem>();
+                        
+                        // TODO VER COMO SE PUEDE HACER ESTE SELECT ...
+
+                        var hasValEnum = enumSelected != null;
+                        //
+                        // foreach (var item in Enum.GetValues(typeof(PruebaEnum)))
+                        // {
+                        //     // var selectedItem = enumSelected.HasValue && ((PruebaEnum)item == enumSelected);
+                        //     if (hasValEnum)
+                        //     {
+                        //         selectList.Add(new SelectListItem(item.ToString(), (string) item, (((PruebaEnum) item) == enumSelected)));                                
+                        //     }
+                        //     else
+                        //     {
+                        //         selectList.Add(new SelectListItem(item.ToString(), (string) item));      
+                        //     }
+                        //
+                        // }
+                        
+                        // TODO: HACERLO MANUALMENTE COMO SEA........... por la weba me ago paltas.....agtregar los items manualmtne...
+                        
+                        selectList.Add(new SelectListItem("Todos", string.Empty, selected: enumSelected == null));
+                    }
+                    
+                    <select name="pruebaEnum" class="form-control" asp-items="selectList">
+                    </select>
+
+                    @* <input value="@ViewData["TextoBusqueda"]"> *@
+
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-success">Buscar</button>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group row">
+                <label for="" class="col-sm-5 col-form-label">Buscar booleano</label>
+                <div class="col-sm-3">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="booleano" id="inlineRadio1" value="">
+                        <label class="form-check-label" for="inlineRadio1">Todos</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="booleano" id="inlineRadio2" value="true">
+                        <label class="form-check-label" for="inlineRadio2">Activo</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="booleano" id="inlineRadio3" value="false">
+                        <label class="form-check-label" for="inlineRadio3">Desactivo</label>
+                    </div>
+                    
+                    @* <input value="@ViewData["TextoBusqueda"]"> *@
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-success">Buscar</button>
+        </div>
+    </div>
+
+    @* buscar por los items de la relacion *@
+
+    @* <div class="row"> *@
+    @*     <div class="col-8"> *@
+    @*         <div class="form-group row"> *@
+    @*             <label for="" class="col-sm-5 col-form-label">Buscar fecha</label> *@
+    @*             <div class="col-sm-3"> *@
+    @*                 <input type="date" *@
+    @*                        name="FechaMin" *@
+    @*                        class="form-control" *@
+    @*                        id="FechaMin" *@
+    @*                        value="@ViewData["FechaMin"]" *@
+    @*                        placeholder="Min"> *@
+    @*             </div> *@
+    @*             <div class="col-sm-3"> *@
+    @*                 <input type="date" *@
+    @*                        name="FechaMax" *@
+    @*                        class="form-control" *@
+    @*                        id="FechaMax" *@
+    @*                        value="@ViewData["FechaMax"]" *@
+    @*                        placeholder="Max"> *@
+    @*             </div> *@
+    @*         </div> *@
+    @*     </div> *@
+    @*     <div class="col-2"> *@
+    @*         <button type="submit" class="btn btn-success">Buscar</button> *@
+    @*     </div> *@
+    @* </div> *@
+
+</form>
+
+
 <div class="row my-4">
     <div class="col-12">
         <table class="table table-bordered table-sm">
@@ -35,6 +149,7 @@
                 <th>Cadena nullable</th>
                 <th>Fecha creacion</th>
                 <th>Booleano def val</th>
+                <th>Enum</th>
                 <th>Cantidad detalle</th>
                 @* <th>Fecha</th> *@
                 @* <th>Hora</th> *@
@@ -68,6 +183,11 @@
                     <td>
                         @Html.DisplayFor(a => item.Booleano)
                     </td>
+                    
+                    <td>
+                        @Html.DisplayFor(a => item.Enum)
+                    </td>
+                    
                     <td>
                         @Html.DisplayFor(a => item.CantidadDetalles)
                     </td>

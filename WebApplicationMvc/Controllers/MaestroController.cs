@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationMvc.EfCore;
 using WebApplicationMvc.Models;
@@ -19,9 +20,28 @@ namespace WebApplicationMvc.Controllers
         {
             _dbContex = dbContex;
         }
-        
-        public IActionResult Index()
+
+        public IActionResult Index(PruebaEnum? pruebaEnum, bool? booleano)
         {
+            // ViewData["pruebaEnum"] = pruebaEnum;
+            // var selectList = Html.GetEnumSelectList<PruebaEnum>();
+            
+            // var enumData = from PruebaEnum e in Enum.GetValues(typeof(PruebaEnum))  
+            //     select new   
+            //     {   
+            //         Id = (int)e,   
+            //         Name = e.ToString()   
+            //     };  
+            //
+            // var selectList = new SelectList(enumData,"Id","Name");
+            //
+            
+            ViewData["pruebaEnum"] = pruebaEnum;
+            
+            // ViewBag.EnumList = new SelectList(enumData,"Id","Name");
+
+            ViewData["booleano"] = booleano;
+
             var datos = _dbContex.Maestros
                 .AsNoTracking()
                 // .Include(a=> a.Detalles)
@@ -38,39 +58,42 @@ namespace WebApplicationMvc.Controllers
                     Decimal = a.Decimal,
                     Entero = a.Entero,
                     // CantidadDetalles = a.Detalles.Count(),
-                    CantidadDetalles =  _dbContex.Detalles.Count(b => b.MaestroId == a.Id),
+                    CantidadDetalles = _dbContex.Detalles.Count(b => b.MaestroId == a.Id),
                     // CantidadDetalles = 45,
                     FechaActualizacion = a.FechaActualizacion,
                     FechaCreacion = a.FechaCreacion,
                 });
 
-            // foreach (var itemViewModel in datos)
-            // {
-            //     itemViewModel.CantidadDetalles = _dbContex.Detalles.Count(a => a.Id == itemViewModel.Id);
-            // }
-            
-            
+            if (booleano.HasValue)
+            {
+                datos = datos.Where(s => s.Booleano == booleano);
+            }
+
+            if (pruebaEnum.HasValue)
+            {
+                datos = datos.Where(s => s.Enum == pruebaEnum);
+            }
+
             return View(datos);
         }
-        
-        
-        
+
+
         public IActionResult Create()
         {
             return View();
         }
-        
+
         [HttpPost]
-        public IActionResult Create([FromForm]MaestroCreateEditViewModel input)
+        public IActionResult Create([FromForm] MaestroCreateEditViewModel input)
         {
             // public int? Entero { get; set; }
             // public string? Cadena { get; set; }
             // public DateTime? FechaHora { get; set; }
-            
+
             // public float? Flotante { get; set; }
             // public PruebaEnum? Enum { get; set; }
             // public DateTime? Fecha { get; set; }
-            
+
             // public DateTime? Hora { get; set; }
             // public decimal? Decimal { get; set; }
 
@@ -85,22 +108,20 @@ namespace WebApplicationMvc.Controllers
                     Flotante = input.Flotante,
                     Enum = input.Enum,
                     Fecha = input.Fecha,
-                    
+
                     Hora = input.Hora,
                     Decimal = input.Decimal
                 };
-                
+
                 _dbContex.Maestros.Add(newModel);
                 _dbContex.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(input);
         }
 
-        
-        
-        
-        
+
         public IActionResult Edit(int? id)
         {
             if (id.HasValue)
@@ -108,25 +129,25 @@ namespace WebApplicationMvc.Controllers
                 var model = _dbContex.Maestros
                     .Where(b => b.Id == id)
                     .Select(a => new MaestroCreateEditViewModel()
-                {
-                    Cadena = a.Cadena,
-                    Entero = a.Entero,
-                    Enum = a.Enum,
-                    Fecha = a.Fecha,
-                    Flotante = a.Flotante,
-                    Hora = a.Hora,
-                    FechaHora = a.FechaHora,
-                    Id = a.Id,
-                    Decimal = a.Decimal
-                })
+                    {
+                        Cadena = a.Cadena,
+                        Entero = a.Entero,
+                        Enum = a.Enum,
+                        Fecha = a.Fecha,
+                        Flotante = a.Flotante,
+                        Hora = a.Hora,
+                        FechaHora = a.FechaHora,
+                        Id = a.Id,
+                        Decimal = a.Decimal
+                    })
                     .FirstOrDefault();
                 return View(model);
             }
+
             return View();
         }
-        
-        
-        
+
+
         [HttpPost]
         public IActionResult Edit(MaestroCreateEditViewModel input)
         {
@@ -136,7 +157,7 @@ namespace WebApplicationMvc.Controllers
                 // o un array de bytes en base de datos como blob
 
                 var modelEdit = _dbContex.Maestros.FirstOrDefault(a => a.Id == input.Id);
-                
+
                 // public int? Entero { get; set; }
                 // public float? Flotante { get; set; }
                 // public PruebaEnum? Enum { get; set; }
@@ -151,29 +172,25 @@ namespace WebApplicationMvc.Controllers
                 modelEdit.Entero = input.Entero;
                 modelEdit.Flotante = input.Flotante;
                 modelEdit.Enum = input.Enum;
-                
+
                 modelEdit.Cadena = input.Cadena;
                 modelEdit.FechaHora = input.FechaHora;
                 modelEdit.Fecha = input.Fecha;
                 modelEdit.Hora = input.Hora;
-                
+
                 modelEdit.Decimal = input.Decimal;
                 modelEdit.FechaActualizacion = DateTime.Now;
-                
+
                 _dbContex.Maestros.Update(modelEdit);
                 _dbContex.SaveChanges();
-                
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(input);
         }
-        
-        
-        
-        
-        
-        
-        
+
+
         public IActionResult ShowDetails(int? id)
         {
             if (id.HasValue)
@@ -187,12 +204,11 @@ namespace WebApplicationMvc.Controllers
                     return View(detail);
                 }
             }
+
             return NotFound();
         }
-        
-        
-        
-        
+
+
         public IActionResult ShowForDelete(int? id)
         {
             if (id.HasValue)
@@ -203,9 +219,10 @@ namespace WebApplicationMvc.Controllers
                     return View(detail);
                 }
             }
+
             return NotFound();
         }
-        
+
         public IActionResult Delete(int? id)
         {
             if (id.HasValue)
@@ -217,12 +234,26 @@ namespace WebApplicationMvc.Controllers
                     _dbContex.SaveChanges();
                     return RedirectToAction(nameof(Index));
                 }
-                
             }
 
             return NotFound();
         }
-        
-        
+    }
+
+
+    public static class ExtensionMethods
+    {
+        public static SelectList ToSelectList<TEnum>(this TEnum obj)
+            where TEnum : struct, IComparable, IFormattable, IConvertible
+        {
+            return new SelectList(Enum.GetValues(typeof(TEnum))
+                .OfType<Enum>()
+                .Select(x => new SelectListItem
+                {
+                    Text = Enum.GetName(typeof(TEnum), x),
+                    Value = (Convert.ToInt32(x))
+                        .ToString()
+                }), "Value", "Text");
+        }
     }
 }
