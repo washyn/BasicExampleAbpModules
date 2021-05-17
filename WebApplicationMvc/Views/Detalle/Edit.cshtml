@@ -67,6 +67,12 @@
                 <span asp-validation-for="Archivo" class="text-danger"></span>
             </div>
 
+            <div class="form-group">
+                <label asp-for="MaestroId" class="control-label"></label>
+                <select asp-for="MaestroId" class="form-control" asp-items="ViewBag.SelectList"></select>
+            </div>
+
+
             <div class="row">
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary float-right">Guardar</button>

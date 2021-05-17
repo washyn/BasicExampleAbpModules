@@ -30,7 +30,7 @@ namespace WebApplicationMvc.Models
         
         
         public int? MaestroId { get; set; }
-        public Maestro Maestro { get; set; }
+        public virtual Maestro Maestro { get; set; }
     }
 
 

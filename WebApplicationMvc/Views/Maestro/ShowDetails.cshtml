@@ -109,9 +109,8 @@
             </div>
         </div>
     
-        @* Model.Detalles.Any() *@
         
-        @if (true)
+        @if (Model.Detalles.Any())
         {
             <div class="card mt-4">
                 <div class="card-header">
@@ -125,7 +124,6 @@
                             <th>Cadena</th>
                             <th>Entero</th>
                             <th>Enum</th>
-                            <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -136,8 +134,6 @@
                                 <td>@Html.DisplayFor(a => item.Cadena)</td>
                                 <td>@Html.DisplayFor(a => item.Entero)</td>
                                 <td>@Html.DisplayFor(a => item.Enum)</td>
-                                @* TODO add link for edit or delete *@
-                                <td>Opciones</td>
                             </tr>
                         }
                         </tbody>

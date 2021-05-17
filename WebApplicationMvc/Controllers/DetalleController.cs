@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationMvc.EfCore;
 using WebApplicationMvc.Models;
@@ -47,9 +48,14 @@ namespace WebApplicationMvc.Controllers
         {
             if (id.HasValue)
             {
-                var detail = _dbContex.Detalles.FirstOrDefault(a => a.Id == id);
+                var detail = _dbContex.Detalles
+                    .Where(a => a.Id == id)
+                    .AsNoTracking()
+                    .FirstOrDefault();
+                
                 if (detail is not null)
                 {
+                    detail.Maestro = _dbContex.Maestros.FirstOrDefault(a => a.Id == detail.MaestroId);
                     return View(detail);
                 }
             }
@@ -74,9 +80,11 @@ namespace WebApplicationMvc.Controllers
                     Flotante = a.Flotante,
                     Hora = a.Hora,
                     FechaHora = a.FechaHora,
-                    Id = a.Id
+                    Id = a.Id,
+                    MaestroId = a.MaestroId
                 })
                     .FirstOrDefault();
+                ViewData["SelectList"] = new SelectList(_dbContex.Maestros, "Id", "Cadena", model.MaestroId);
                 return View(model);
             }
             return View();
@@ -101,6 +109,7 @@ namespace WebApplicationMvc.Controllers
                 modelEdit.Flotante = input.Flotante;
                 modelEdit.Hora = input.Hora;
                 modelEdit.FechaHora = input.FechaHora;
+                modelEdit.MaestroId = input.MaestroId;
                 
                 if (input.Archivo != null)
                 {
@@ -119,12 +128,14 @@ namespace WebApplicationMvc.Controllers
                 
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ManyId"] = new SelectList(_dbContex.Maestros, "Id", "Cadena", input.MaestroId);
             return View(input);
         }
         
         
         public IActionResult Create()
         {
+            ViewData["SelectList"] = new SelectList(_dbContex.Maestros, "Id", "Cadena");
             return View();
         }
         
@@ -144,6 +155,7 @@ namespace WebApplicationMvc.Controllers
                     booleano = input.Booleano,
                     Enum = input.Enum,
                     Flotante = input.Flotante,
+                    MaestroId = input.MaestroId
                 };
 
                 if (input.Archivo != null)
@@ -161,6 +173,7 @@ namespace WebApplicationMvc.Controllers
                 _dbContex.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["SelectList"] = new SelectList(_dbContex.Maestros, "Id", "Cadena", input.MaestroId);
             return View(input);
         }
         

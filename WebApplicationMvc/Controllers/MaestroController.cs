@@ -24,7 +24,7 @@ namespace WebApplicationMvc.Controllers
         {
             var datos = _dbContex.Maestros
                 .AsNoTracking()
-                .Include(a=> a.Detalles)
+                // .Include(a=> a.Detalles)
                 .Select(a => new MaestroListItemViewModel()
                 {
                     Cadena = a.Cadena,
@@ -37,10 +37,18 @@ namespace WebApplicationMvc.Controllers
                     Booleano = a.Booleano,
                     Decimal = a.Decimal,
                     Entero = a.Entero,
-                    CantidadDetalles = a.Detalles.Count(),
+                    // CantidadDetalles = a.Detalles.Count(),
+                    CantidadDetalles =  _dbContex.Detalles.Count(b => b.MaestroId == a.Id),
+                    // CantidadDetalles = 45,
                     FechaActualizacion = a.FechaActualizacion,
                     FechaCreacion = a.FechaCreacion,
                 });
+
+            // foreach (var itemViewModel in datos)
+            // {
+            //     itemViewModel.CantidadDetalles = _dbContex.Detalles.Count(a => a.Id == itemViewModel.Id);
+            // }
+            
             
             return View(datos);
         }
@@ -170,11 +178,12 @@ namespace WebApplicationMvc.Controllers
         {
             if (id.HasValue)
             {
+                // la cosa es que aqui no se incluye detalles eso es aparte al parecer
                 var detail = _dbContex.Maestros
-                    .Include(a=> a.Detalles)
                     .FirstOrDefault(a => a.Id == id);
                 if (detail is not null)
                 {
+                    detail.Detalles = _dbContex.Detalles.Where(a => a.MaestroId == detail.Id);
                     return View(detail);
                 }
             }

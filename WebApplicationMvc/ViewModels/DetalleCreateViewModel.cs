@@ -36,7 +36,7 @@ namespace WebApplicationMvc.ViewModels
         
         public bool Booleano { get; set; }
 
-        
+        public int? MaestroId { get; set; }
         public IFormFile Archivo { get; set; }
         
     }
