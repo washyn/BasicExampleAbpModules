@@ -6,6 +6,83 @@
     </div>
 </div>
 
+<form asp-controller="Detalle" asp-action="Index" method="get">
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group row">
+                <label for="InputSearch" class="col-sm-5 col-form-label">Buscar cadena</label>
+                <div class="col-sm-7">
+                    <input type="text"
+                           name="InputSearch"
+                           class="form-control"
+                           id="InputSearch"
+                           value="@ViewData["TextoBusqueda"]"
+                           placeholder="Ingrese un texto">
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-success">Buscar</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group row">
+                <label for="" class="col-sm-5 col-form-label">Buscar flotante</label>
+                <div class="col-sm-3">
+                    <input type="number"
+                           name="FloatMin"
+                           class="form-control"
+                           id="FloatMin"
+                           value="@ViewData["FloatMin"]"
+                           placeholder="Min">
+                </div>
+                <div class="col-sm-3">
+                    <input type="number"
+                           name="FloatMax"
+                           class="form-control"
+                           id="FloatMax"
+                           value="@ViewData["FloatMax"]"
+                           placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-success">Buscar</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group row">
+                <label for="" class="col-sm-5 col-form-label">Buscar fecha</label>
+                <div class="col-sm-3">
+                    <input type="date"
+                           name="FechaMin"
+                           class="form-control"
+                           id="FechaMin"
+                           value="@ViewData["FechaMin"]"
+                           placeholder="Min">
+                </div>
+                <div class="col-sm-3">
+                    <input type="date"
+                           name="FechaMax"
+                           class="form-control"
+                           id="FechaMax"
+                           value="@ViewData["FechaMax"]"
+                           placeholder="Max">
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-success">Buscar</button>
+        </div>
+    </div>
+
+</form>
+
+
 <div class="row my-4">
     <div class="col-12">
         <table class="table table-bordered table-sm">

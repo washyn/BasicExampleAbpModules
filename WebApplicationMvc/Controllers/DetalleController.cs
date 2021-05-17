@@ -26,8 +26,20 @@ namespace WebApplicationMvc.Controllers
         }
 
         
-        public IActionResult Index()
+        public IActionResult Index(string InputSearch, 
+            float? FloatMin, 
+            float? FloatMax,
+            DateTime? FechaMin,
+            DateTime? FechaMax
+            )
         {
+            ViewData["TextoBusqueda"] = InputSearch;
+            ViewData["FloatMin"] = FloatMin;
+            ViewData["FloatMax"] = FloatMax;
+            
+            ViewData["FechaMin"] = FechaMin; 
+            ViewData["FechaMax"] = FechaMax;
+            
             var datos = _dbContex.Detalles
                 .AsNoTracking()
                 .Select(a => new DetalleListItemViewModel
@@ -41,6 +53,30 @@ namespace WebApplicationMvc.Controllers
                     FechaHora = a.FechaHora,
                     NombreArchivo = a.NombreArchivo
                 });
+
+            if (!string.IsNullOrEmpty(InputSearch))
+            {
+                datos = datos.Where(s => s.Cadena.Contains(InputSearch));
+            }
+            
+            if (FloatMin.HasValue)
+            {
+                datos = datos.Where(s => s.Flotante >= FloatMin);
+            }
+            if (FloatMax.HasValue)
+            {
+                datos = datos.Where(s => s.Flotante <= FloatMax);
+            }
+            
+            if (FechaMin.HasValue)
+            {
+                datos = datos.Where(s => s.Fecha >= FechaMin);
+            }
+            if (FechaMax.HasValue)
+            {
+                datos = datos.Where(s => s.Fecha <= FechaMax);
+            }
+            
             return View(datos);
         }
         
