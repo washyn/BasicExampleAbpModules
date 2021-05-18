@@ -1,29 +1,10 @@
 ﻿@model IEnumerable<WebApplicationMvc.ViewModels.Maestro.MaestroListItemViewModel>
 
-@* public long Id { get; set; } *@
-@* public int? Entero { get; set; } *@
-@* public float? Flotante { get; set; } *@
-@* public PruebaEnum? Enum { get; set; } *@
-@* public string? Cadena { get; set; } *@
-@* public DateTime? FechaHora { get; set; } *@
-@* public DateTime? Fecha { get; set; } *@
-@* public DateTime? Hora { get; set; } *@
-@* public decimal? Decimal { get; set; } *@
-@* public DateTime FechaCreacion { get; set; } = DateTime.Now; *@
-@* public DateTime FechaActualizacion { get; set; } *@
-@* public bool? Booleano { get; set; } = false; *@
-@* public string ValorNoMapeado { get; set; } *@
-@* public int CantidadDetalles { get; set; } *@
-
-
 <div class="row">
     <div class="col-12">
         <a class="btn btn-primary float-right" asp-controller="Maestro" asp-action="Create">Crear</a>
     </div>
 </div>
-
-
-@* PruebaEnum? pruebaEnum, bool? booleano *@
 
 <form asp-controller="Maestro" asp-action="Index" method="get">
     <div class="row">
@@ -32,75 +13,50 @@
                 <label for="" class="col-sm-5 col-form-label">Buscar tipo</label>
                 <div class="col-sm-7">
 
-                    @* selected value *@
-                    
                     @{
-                        var enumSelected = (PruebaEnum?)ViewData["pruebaEnum"];
-
+                        var enumSelected = (PruebaEnum?) ViewData["pruebaEnum"];
                         var selectList = new List<SelectListItem>();
-                        
-                        // TODO VER COMO SE PUEDE HACER ESTE SELECT ...
-
-                        // var hasValEnum = enumSelected != null;
-                        
-                        // foreach (var item in Enum.GetValues(typeof(PruebaEnum)))
-                        // {
-                        //     // var selectedItem = enumSelected.HasValue && ((PruebaEnum)item == enumSelected);
-                        //     if (hasValEnum)
-                        //     {
-                        //         selectList.Add(new SelectListItem(item.ToString(), (string) item, (((PruebaEnum) item) == enumSelected)));                                
-                        //     }
-                        //     else
-                        //     {
-                        //         selectList.Add(new SelectListItem(item.ToString(), (string) item));      
-                        //     }
-                        //
-                        // }
-                        
-                        // TODO: HACERLO MANUALMENTE COMO SEA........... por la weba me ago paltas.....agtregar los items manualmtne...
 
                         if (enumSelected.HasValue && enumSelected == PruebaEnum.Valor1)
                         {
-                            selectList.Add(new SelectListItem("Valor1", "0" , selected:true));                            
+                            selectList.Add(new SelectListItem("Valor1", "0", selected: true));
                         }
                         else
                         {
                             selectList.Add(new SelectListItem("Valor1", "0"));
                         }
-                        
+
                         if (enumSelected.HasValue && enumSelected == PruebaEnum.Valor2)
                         {
-                            selectList.Add(new SelectListItem("Valor2", "1" , selected:true));                            
+                            selectList.Add(new SelectListItem("Valor2", "1", selected: true));
                         }
                         else
                         {
                             selectList.Add(new SelectListItem("Valor2", "1"));
                         }
-                        
+
                         if (enumSelected.HasValue && enumSelected == PruebaEnum.Valor3)
                         {
-                            selectList.Add(new SelectListItem("Valor3", "2" , selected:true));                            
+                            selectList.Add(new SelectListItem("Valor3", "2", selected: true));
                         }
                         else
                         {
                             selectList.Add(new SelectListItem("Valor3", "2"));
                         }
-                        
+
                         if (enumSelected == null)
                         {
-                            selectList.Add(new SelectListItem("Todos", "", selected:true));
+                            selectList.Add(new SelectListItem("Todos", "", selected: true));
                         }
                         else
                         {
                             selectList.Add(new SelectListItem("Todos", ""));
                         }
-                        
+
                     }
-                    
+
                     <select name="pruebaEnum" class="form-control" asp-items="selectList">
                     </select>
-
-                    @* <input value="@ViewData["TextoBusqueda"]"> *@
 
                 </div>
             </div>
@@ -115,22 +71,47 @@
         <div class="col-8">
             <div class="form-group row">
                 <label for="" class="col-sm-5 col-form-label">Buscar booleano</label>
+                @{
+                    var booleano = (bool?) ViewData["booleano"];
+                }
                 <div class="col-sm-3">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="booleano" id="inlineRadio1" value="">
+                        
+                        @if (booleano == null)
+                        {
+                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio1" value="" checked>                        
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio1" value="">
+                        }
+                        
                         <label class="form-check-label" for="inlineRadio1">Todos</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="booleano" id="inlineRadio2" value="true">
+                        @if (booleano.HasValue && booleano == true)
+                        {
+                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio2" value="true" checked>
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio2" value="true">                            
+                        }
+
                         <label class="form-check-label" for="inlineRadio2">Activo</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="booleano" id="inlineRadio3" value="false">
+                        @if (booleano.HasValue && booleano == false)
+                        {
+                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio3" value="false" checked>   
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio3" value="false">                            
+                        }
                         <label class="form-check-label" for="inlineRadio3">Desactivo</label>
                     </div>
-                    
-                    @* <input value="@ViewData["TextoBusqueda"]"> *@
-                    
+
                 </div>
             </div>
         </div>
@@ -139,37 +120,25 @@
         </div>
     </div>
 
-    @* buscar por los items de la relacion *@
-
-    @* <div class="row"> *@
-    @*     <div class="col-8"> *@
-    @*         <div class="form-group row"> *@
-    @*             <label for="" class="col-sm-5 col-form-label">Buscar fecha</label> *@
-    @*             <div class="col-sm-3"> *@
-    @*                 <input type="date" *@
-    @*                        name="FechaMin" *@
-    @*                        class="form-control" *@
-    @*                        id="FechaMin" *@
-    @*                        value="@ViewData["FechaMin"]" *@
-    @*                        placeholder="Min"> *@
-    @*             </div> *@
-    @*             <div class="col-sm-3"> *@
-    @*                 <input type="date" *@
-    @*                        name="FechaMax" *@
-    @*                        class="form-control" *@
-    @*                        id="FechaMax" *@
-    @*                        value="@ViewData["FechaMax"]" *@
-    @*                        placeholder="Max"> *@
-    @*             </div> *@
-    @*         </div> *@
-    @*     </div> *@
-    @*     <div class="col-2"> *@
-    @*         <button type="submit" class="btn btn-success">Buscar</button> *@
-    @*     </div> *@
-    @* </div> *@
-
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group row">
+                <label for="" class="col-sm-5 col-form-label">Buscar por cantidad detalles</label>
+                <div class="col-sm-3">
+                    <input type="number"
+                           name="cantidadDetalle"
+                           class="form-control"
+                           value="@ViewData["cantidadDetalle"]"
+                           placeholder="Cantidad">
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-success">Buscar</button>
+        </div>
+    </div>
+    
 </form>
-
 
 <div class="row my-4">
     <div class="col-12">
@@ -186,9 +155,6 @@
                 <th>Booleano def val</th>
                 <th>Enum</th>
                 <th>Cantidad detalle</th>
-                @* <th>Fecha</th> *@
-                @* <th>Hora</th> *@
-                @* <th>Archivo</th> *@
                 <th>Opciones</th>
             </tr>
             </thead>
@@ -218,11 +184,11 @@
                     <td>
                         @Html.DisplayFor(a => item.Booleano)
                     </td>
-                    
+
                     <td>
                         @Html.DisplayFor(a => item.Enum)
                     </td>
-                    
+
                     <td>
                         @Html.DisplayFor(a => item.CantidadDetalles)
                     </td>

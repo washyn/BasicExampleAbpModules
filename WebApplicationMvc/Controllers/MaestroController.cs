@@ -21,26 +21,11 @@ namespace WebApplicationMvc.Controllers
             _dbContex = dbContex;
         }
 
-        public IActionResult Index(PruebaEnum? pruebaEnum, bool? booleano)
+        public IActionResult Index(PruebaEnum? pruebaEnum, bool? booleano, int? cantidadDetalle)
         {
-            // ViewData["pruebaEnum"] = pruebaEnum;
-            // var selectList = Html.GetEnumSelectList<PruebaEnum>();
-            
-            // var enumData = from PruebaEnum e in Enum.GetValues(typeof(PruebaEnum))  
-            //     select new   
-            //     {   
-            //         Id = (int)e,   
-            //         Name = e.ToString()   
-            //     };  
-            //
-            // var selectList = new SelectList(enumData,"Id","Name");
-            //
-            
             ViewData["pruebaEnum"] = pruebaEnum;
-            
-            // ViewBag.EnumList = new SelectList(enumData,"Id","Name");
-
             ViewData["booleano"] = booleano;
+            ViewData["cantidadDetalle"] = cantidadDetalle;
 
             var datos = _dbContex.Maestros
                 .AsNoTracking()
@@ -73,8 +58,13 @@ namespace WebApplicationMvc.Controllers
             {
                 datos = datos.Where(s => s.Enum == pruebaEnum);
             }
+            
+            if (cantidadDetalle.HasValue)
+            {
+                datos = datos.Where(s => s.CantidadDetalles == cantidadDetalle);
+            }
 
-            return View(datos);
+            return View(datos.ToList());
         }
 
 
