@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationMvc.EfCore;
@@ -16,6 +17,7 @@ namespace WebApplicationMvc.Controllers
     /// <summary>
     /// El crud ya esta, talvez hay q revisar algun detalle pero no creo
     /// </summary>
+    [Authorize]
     public class DetalleController : Controller
     {
         private readonly ApplicationDbContex _dbContex;

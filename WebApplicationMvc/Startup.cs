@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationMvc.EfCore;
 
@@ -27,7 +29,24 @@ namespace WebApplicationMvc
         {
             services.AddDbContext<ApplicationDbContex>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    // public static readonly PathString LoginPath = new PathString("/Account/Login");
+                    // public static readonly PathString LogoutPath = new PathString("/Account/Logout");
+                    // public static readonly PathString AccessDeniedPath = new PathString("/Account/AccessDenied");
+                    // public static readonly string ReturnUrlParameter = "ReturnUrl";
+                    
+                    options.LoginPath = new PathString("/Account/Login");
+                    options.LogoutPath = new PathString("/Account/Logout");
+                    options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+
+                    options.ReturnUrlParameter = "ReturnUrl";
+                    
+                    options.ExpireTimeSpan = TimeSpan.MaxValue;
+                });
+                
             services.AddControllersWithViews();
         }
 
@@ -49,7 +68,8 @@ namespace WebApplicationMvc
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication(); // auth
+            app.UseAuthorization(); // rol
 
             app.UseEndpoints(endpoints =>
             {

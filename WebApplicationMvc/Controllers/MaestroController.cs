@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using WebApplicationMvc.ViewModels.Maestro;
 
 namespace WebApplicationMvc.Controllers
 {
+    [Authorize]
     public class MaestroController : Controller
     {
         private readonly ApplicationDbContex _dbContex;
