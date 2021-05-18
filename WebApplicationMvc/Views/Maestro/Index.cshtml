@@ -41,8 +41,8 @@
                         
                         // TODO VER COMO SE PUEDE HACER ESTE SELECT ...
 
-                        var hasValEnum = enumSelected != null;
-                        //
+                        // var hasValEnum = enumSelected != null;
+                        
                         // foreach (var item in Enum.GetValues(typeof(PruebaEnum)))
                         // {
                         //     // var selectedItem = enumSelected.HasValue && ((PruebaEnum)item == enumSelected);
@@ -58,8 +58,43 @@
                         // }
                         
                         // TODO: HACERLO MANUALMENTE COMO SEA........... por la weba me ago paltas.....agtregar los items manualmtne...
+
+                        if (enumSelected.HasValue && enumSelected == PruebaEnum.Valor1)
+                        {
+                            selectList.Add(new SelectListItem("Valor1", "0" , selected:true));                            
+                        }
+                        else
+                        {
+                            selectList.Add(new SelectListItem("Valor1", "0"));
+                        }
                         
-                        selectList.Add(new SelectListItem("Todos", string.Empty, selected: enumSelected == null));
+                        if (enumSelected.HasValue && enumSelected == PruebaEnum.Valor2)
+                        {
+                            selectList.Add(new SelectListItem("Valor2", "1" , selected:true));                            
+                        }
+                        else
+                        {
+                            selectList.Add(new SelectListItem("Valor2", "1"));
+                        }
+                        
+                        if (enumSelected.HasValue && enumSelected == PruebaEnum.Valor3)
+                        {
+                            selectList.Add(new SelectListItem("Valor3", "2" , selected:true));                            
+                        }
+                        else
+                        {
+                            selectList.Add(new SelectListItem("Valor3", "2"));
+                        }
+                        
+                        if (enumSelected == null)
+                        {
+                            selectList.Add(new SelectListItem("Todos", "", selected:true));
+                        }
+                        else
+                        {
+                            selectList.Add(new SelectListItem("Todos", ""));
+                        }
+                        
                     }
                     
                     <select name="pruebaEnum" class="form-control" asp-items="selectList">
