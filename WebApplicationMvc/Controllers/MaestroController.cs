@@ -31,7 +31,6 @@ namespace WebApplicationMvc.Controllers
 
             var datos = _dbContex.Maestros
                 .AsNoTracking()
-                // .Include(a=> a.Detalles)
                 .Select(a => new MaestroListItemViewModel()
                 {
                     Cadena = a.Cadena,
@@ -44,9 +43,7 @@ namespace WebApplicationMvc.Controllers
                     Booleano = a.Booleano,
                     Decimal = a.Decimal,
                     Entero = a.Entero,
-                    // CantidadDetalles = a.Detalles.Count(),
                     CantidadDetalles = _dbContex.Detalles.Count(b => b.MaestroId == a.Id),
-                    // CantidadDetalles = 45,
                     FechaActualizacion = a.FechaActualizacion,
                     FechaCreacion = a.FechaCreacion,
                 });
@@ -232,20 +229,4 @@ namespace WebApplicationMvc.Controllers
         }
     }
 
-
-    public static class ExtensionMethods
-    {
-        public static SelectList ToSelectList<TEnum>(this TEnum obj)
-            where TEnum : struct, IComparable, IFormattable, IConvertible
-        {
-            return new SelectList(Enum.GetValues(typeof(TEnum))
-                .OfType<Enum>()
-                .Select(x => new SelectListItem
-                {
-                    Text = Enum.GetName(typeof(TEnum), x),
-                    Value = (Convert.ToInt32(x))
-                        .ToString()
-                }), "Value", "Text");
-        }
-    }
 }

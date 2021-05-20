@@ -6,12 +6,12 @@ namespace WebApplicationMvc.ViewModels.Account
     {
         [DataType(DataType.Text)]
         [Display(Name = "Usuario")]
-        [Required]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string User { get; set; }
         
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
-        [Required]
+        [Required(ErrorMessage = "Este campo es requerido")]
         public string Password { get; set; }
     }
 }
