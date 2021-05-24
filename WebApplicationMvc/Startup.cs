@@ -27,9 +27,11 @@ namespace WebApplicationMvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // se agrega la configuracion de contexto de base de datos para poder resolverlo en la DI,
             services.AddDbContext<ApplicationDbContex>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            // agregamos autenticacion basada en cookies
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -38,12 +40,15 @@ namespace WebApplicationMvc
                     // public static readonly PathString AccessDeniedPath = new PathString("/Account/AccessDenied");
                     // public static readonly string ReturnUrlParameter = "ReturnUrl";
                     
+                    
+                    // se defien rutas para el login, logout y acceso denegado
                     options.LoginPath = new PathString("/Account/Login");
                     options.LogoutPath = new PathString("/Account/Logout");
                     options.AccessDeniedPath = new PathString("/Account/AccessDenied");
 
                     options.ReturnUrlParameter = "ReturnUrl";
                     
+                    // tiempo de duracion de la cookie
                     options.ExpireTimeSpan = TimeSpan.MaxValue;
                 });
                 
@@ -68,11 +73,17 @@ namespace WebApplicationMvc
 
             app.UseRouting();
 
-            app.UseAuthentication(); // auth
-            app.UseAuthorization(); // rol
+            // se agrega authenticacion, verificacion de creadenciasles
+            app.UseAuthentication(); 
+            
+            // se agrega, autorizacion, rol
+            // verificacion de permisos
+            app.UseAuthorization(); 
 
+            
             app.UseEndpoints(endpoints =>
             {
+                // configuracion de rutas, 
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

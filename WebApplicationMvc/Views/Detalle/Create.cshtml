@@ -37,6 +37,8 @@
             </div>
 
             <div class="form-group">
+                @* asp-for estas etiquetas permiten generar codigo de formulario, dependiendo del contexto
+                puede generar codigo de label, el typo input o mensajes de validacion *@
                 <label asp-for="Hora" class="control-label"></label>
                 <input asp-for="Hora" class="form-control"/>
                 <span asp-validation-for="Hora" class="text-danger"></span>
