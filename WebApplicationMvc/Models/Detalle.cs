@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace WebApplicationMvc.Models
 {
     /// <summary>
-    /// La Clase que representa una columna en la base de 
+    /// La Clase que representa una fila en la base de datos 
     /// La tabla MAestra.
     /// </summary>
     public class Detalle

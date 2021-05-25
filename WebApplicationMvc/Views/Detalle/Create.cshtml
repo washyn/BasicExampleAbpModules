@@ -1,15 +1,27 @@
-﻿@model WebApplicationMvc.ViewModels.DetalleCreateViewModel
+﻿@* vista de creacion *@
+
+@* se le especifica el tipo de dato que recibira este modelo *@
+@model WebApplicationMvc.ViewModels.DetalleCreateViewModel
 
 @* Se muestra el uso de tag-helpers, que son etiquetas de ayuda de asp net *@
 @* Permiten generar codigo de formulario en base al modelo que se definio para poder crear un registro *@
 
+
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
-        <form asp-controller="Detalle" asp-action="Create" enctype="multipart/form-data">
+        @* se le especifica el controller y accion que procesara el formulario
+        multipart/form-data para subir un arcchivo
+        Metod port para que se envie especificamente a la accion que acepta post *@
+        <form asp-controller="Detalle" asp-action="Create" enctype="multipart/form-data" method="POST">
             <div class="form-group">
+                @* el label, o descripcion del campo se genera por el tag-helper y El decorador display del formulario *@
                 <label asp-for="Cadena" class="control-label"></label>
+                @* el tipo de input se genra  a partir del DataType especificado en el viewModel
+                si es un datetime se genera un iinput de tipo date, si es un formfile sera un input de archivo
+                 *@
                 <input asp-for="Cadena" class="form-control"/>
+                @* las validaciones para este campo se generan en este span *@
                 <span asp-validation-for="Cadena" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -80,5 +92,6 @@
 
 @section Scripts
 {
+    @* lso tag helpers usan estos scripts de validacion del formulario *@
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

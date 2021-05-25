@@ -25,6 +25,8 @@ namespace WebApplicationMvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // se agrega el db context de EF para acceder a la base de datos
+            // como configuracion se le pasa la cadena de conexion 
             services.AddDbContext<ApplicationDbContex>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             

@@ -13,7 +13,7 @@ using WebApplicationMvc.ViewModels;
 namespace WebApplicationMvc.Controllers
 {
     /// <summary>
-    /// El crud ya esta, talvez hay q revisar algun detalle pero no creo
+    /// Controller de Tabla detalle
     /// </summary>
     public class DetalleController : Controller
     {
@@ -25,6 +25,7 @@ namespace WebApplicationMvc.Controllers
         }
 
         
+        // index para mostrar los registros
         public IActionResult Index()
         {
             var datos = _dbContex.Detalles
@@ -43,6 +44,7 @@ namespace WebApplicationMvc.Controllers
             return View(datos);
         }
         
+        // para mostrar los detalles
         public IActionResult ShowDetails(int? id)
         {
             if (id.HasValue)
@@ -56,7 +58,7 @@ namespace WebApplicationMvc.Controllers
             return NotFound();
         }
         
-        
+        // accion para mostrar el modelo a editar
         public IActionResult Edit(int? id)
         {
             if (id.HasValue)
@@ -82,6 +84,7 @@ namespace WebApplicationMvc.Controllers
             return View();
         }
         
+        // accion para editar
         [HttpPost]
         public IActionResult Edit(DetalleEditViewModel input)
         {
@@ -102,6 +105,7 @@ namespace WebApplicationMvc.Controllers
                 modelEdit.Hora = input.Hora;
                 modelEdit.FechaHora = input.FechaHora;
                 
+                // si hay un archivo se guarda
                 if (input.Archivo != null)
                 {
                     byte[] fileData;
@@ -122,12 +126,13 @@ namespace WebApplicationMvc.Controllers
             return View(input);
         }
         
-        
+        // vista de crear
         public IActionResult Create()
         {
             return View();
         }
         
+        // Accion de crear
         [HttpPost]
         public IActionResult Create([FromForm]DetalleCreateViewModel input)
         {
@@ -151,6 +156,7 @@ namespace WebApplicationMvc.Controllers
                     var ms = new MemoryStream();
                     input.Archivo.CopyTo(ms);
                     var fileData = ms.ToArray();
+                    // se guarda el archivo en base 64
                     var fileContent = Convert.ToBase64String(fileData);
                     
                     newModel.Archivo = fileContent;
@@ -165,7 +171,7 @@ namespace WebApplicationMvc.Controllers
         }
         
         
-        
+        // mostrar elemento para eliminar
         public IActionResult ShowForDelete(int? id)
         {
             if (id.HasValue)
@@ -179,6 +185,7 @@ namespace WebApplicationMvc.Controllers
             return NotFound();
         }
         
+        // eliminar el elemento en si
         public IActionResult Delete(int? id)
         {
             if (id.HasValue)
@@ -196,11 +203,16 @@ namespace WebApplicationMvc.Controllers
             return NotFound();
         }
 
+        // accion para descargar el archivo subido en 
+        // resvibe el id del registro
         public IActionResult GetFile(int? id)
         {
             if (id.HasValue)
             {
+                // se obtiene el registro en de base de datos
                 var model = _dbContex.Detalles.FirstOrDefault(a => a.Id == id);
+                
+                // se retorna el archivo, antes se convierte de base64 a bytes
                 return File(Convert.FromBase64String(model.Archivo),
                     System.Net.Mime.MediaTypeNames.Application.Octet, model.NombreArchivo);
             }

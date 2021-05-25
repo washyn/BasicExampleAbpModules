@@ -3,6 +3,7 @@ using WebApplicationMvc.Models;
 
 namespace WebApplicationMvc.ViewModels
 {
+    // modelo para listar datos en la pagina de index
     public class DetalleListItemViewModel
     {
         public int Id { get; set; }
