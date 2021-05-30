@@ -7,10 +7,13 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using WebApplicationMvc.CustomHandler;
 using WebApplicationMvc.EfCore;
 
 namespace WebApplicationMvc
@@ -51,7 +54,32 @@ namespace WebApplicationMvc
                     // tiempo de duracion de la cookie
                     options.ExpireTimeSpan = TimeSpan.MaxValue;
                 });
-                
+
+            // Old code
+            // services.AddAuthorization(config =>
+            // {
+            //     var authPolicyBuilder = new AuthorizationPolicyBuilder();
+            //     config.DefaultPolicy = authPolicyBuilder
+            //         .RequireAuthenticatedUser()
+            //         .RequireClaim(ClaimTypes.DateOfBirth)
+            //         .Build();
+            // });
+
+            // services.AddAuthorization(config =>
+            // {
+            //     config.AddPolicy("NombrePolicy", policyBuilder =>
+            //     {
+            //         policyBuilder.UserRequireCustomClaim(ClaimTypes.Email);
+            //         policyBuilder.UserRequireCustomClaim(ClaimTypes.DateOfBirth);
+            //     });
+            // });
+
+            // La auth por policies no se usara para este caso
+            // services.AddScoped<IAuthorizationHandler, PoliciesAuthorizationHandler>();
+            
+            services.AddScoped<IAuthorizationHandler, RolesAuthorizationHandler>();
+            
+            
             services.AddControllersWithViews();
         }
 

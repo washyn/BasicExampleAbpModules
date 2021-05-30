@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplicationMvc.EfCore;
 
 namespace WebApplicationMvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContex))]
-    partial class ApplicationDbContexModelSnapshot : ModelSnapshot
+    [Migration("20210530032358_adedRol")]
+    partial class adedRol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,11 +128,11 @@ namespace WebApplicationMvc.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Descripcion")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Nombre")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -156,16 +158,11 @@ namespace WebApplicationMvc.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("STR_CONTRA");
 
-                    b.Property<int?>("RolId")
-                        .HasColumnType("int");
-
                     b.Property<string>("User")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("STR_USUARIO");
 
                     b.HasKey("Identificador");
-
-                    b.HasIndex("RolId");
 
                     b.ToTable("USUARIOS");
                 });
@@ -177,15 +174,6 @@ namespace WebApplicationMvc.Migrations
                         .HasForeignKey("MaestroId1");
 
                     b.Navigation("Maestro");
-                });
-
-            modelBuilder.Entity("WebApplicationMvc.Models.Usuario", b =>
-                {
-                    b.HasOne("WebApplicationMvc.Models.Rol", "Rol")
-                        .WithMany()
-                        .HasForeignKey("RolId");
-
-                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("WebApplicationMvc.Models.Maestro", b =>

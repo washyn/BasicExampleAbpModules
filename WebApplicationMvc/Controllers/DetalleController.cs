@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebApplicationMvc.CustomHandler;
 using WebApplicationMvc.EfCore;
 using WebApplicationMvc.Models;
 using WebApplicationMvc.ViewModels;
@@ -19,7 +20,7 @@ namespace WebApplicationMvc.Controllers
     /// Los controlladores deben heredar de la clase base, Controller para que sea un controlador, tambien debe de tener
     /// el sufijo controller, esto se puede cambiar pero por convecion se hace asi. 
     /// </summary>
-    [Authorize]
+    [Authorize(Roles = Rol.Admin)]
     public class DetalleController : Controller
     {
         private readonly ApplicationDbContex _dbContex;

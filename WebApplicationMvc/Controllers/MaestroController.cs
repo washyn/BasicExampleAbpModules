@@ -13,7 +13,7 @@ using WebApplicationMvc.ViewModels.Maestro;
 
 namespace WebApplicationMvc.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Rol.Usuario)]
     public class MaestroController : Controller
     {
         private readonly ApplicationDbContex _dbContex;

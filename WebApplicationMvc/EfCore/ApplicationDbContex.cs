@@ -8,6 +8,7 @@ namespace WebApplicationMvc.EfCore
         public DbSet<Detalle> Detalles { get; set; }
         public DbSet<Maestro> Maestros { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Rol> Roles { get; set; }
         
         
         

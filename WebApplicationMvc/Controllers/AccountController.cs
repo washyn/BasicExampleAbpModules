@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApplicationMvc.EfCore;
 using WebApplicationMvc.ViewModels.Account;
 
@@ -51,7 +52,10 @@ namespace WebApplicationMvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _dbContex.Usuarios.FirstOrDefault(a => a.User == input.User);
+                var user = _dbContex
+                    .Usuarios
+                    .Include(s => s.Rol)
+                    .FirstOrDefault(a => a.User == input.User);
 
                 if (user == null)
                 {
@@ -65,12 +69,14 @@ namespace WebApplicationMvc.Controllers
                     if (resultCOmpare)
                     {
                         // se crea una lista de claims(key par valyes) con datos del usuario
+                        // TODO: agregar claim de rol
                         var claims = new List<Claim>()
                         {
-                            new Claim(ClaimTypes.Email, String.Empty),
-                            new Claim(ClaimTypes.Role, String.Empty),
+                            new Claim("UserId", user.Identificador.ToString()),
+                            new Claim(ClaimTypes.Role, user.Rol.Nombre),
                             new Claim(ClaimTypes.Name, user.User),
                         };
+                        // agregar rol y date of bird
             
                         // se crea un obj con las propuedades de la Authebticacion
                         var authProps = new AuthenticationProperties()
@@ -81,6 +87,7 @@ namespace WebApplicationMvc.Controllers
                         };
             
                         // se crear un identity claims
+                        // TODO: cambiar por un nombre custom
                         var identityClaims = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     
                         // se hace un logout si es que ya habia un sesion anterior

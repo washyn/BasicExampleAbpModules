@@ -24,6 +24,14 @@ namespace WebApplicationMvc.Models
 
         [Column("STR_CONTRA")] public string Password { get; set; }
 
+        public Rol Rol { get; set; }
+        
+        // TODO: no de deja poner como fk ...
+        [ForeignKey("RolId")]
+        public int? RolId { get; set; }
+        
+        
+        
         /// <summary>
         /// Funciona para comparar la contraseña al iniciar sesion(login)
         /// </summary>
