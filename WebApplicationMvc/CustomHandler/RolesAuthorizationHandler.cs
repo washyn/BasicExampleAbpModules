@@ -16,11 +16,13 @@ namespace WebApplicationMvc.CustomHandler
             RolesAuthorizationRequirement requirement)
         {
             
+            // se verifica si esta autenticado
             if (context.User == null || !context.User.Identity.IsAuthenticated)
             {
                 context.Fail();
                 return Task.CompletedTask;
             }
+
 
             var validRole = false;
             
@@ -38,7 +40,7 @@ namespace WebApplicationMvc.CustomHandler
                 var claims = context.User.Claims;
                 var userRol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
                 var roles = requirement.AllowedRoles;
-                
+                // si el claim de rol esta, en el authorize(roles ...)
                 validRole = roles.Contains(userRol);
             }
 

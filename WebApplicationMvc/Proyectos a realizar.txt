@@ -23,6 +23,8 @@ se omite este paso
 
 
 5.- Un Login de 3 tablas: usuario , perfil y menu de accesos. 
+TODO: agregar comentarios
+
 
 Tabla usuario
 id

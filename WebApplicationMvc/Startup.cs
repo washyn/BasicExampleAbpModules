@@ -55,7 +55,7 @@ namespace WebApplicationMvc
                     options.ExpireTimeSpan = TimeSpan.MaxValue;
                 });
             
-            // Se agregar el handler de authorizacion
+            // Se agrega el handler(manejador) de authorizacion, custom
             services.AddScoped<IAuthorizationHandler, RolesAuthorizationHandler>();
             
             
