@@ -69,7 +69,6 @@ namespace WebApplicationMvc.Controllers
                     if (resultCOmpare)
                     {
                         // se crea una lista de claims(key par valyes) con datos del usuario
-                        // TODO: agregar claim de rol
                         var claims = new List<Claim>()
                         {
                             new Claim("UserId", user.Identificador.ToString()),

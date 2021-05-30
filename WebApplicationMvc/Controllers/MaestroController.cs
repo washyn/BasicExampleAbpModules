@@ -13,7 +13,6 @@ using WebApplicationMvc.ViewModels.Maestro;
 
 namespace WebApplicationMvc.Controllers
 {
-    [Authorize]
     public class MaestroController : Controller
     {
         private readonly ApplicationDbContex _dbContex;
@@ -23,7 +22,9 @@ namespace WebApplicationMvc.Controllers
             _dbContex = dbContex;
         }
 
-        
+        // los Usuarios con rol de usuario o admin pueden entrar a la pagina de inicio(index)
+        // este controlador solo sería accesible para los usuarios que son miembros del rol Admin o del rol Usuario .
+        [Authorize(Roles = "Admin,Usuario")]
         public IActionResult Index(PruebaEnum? pruebaEnum, bool? booleano, int? cantidadDetalle)
         {
             ViewData["pruebaEnum"] = pruebaEnum;
@@ -68,6 +69,12 @@ namespace WebApplicationMvc.Controllers
         }
 
 
+        
+        // el usuario que accede debe ser miembro de todos los roles especificados;
+        // el siguiente ejemplo requiere que un usuario sea miembro del rol Admin y Usuario.
+        
+        // [Authorize(Roles = Rol.Admin)]
+        // [Authorize(Roles = Rol.Usuario)]
         public IActionResult Create()
         {
             return View();
@@ -180,7 +187,8 @@ namespace WebApplicationMvc.Controllers
             return View(input);
         }
 
-
+        // Esto para que solo el usuario pueda ver los detalle
+        [Authorize(Roles = Rol.Usuario)]
         public IActionResult ShowDetails(int? id)
         {
             if (id.HasValue)
@@ -198,7 +206,8 @@ namespace WebApplicationMvc.Controllers
             return NotFound();
         }
 
-
+        // Esto para que solo el admin pueda eliminar
+        [Authorize(Roles = Rol.Admin)]
         public IActionResult ShowForDelete(int? id)
         {
             if (id.HasValue)
@@ -212,7 +221,9 @@ namespace WebApplicationMvc.Controllers
 
             return NotFound();
         }
-
+        
+        // Esto para que solo el admin pueda eliminar
+        [Authorize(Roles = Rol.Admin)]
         public IActionResult Delete(int? id)
         {
             if (id.HasValue)
