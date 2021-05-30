@@ -194,7 +194,10 @@
                     </td>
                     <td>
                         @* Ejemplo de mustra de controles segun roles *@
-                        <a class="btn btn-success btn-sm" asp-controller="Maestro" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn btn-success btn-sm" asp-controller="Maestro" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                        }
                         @if (User.IsInRole(Rol.Admin))
                         {
                             <a class="btn btn-danger btn-sm" asp-controller="Maestro" asp-action="ShowForDelete" asp-route-id="@item.Id">Eliminar</a>

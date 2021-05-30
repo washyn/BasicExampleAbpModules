@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using WebApplicationMvc.CustomHandler
+@using WebApplicationMvc.Views.Shared.Components.UserInfo
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -9,37 +12,49 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplicationMvc</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 justify-content-between">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplicationMvc</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                @if (User.IsInRole(Rol.Admin))
+                {
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Detalle" asp-action="Index">Detalle</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Maestro" asp-action="Index">Maestro</a>
-                    </li>
+                }
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Detalle" asp-action="Index">Detalle</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Maestro" asp-action="Index">Maestro</a>
+                </li>
 
-                    @* align to other *@
-                    
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                    </li>
+                @* align to other *@
 
-                </ul>
-            </div>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                </li>
+
+            </ul>
         </div>
+        @* ways for show userName *@
+        @* <a class="navbar-text d-none d-sm-block">@User.Identity?.Name</a> *@
+        @* <a class="navbar-text d-none d-sm-block">@User.Claims.FirstOrDefault(a => a.Type == "FullName")?.Value</a> *@
+        @* with claim extensions *@
+        @* <a class="navbar-text d-none d-sm-block">@User.GetLoggedInUserName()</a> *@
+        
+        @* with view component as tag *@
+        @* <vc:user-info></vc:user-info> *@
+        @* with invoke component *@
+        @await Component.InvokeAsync(typeof(UserInfoViewComponent))
+        
     </nav>
 </header>
 <div class="container">

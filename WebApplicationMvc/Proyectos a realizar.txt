@@ -63,6 +63,9 @@ https://localhost:5001/Maestro
 
 
 
+Mostrar los datos del usuario en la parte de arriba, y mostrar acctions segun este autenticado, usar claims o un componente
+
+
 6.- *** Mas Importante *** Tiene que estar detallada la forma de hacer de cada uno de esos Mantenimientos Consultas y Accesos. Un Word indicando paso a paso de lo que se hace y para que sirve.
 
 

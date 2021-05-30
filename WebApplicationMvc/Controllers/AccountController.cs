@@ -72,6 +72,7 @@ namespace WebApplicationMvc.Controllers
                         var claims = new List<Claim>()
                         {
                             new Claim("UserId", user.Identificador.ToString()),
+                            new Claim("FullName", $"{user.Nombres} {user.Apellidos}"),
                             new Claim(ClaimTypes.Role, user.Rol.Nombre),
                             new Claim(ClaimTypes.Name, user.User),
                         };
