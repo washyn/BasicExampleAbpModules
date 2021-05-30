@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace WebApplicationMvc.CustomHandler
 {
+    /// <summary>
+    /// Clase encargada de verifiar los roles
+    /// </summary>
     public class RolesAuthorizationHandler :
         AuthorizationHandler<RolesAuthorizationRequirement>, IAuthorizationHandler
     {
@@ -30,23 +33,11 @@ namespace WebApplicationMvc.CustomHandler
                 validRole = true;
             }
             // en caso hay roles en la coleccion
-            // 
             else
             {
                 var claims = context.User.Claims;
-                
-                // var userName = claims.FirstOrDefault(c => c.Type == "UserName").Value;
-                // var userId = claims.FirstOrDefault(c => c.Type == "UserId").Value;
-                
                 var userRol = claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
-                
                 var roles = requirement.AllowedRoles;
-                // se probara manualmente los roles, no se obtendra de base de datos
-                // modificar y ver si el rol esta en el usuario
-                
-                
-                // TODO: agregar codigo para validar el rol...
-                // validRole = new Users().GetUsers().Where(p => roles.Contains(p.Role) && p.UserName == userName).Any();
                 
                 validRole = roles.Contains(userRol);
             }

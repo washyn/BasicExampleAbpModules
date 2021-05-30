@@ -20,7 +20,7 @@ namespace WebApplicationMvc.Controllers
     /// Los controlladores deben heredar de la clase base, Controller para que sea un controlador, tambien debe de tener
     /// el sufijo controller, esto se puede cambiar pero por convecion se hace asi. 
     /// </summary>
-    [Authorize(Roles = Rol.Admin)]
+    [Authorize]
     public class DetalleController : Controller
     {
         private readonly ApplicationDbContex _dbContex;

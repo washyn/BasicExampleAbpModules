@@ -54,29 +54,8 @@ namespace WebApplicationMvc
                     // tiempo de duracion de la cookie
                     options.ExpireTimeSpan = TimeSpan.MaxValue;
                 });
-
-            // Old code
-            // services.AddAuthorization(config =>
-            // {
-            //     var authPolicyBuilder = new AuthorizationPolicyBuilder();
-            //     config.DefaultPolicy = authPolicyBuilder
-            //         .RequireAuthenticatedUser()
-            //         .RequireClaim(ClaimTypes.DateOfBirth)
-            //         .Build();
-            // });
-
-            // services.AddAuthorization(config =>
-            // {
-            //     config.AddPolicy("NombrePolicy", policyBuilder =>
-            //     {
-            //         policyBuilder.UserRequireCustomClaim(ClaimTypes.Email);
-            //         policyBuilder.UserRequireCustomClaim(ClaimTypes.DateOfBirth);
-            //     });
-            // });
-
-            // La auth por policies no se usara para este caso
-            // services.AddScoped<IAuthorizationHandler, PoliciesAuthorizationHandler>();
             
+            // Se agregar el handler de authorizacion
             services.AddScoped<IAuthorizationHandler, RolesAuthorizationHandler>();
             
             

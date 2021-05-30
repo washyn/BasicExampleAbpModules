@@ -13,7 +13,7 @@ using WebApplicationMvc.ViewModels.Maestro;
 
 namespace WebApplicationMvc.Controllers
 {
-    [Authorize(Roles = Rol.Usuario)]
+    [Authorize]
     public class MaestroController : Controller
     {
         private readonly ApplicationDbContex _dbContex;
@@ -23,6 +23,7 @@ namespace WebApplicationMvc.Controllers
             _dbContex = dbContex;
         }
 
+        
         public IActionResult Index(PruebaEnum? pruebaEnum, bool? booleano, int? cantidadDetalle)
         {
             ViewData["pruebaEnum"] = pruebaEnum;
