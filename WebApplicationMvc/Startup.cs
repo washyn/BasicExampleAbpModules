@@ -56,7 +56,7 @@ namespace WebApplicationMvc
                 });
             
             // Se agrega el handler(manejador) de authorizacion, custom
-            services.AddScoped<IAuthorizationHandler, RolesAuthorizationHandler>();
+            // services.AddScoped<IAuthorizationHandler, RolesAuthorizationHandler>();
             
             
             services.AddControllersWithViews();
