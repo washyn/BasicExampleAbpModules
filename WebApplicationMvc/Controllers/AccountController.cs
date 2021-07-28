@@ -50,6 +50,7 @@ namespace WebApplicationMvc.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel input, string returnUrl = "")
         {
+            // admin 123qwe
             if (ModelState.IsValid)
             {
                 var user = _dbContex
@@ -73,6 +74,8 @@ namespace WebApplicationMvc.Controllers
                         {
                             new Claim("UserId", user.Identificador.ToString()),
                             new Claim("FullName", $"{user.Nombres} {user.Apellidos}"),
+                            // se agrega el nombre del rol del usaurio para verificar la autorizacion
+                            // TODO: add Rol name and remove custom role checher
                             new Claim(ClaimTypes.Role, user.Rol.Nombre),
                             new Claim(ClaimTypes.Name, user.User),
                         };
