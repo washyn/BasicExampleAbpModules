@@ -30,7 +30,7 @@ namespace WebApplicationMvc.Controllers
             _dbContex = dbContex;
         }
 
-        
+
         /// <summary>
         /// La accion con el nombre Index, es la que hara llamado por default cuando se
         /// entra a la ruta "/detalle"
@@ -41,20 +41,20 @@ namespace WebApplicationMvc.Controllers
         /// <param name="FechaMin"></param>
         /// <param name="FechaMax"></param>
         /// <returns></returns>
-        public IActionResult Index(string InputSearch, 
-            float? FloatMin, 
+        public IActionResult Index(string InputSearch,
+            float? FloatMin,
             float? FloatMax,
             DateTime? FechaMin,
             DateTime? FechaMax
-            )
+        )
         {
             ViewData["TextoBusqueda"] = InputSearch;
             ViewData["FloatMin"] = FloatMin;
             ViewData["FloatMax"] = FloatMax;
-            
-            ViewData["FechaMin"] = FechaMin; 
+
+            ViewData["FechaMin"] = FechaMin;
             ViewData["FechaMax"] = FechaMax;
-            
+
             // AsNoTracking, normalmente cuando se obtiene datos, EF hace tracking de las entidades, esto para cuando
             // se modifica propiedades de una entidad y se haga el save changes, EF pueda saber que entidades fueron editadas
             // y hacer el update,
@@ -72,34 +72,25 @@ namespace WebApplicationMvc.Controllers
                     Id = a.Id,
                     FechaHora = a.FechaHora,
                     NombreArchivo = a.NombreArchivo
-                });
+                })
+                //TODO: create PR with hasValue method
+                .WhereIf(!string.IsNullOrEmpty(InputSearch),
+                    s => s.Cadena.Contains(InputSearch))
+                
+                .WhereIf(FloatMin.HasValue,
+                    s => s.Flotante >= FloatMin)
+                .WhereIf(FloatMax.HasValue,
+                    s => s.Flotante <= FloatMax)
 
-            if (!string.IsNullOrEmpty(InputSearch))
-            {
-                datos = datos.Where(s => s.Cadena.Contains(InputSearch));
-            }
-            
-            if (FloatMin.HasValue)
-            {
-                datos = datos.Where(s => s.Flotante >= FloatMin);
-            }
-            if (FloatMax.HasValue)
-            {
-                datos = datos.Where(s => s.Flotante <= FloatMax);
-            }
-            
-            if (FechaMin.HasValue)
-            {
-                datos = datos.Where(s => s.Fecha >= FechaMin);
-            }
-            if (FechaMax.HasValue)
-            {
-                datos = datos.Where(s => s.Fecha <= FechaMax);
-            }
+                .WhereIf(FechaMin.HasValue,
+                    s => s.Fecha >= FechaMin)
+                .WhereIf(FechaMax.HasValue,
+                    s => s.Fecha <= FechaMax)
+                .ToList();
             
             return View(datos);
         }
-        
+
         public IActionResult ShowDetails(int? id)
         {
             if (id.HasValue)
@@ -108,17 +99,18 @@ namespace WebApplicationMvc.Controllers
                     .Where(a => a.Id == id)
                     .AsNoTracking()
                     .FirstOrDefault();
-                
+
                 if (detail is not null)
                 {
                     detail.Maestro = _dbContex.Maestros.FirstOrDefault(a => a.Id == detail.MaestroId);
                     return View(detail);
                 }
             }
+
             return NotFound();
         }
-        
-        
+
+
         public IActionResult Edit(int? id)
         {
             if (id.HasValue)
@@ -126,26 +118,27 @@ namespace WebApplicationMvc.Controllers
                 var model = _dbContex.Detalles
                     .Where(b => b.Id == id)
                     .Select(a => new DetalleEditViewModel()
-                {
-                    Booleano = a.booleano,
-                    Cadena = a.Cadena,
-                    Decimanl = a.decimanl,
-                    Entero = a.Entero,
-                    Enum = a.Enum,
-                    Fecha = a.Fecha,
-                    Flotante = a.Flotante,
-                    Hora = a.Hora,
-                    FechaHora = a.FechaHora,
-                    Id = a.Id,
-                    MaestroId = a.MaestroId
-                })
+                    {
+                        Booleano = a.booleano,
+                        Cadena = a.Cadena,
+                        Decimanl = a.decimanl,
+                        Entero = a.Entero,
+                        Enum = a.Enum,
+                        Fecha = a.Fecha,
+                        Flotante = a.Flotante,
+                        Hora = a.Hora,
+                        FechaHora = a.FechaHora,
+                        Id = a.Id,
+                        MaestroId = a.MaestroId
+                    })
                     .FirstOrDefault();
                 ViewData["SelectList"] = new SelectList(_dbContex.Maestros, "Id", "Cadena", model.MaestroId);
                 return View(model);
             }
+
             return View();
         }
-        
+
         [HttpPost]
         public IActionResult Edit(DetalleEditViewModel input)
         {
@@ -155,7 +148,7 @@ namespace WebApplicationMvc.Controllers
                 // o un array de bytes en base de datos como blob
 
                 var modelEdit = _dbContex.Detalles.FirstOrDefault(a => a.Id == input.Id);
-                
+
                 modelEdit.booleano = input.Booleano;
                 modelEdit.decimanl = input.Decimanl;
                 modelEdit.Cadena = input.Cadena;
@@ -166,7 +159,7 @@ namespace WebApplicationMvc.Controllers
                 modelEdit.Hora = input.Hora;
                 modelEdit.FechaHora = input.FechaHora;
                 modelEdit.MaestroId = input.MaestroId;
-                
+
                 if (input.Archivo != null)
                 {
                     byte[] fileData;
@@ -178,25 +171,26 @@ namespace WebApplicationMvc.Controllers
                     modelEdit.NombreArchivo = input.Archivo.FileName;
                     modelEdit.Archivo = fileContent;
                 }
-                
+
                 _dbContex.Detalles.Update(modelEdit);
                 _dbContex.SaveChanges();
-                
+
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["ManyId"] = new SelectList(_dbContex.Maestros, "Id", "Cadena", input.MaestroId);
             return View(input);
         }
-        
-        
+
+
         public IActionResult Create()
         {
             ViewData["SelectList"] = new SelectList(_dbContex.Maestros, "Id", "Cadena");
             return View();
         }
-        
+
         [HttpPost]
-        public IActionResult Create([FromForm]DetalleCreateViewModel input)
+        public IActionResult Create([FromForm] DetalleCreateViewModel input)
         {
             if (ModelState.IsValid)
             {
@@ -220,21 +214,21 @@ namespace WebApplicationMvc.Controllers
                     input.Archivo.CopyTo(ms);
                     var fileData = ms.ToArray();
                     var fileContent = Convert.ToBase64String(fileData);
-                    
+
                     newModel.Archivo = fileContent;
                     newModel.NombreArchivo = input.Archivo.FileName;
                 }
-                
+
                 _dbContex.Detalles.Add(newModel);
                 _dbContex.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["SelectList"] = new SelectList(_dbContex.Maestros, "Id", "Cadena", input.MaestroId);
             return View(input);
         }
-        
-        
-        
+
+
         public IActionResult ShowForDelete(int? id)
         {
             if (id.HasValue)
@@ -245,9 +239,10 @@ namespace WebApplicationMvc.Controllers
                     return View(detail);
                 }
             }
+
             return NotFound();
         }
-        
+
         public IActionResult Delete(int? id)
         {
             if (id.HasValue)
@@ -259,14 +254,12 @@ namespace WebApplicationMvc.Controllers
                     _dbContex.SaveChanges();
                     return RedirectToAction(nameof(Index));
                 }
-                
             }
 
             return NotFound();
         }
-        
 
-        
+
         public IActionResult GetFile(int? id)
         {
             if (id.HasValue)
@@ -278,6 +271,5 @@ namespace WebApplicationMvc.Controllers
 
             return NotFound();
         }
-        
     }
 }
