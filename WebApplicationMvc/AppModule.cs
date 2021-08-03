@@ -13,6 +13,7 @@ using WebApplicationMvc.EfCore;
 
 namespace WebApplicationMvc
 {
+    // add tag helpers
     [DependsOn(typeof(AbpAspNetCoreMvcModule))]
     public class AppModule : AbpModule
     {

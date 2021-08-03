@@ -60,7 +60,8 @@ namespace WebApplicationMvc.Controllers
 
                 if (user == null)
                 {
-                    ModelState.AddModelError("Error","Usuario no encontrado.");
+                    ModelState.AddModelError(nameof(input.User),"Usuario no encontrado.");
+                    // ModelState.AddModelError();
                     return View(input);
                 }
                 else
@@ -107,7 +108,8 @@ namespace WebApplicationMvc.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("Error","Contraseña incorrecta.");
+                        ModelState.AddModelError("Password","Contraseña incorrecta.");
+                        ModelState.AddModelError("Error","Revisa la contraseña.");
                         return View(input);
                     }
                 }
