@@ -8,12 +8,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc.UI;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.Modularity;
 using WebApplicationMvc.EfCore;
 
 namespace WebApplicationMvc
 {
-    // add tag helpers
+
+    // TODO: add autofact
+    // add automapper
+    // add serilog and configs
+    // Check why module is used, and remove is not used
+    [DependsOn(typeof(AbpAspNetCoreMvcUiModule))]
+    [DependsOn(typeof(AbpAspNetCoreMvcUiBootstrapModule))]
+    
     [DependsOn(typeof(AbpAspNetCoreMvcModule))]
     public class AppModule : AbpModule
     {

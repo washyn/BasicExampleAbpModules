@@ -30,20 +30,23 @@
                 <span asp-validation-for="Flotante" class="text-danger"></span>
             </div>
             
-            <div class="form-group">
-                <label asp-for="Cadena" class="control-label"></label>
-                <input asp-for="Cadena" class="form-control"/>
-                <span asp-validation-for="Cadena" class="text-danger"></span>
-            </div>
+            @* <div class="form-group"> *@
+            @*     <label asp-for="Cadena" class="control-label"></label> *@
+            @*     <input asp-for="Cadena" class="form-control"/> *@
+            @*     <span asp-validation-for="Cadena" class="text-danger"></span> *@
+            @* </div> *@
+            <abp-input asp-for="Cadena"></abp-input>
             
-            <div class="form-group">
-                <label asp-for="Enum" class="control-label"></label>
-                <select asp-for="Enum" asp-items="@Html.GetEnumSelectList<PruebaEnum>()" class="form-control">
-                    <option value="">Seleccione una opcion</option>
-                </select>
-                <span asp-validation-for="Enum" class="text-danger"></span>
-            </div>
+            @* <div class="form-group"> *@
+            @*     <label asp-for="Enum" class="control-label"></label> *@
+            @*     <select asp-for="Enum" asp-items="@Html.GetEnumSelectList<PruebaEnum>()" class="form-control"> *@
+            @*         <option value="">Seleccione una opcion</option> *@
+            @*     </select> *@
+            @*     <span asp-validation-for="Enum" class="text-danger"></span> *@
+            @* </div> *@
 
+            <abp-select asp-for="Enum"></abp-select>
+            
             <div class="form-group">
                 <label asp-for="FechaHora" class="control-label"></label>
                 <input asp-for="FechaHora" class="form-control"/>

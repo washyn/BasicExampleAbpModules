@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using WebApplicationMvc.Models;
 
 namespace WebApplicationMvc.ViewModels
@@ -15,6 +16,8 @@ namespace WebApplicationMvc.ViewModels
         
         public float Flotante { get; set; }
         
+        [Display(Name = "Prueba enum")]
+        [AbpRadioButton(Inline = true)]
         [Required]
         [EnumDataType(typeof(PruebaEnum))]
         public PruebaEnum Enum { get; set; }
