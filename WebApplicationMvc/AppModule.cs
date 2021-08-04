@@ -10,6 +10,7 @@ using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
+using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.Modularity;
 using WebApplicationMvc.EfCore;
 
@@ -23,6 +24,8 @@ namespace WebApplicationMvc
     [DependsOn(typeof(AbpAspNetCoreMvcUiModule))]
     [DependsOn(typeof(AbpAspNetCoreMvcUiBootstrapModule))]
     
+    
+    [DependsOn(typeof(AbpAspNetCoreMvcUiBundlingModule))]
     [DependsOn(typeof(AbpAspNetCoreMvcModule))]
     public class AppModule : AbpModule
     {
