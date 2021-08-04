@@ -80,15 +80,20 @@
 </footer>
 
 
-
+@* *@
 @* <abp-script-bundle name="GlobalBundleScript"> *@
 @*     <abp-script src="/lib/jquery/dist/jquery.min.js"></abp-script> *@
 @*     <abp-script src="/lib/bootstrap/dist/js/bootstrap.bundle.riptmin.js"></abp-script> *@
 @* </abp-script-bundle> *@
 
+<abp-script-bundle name="ScriptBundleGlobal">
+    <abp-script src="/lib/jquery/dist/jquery.min.js"></abp-script>
+    <abp-script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></abp-script>
+</abp-script-bundle>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+
 <script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
