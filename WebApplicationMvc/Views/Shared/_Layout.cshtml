@@ -7,8 +7,18 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - WebApplicationMvc</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css"/>
+
+    @* <abp-style-bundle name="MyGlobalBundle"> *@
+    @*     <abp-style src="/libs/bootstrap/css/bootstrap.css" /> *@
+    @*     <abp-style src="/libs/font-awesome/css/font-awesome.css" /> *@
+    @*     <abp-style src="/libs/toastr/toastr.css" /> *@
+    @*     <abp-style src="/styles/my-global-style.css" /> *@
+    @* </abp-style-bundle> *@
+    <abp-style-bundle name="GlobalBundleStyle">
+        <abp-style src="/lib/bootstrap/dist/css/bootstrap.min.css"/>
+        <abp-style src="/css/site.css"/>
+    </abp-style-bundle>
+
 </head>
 <body>
 <header>
@@ -49,12 +59,12 @@
         @* <a class="navbar-text d-none d-sm-block">@User.Claims.FirstOrDefault(a => a.Type == "FullName")?.Value</a> *@
         @* with claim extensions *@
         @* <a class="navbar-text d-none d-sm-block">@User.GetLoggedInUserName()</a> *@
-        
+
         @* with view component as tag *@
         @* <vc:user-info></vc:user-info> *@
         @* with invoke component *@
         @await Component.InvokeAsync(typeof(UserInfoViewComponent))
-        
+
     </nav>
 </header>
 <div class="container">
@@ -68,8 +78,16 @@
         &copy; 2021 - WebApplicationMvc - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<abp-script-bundle name="ScriptBundleGlobal">
+    <abp-script src="/lib/jquery/dist/jquery.min.js"></abp-script>
+    <abp-script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></abp-script>
+</abp-script-bundle>
+
+@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+
 <script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>

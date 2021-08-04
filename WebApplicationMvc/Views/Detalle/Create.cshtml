@@ -7,70 +7,92 @@
     <div class="col-3"></div>
     <div class="col-6">
         <form asp-controller="Detalle" asp-action="Create">
-            <div class="form-group">
-                <label asp-for="Cadena" class="control-label"></label>
-                <input asp-for="Cadena" class="form-control"/>
-                <span asp-validation-for="Cadena" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label" asp-for="Booleano">
-                    <input class="form-check-input" asp-for="Booleano"/>
-                    @Html.DisplayNameFor(model => model.Booleano)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Decimanl" class="control-label"></label>
-                <input asp-for="Decimanl" class="form-control"/>
-                <span asp-validation-for="Decimanl" class="text-danger"></span>
-            </div>
+            <abp-input asp-for="Cadena"></abp-input>
+            <abp-input asp-for="Booleano"></abp-input>
+            <abp-input asp-for="Decimanl"></abp-input>
+            <abp-input asp-for="Entero"></abp-input>
+            <abp-input asp-for="Fecha"></abp-input>
+            
+            @* <div class="form-group"> *@
+            @*     <label asp-for="Cadena" class="control-label"></label> *@
+            @*     <input asp-for="Cadena" class="form-control"/> *@
+            @*     <span asp-validation-for="Cadena" class="text-danger"></span> *@
+            @* </div> *@
+            @* <div class="form-group form-check"> *@
+            @*     <label class="form-check-label" asp-for="Booleano"> *@
+            @*         <input class="form-check-input" asp-for="Booleano"/> *@
+            @*         @Html.DisplayNameFor(model => model.Booleano) *@
+            @*     </label> *@
+            @* </div> *@
+            @* <div class="form-group"> *@
+            @*     <label asp-for="Decimanl" class="control-label"></label> *@
+            @*     <input asp-for="Decimanl" class="form-control"/> *@
+            @*     <span asp-validation-for="Decimanl" class="text-danger"></span> *@
+            @* </div> *@
+            @* *@
+            @* <div class="form-group"> *@
+            @*     <label asp-for="Entero" class="control-label"></label> *@
+            @*     <input asp-for="Entero" class="form-control"/> *@
+            @*     <span asp-validation-for="Entero" class="text-danger"></span> *@
+            @* </div> *@
+            @* *@
+            @* <div class="form-group"> *@
+            @*     <label asp-for="Fecha" class="control-label"></label> *@
+            @*     <input asp-for="Fecha" class="form-control"/> *@
+            @*     <span asp-validation-for="Fecha" class="text-danger"></span> *@
+            @* </div> *@
 
-            <div class="form-group">
-                <label asp-for="Entero" class="control-label"></label>
-                <input asp-for="Entero" class="form-control"/>
-                <span asp-validation-for="Entero" class="text-danger"></span>
-            </div>
+            @* asp-for estas etiquetas permiten generar codigo de formulario, dependiendo del contexto
+            puede generar codigo de label, el typo input o mensajes de validacion *@
+            @* <div class="form-group"> *@
+            @*     <label asp-for="Hora" class="control-label"></label> *@
+            @*     <input asp-for="Hora" class="form-control"/> *@
+            @*     <span asp-validation-for="Hora" class="text-danger"></span> *@
+            @* </div> *@
 
-            <div class="form-group">
-                <label asp-for="Fecha" class="control-label"></label>
-                <input asp-for="Fecha" class="form-control"/>
-                <span asp-validation-for="Fecha" class="text-danger"></span>
-            </div>
+            @* <div class="form-group"> *@
+            @*     <label asp-for="Enum" class="control-label"></label> *@
+            @*     <select asp-for="Enum" asp-items="@Html.GetEnumSelectList<PruebaEnum>()" class="form-control"> *@
+            @*         <option value="">Seleccione una opcion</option> *@
+            @*     </select> *@
+            @*     <span asp-validation-for="Enum" class="text-danger"></span> *@
+            @* </div> *@
 
-            <div class="form-group">
-                @* asp-for estas etiquetas permiten generar codigo de formulario, dependiendo del contexto
-                puede generar codigo de label, el typo input o mensajes de validacion *@
-                <label asp-for="Hora" class="control-label"></label>
-                <input asp-for="Hora" class="form-control"/>
-                <span asp-validation-for="Hora" class="text-danger"></span>
-            </div>
+            <abp-input asp-for="Hora"></abp-input>
+            
+            @* TODO: test as required *@
+            @* TODO: test with default value *@
+            <abp-radio asp-for="Enum" inline="true"></abp-radio>
 
-            <div class="form-group">
-                <label asp-for="Enum" class="control-label"></label>
-                <select asp-for="Enum" asp-items="@Html.GetEnumSelectList<PruebaEnum>()" class="form-control">
-                    <option value="">Seleccione una opcion</option>
-                </select>
-                <span asp-validation-for="Enum" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="FechaHora" class="control-label"></label>
-                <input asp-for="FechaHora" class="form-control"/>
-                <span asp-validation-for="FechaHora" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Flotante" class="control-label"></label>
-                <input asp-for="Flotante" class="form-control"/>
-                <span asp-validation-for="Flotante" class="text-danger"></span>
-            </div>
+            <abp-input asp-for="FechaHora"></abp-input>
+            <abp-input asp-for="Flotante"></abp-input>
+            @* TODO: test with file for abp-input tag helper *@
+            @* TODO: replace all tag helpers *@
+            @* <abp-input asp-for="Archivo"></abp-input> *@
+            @* <abp-input asp-for="Cadena"></abp-input> *@
+            
+            @* *@
+            @* <div class="form-group"> *@
+            @*     <label asp-for="FechaHora" class="control-label"></label> *@
+            @*     <input asp-for="FechaHora" class="form-control"/> *@
+            @*     <span asp-validation-for="FechaHora" class="text-danger"></span> *@
+            @* </div> *@
+            @* *@
+            @* <div class="form-group"> *@
+            @*     <label asp-for="Flotante" class="control-label"></label> *@
+            @*     <input asp-for="Flotante" class="form-control"/> *@
+            @*     <span asp-validation-for="Flotante" class="text-danger"></span> *@
+            @* </div> *@
+            
             <div class="form-group">
                 <label asp-for="Archivo" class="control-label"></label>
                 <input asp-for="Archivo" class="form-control"/>
                 <span asp-validation-for="Archivo" class="text-danger"></span>
             </div>
+            
             <div class="form-group">
                 <label asp-for="MaestroId" class="control-label"></label>
-                <select asp-for="MaestroId" class ="form-control" asp-items="ViewBag.SelectList"></select>
+                <select asp-for="MaestroId" class="form-control" asp-items="ViewBag.SelectList"></select>
             </div>
 
             <div class="row">
@@ -78,7 +100,7 @@
                     <button type="submit" class="btn btn-primary float-right">Guardar</button>
                 </div>
             </div>
-            
+
         </form>
     </div>
     <div class="col-3"></div>
@@ -86,5 +108,6 @@
 
 @section Scripts
 {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @* @await Html.PartialAsync("_ValidationScriptsPartial") *@
+    <partial name="_ValidationScriptsPartial"/>
 }

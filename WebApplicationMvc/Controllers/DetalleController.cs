@@ -73,7 +73,7 @@ namespace WebApplicationMvc.Controllers
                     FechaHora = a.FechaHora,
                     NombreArchivo = a.NombreArchivo
                 })
-                //TODO: create PR with hasValue method
+                //TODO: create PR with hasValue method, string extenson has value, in abp lib
                 .WhereIf(!string.IsNullOrEmpty(InputSearch),
                     s => s.Cadena.Contains(InputSearch))
                 

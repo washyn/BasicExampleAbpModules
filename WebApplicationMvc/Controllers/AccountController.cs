@@ -60,7 +60,8 @@ namespace WebApplicationMvc.Controllers
 
                 if (user == null)
                 {
-                    ModelState.AddModelError("Error","Usuario no encontrado.");
+                    ModelState.AddModelError(nameof(input.User),"Usuario no encontrado.");
+                    // ModelState.AddModelError();
                     return View(input);
                 }
                 else
@@ -90,7 +91,6 @@ namespace WebApplicationMvc.Controllers
                         };
             
                         // se crear un identity claims
-                        // TODO: cambiar por un nombre custom
                         var identityClaims = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     
                         // se hace un logout si es que ya habia un sesion anterior
@@ -107,7 +107,8 @@ namespace WebApplicationMvc.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("Error","Contraseña incorrecta.");
+                        ModelState.AddModelError("Password","Contraseña incorrecta.");
+                        ModelState.AddModelError("Error","Revisa la contraseña.");
                         return View(input);
                     }
                 }
