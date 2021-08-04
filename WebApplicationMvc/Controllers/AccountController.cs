@@ -91,7 +91,6 @@ namespace WebApplicationMvc.Controllers
                         };
             
                         // se crear un identity claims
-                        // TODO: cambiar por un nombre custom
                         var identityClaims = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     
                         // se hace un logout si es que ya habia un sesion anterior

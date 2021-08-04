@@ -16,15 +16,11 @@ using WebApplicationMvc.EfCore;
 
 namespace WebApplicationMvc
 {
-
     // TODO: add autofact
-    // add automapper
-    // add serilog and configs
-    // Check why module is used, and remove is not used
-    [DependsOn(typeof(AbpAspNetCoreMvcUiModule))]
+    // TODO: add automapper
+    // TODO: add serilog and configs
+    // Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form
     [DependsOn(typeof(AbpAspNetCoreMvcUiBootstrapModule))]
-    
-    
     [DependsOn(typeof(AbpAspNetCoreMvcUiBundlingModule))]
     [DependsOn(typeof(AbpAspNetCoreMvcModule))]
     public class AppModule : AbpModule
