@@ -2,7 +2,9 @@
 
 <div class="row">
     <div class="col-12">
-        <a class="btn btn-primary float-right" asp-controller="Maestro" asp-action="Create">Crear</a>
+        <a class="btn btn-sm btn-primary float-right" asp-controller="Maestro" asp-action="Create">Crear</a>
+        <a class="btn btn-sm btn-primary" asp-controller="Maestro" asp-action="PruebaPdfExport">Prueba export Pdf</a>
+        @* TODO: agregar exportar excel library, del proyecto de impor de aspnet zero *@
     </div>
 </div>
 
@@ -76,16 +78,16 @@
                 }
                 <div class="col-sm-3">
                     <div class="form-check form-check-inline">
-                        
+
                         @if (booleano == null)
                         {
-                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio1" value="" checked>                        
+                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio1" value="" checked>
                         }
                         else
                         {
                             <input class="form-check-input" type="radio" name="booleano" id="inlineRadio1" value="">
                         }
-                        
+
                         <label class="form-check-label" for="inlineRadio1">Todos</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -95,7 +97,7 @@
                         }
                         else
                         {
-                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio2" value="true">                            
+                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio2" value="true">
                         }
 
                         <label class="form-check-label" for="inlineRadio2">Activo</label>
@@ -103,11 +105,11 @@
                     <div class="form-check form-check-inline">
                         @if (booleano.HasValue && booleano == false)
                         {
-                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio3" value="false" checked>   
+                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio3" value="false" checked>
                         }
                         else
                         {
-                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio3" value="false">                            
+                            <input class="form-check-input" type="radio" name="booleano" id="inlineRadio3" value="false">
                         }
                         <label class="form-check-label" for="inlineRadio3">Desactivo</label>
                     </div>
@@ -137,7 +139,7 @@
             <button type="submit" class="btn btn-success">Buscar</button>
         </div>
     </div>
-    
+
 </form>
 
 <div class="row my-4">

@@ -13,10 +13,6 @@ using WebApplicationMvc.ViewModels.Account;
 
 namespace WebApplicationMvc.Controllers
 {
-    /// <summary>
-    /// AllowAnonymous, esto permite que no requiera login entrar a las acciones de este
-    /// controller
-    /// </summary>
     [AllowAnonymous]
     public class AccountController : Controller
     {
@@ -28,25 +24,12 @@ namespace WebApplicationMvc.Controllers
         }
         
         
-        
-        /// <summary>
-        /// HttpGet -> para que acepte el metodo get
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        /// <summary>
-        /// HttpPost, para que acepte el metodo post
-        /// , por defecto cuando input => es un objecto(compuesto), se toma del cuerpo de la peticion,
-        /// returnUrl -> valor que se toma por URL
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="returnUrl"></param>
-        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel input, string returnUrl = "")
         {
@@ -61,16 +44,13 @@ namespace WebApplicationMvc.Controllers
                 if (user == null)
                 {
                     ModelState.AddModelError(nameof(input.User),"Usuario no encontrado.");
-                    // ModelState.AddModelError();
                     return View(input);
                 }
                 else
                 {
                     var resultCOmpare = user.ComparePasswordBase64(input.Password);
-                    // si la conraseña es correcta, se hace el login
                     if (resultCOmpare)
                     {
-                        // se crea una lista de claims(key par valyes) con datos del usuario
                         var claims = new List<Claim>()
                         {
                             new Claim("UserId", user.Identificador.ToString()),
@@ -120,8 +100,6 @@ namespace WebApplicationMvc.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            // se hace el logout especificando el esquema de autenticacion
-            // para este caso esquema de autenticacion por cookies
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction(nameof(Login));
         }

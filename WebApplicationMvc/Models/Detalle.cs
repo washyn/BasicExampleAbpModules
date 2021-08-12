@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace WebApplicationMvc.Models
 {
     /// <summary>
-    /// La Clase que representa una columna en la base de datos,
+    /// La Clase que representa una tabla en la base de datos,
     /// la tabla en base de datos se genero a partir de este modelo con ef core
     /// </summary>
     public class Detalle

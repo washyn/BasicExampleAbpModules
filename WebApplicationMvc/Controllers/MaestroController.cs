@@ -10,16 +10,22 @@ using WebApplicationMvc.EfCore;
 using WebApplicationMvc.Models;
 using WebApplicationMvc.ViewModels;
 using WebApplicationMvc.ViewModels.Maestro;
+using WkHtmlToPdfDotNet;
+using WkHtmlToPdfDotNet.Contracts;
 
 namespace WebApplicationMvc.Controllers
 {
+    [Authorize]
     public class MaestroController : Controller
     {
         private readonly ApplicationDbContex _dbContex;
+        private readonly IConverter _converter;
 
-        public MaestroController(ApplicationDbContex dbContex)
+        public MaestroController(ApplicationDbContex dbContex,
+            IConverter converter)
         {
             _dbContex = dbContex;
+            _converter = converter;
         }
 
         // los Usuarios con rol de usuario o admin pueden entrar a la pagina de inicio(index)
@@ -59,7 +65,7 @@ namespace WebApplicationMvc.Controllers
             {
                 datos = datos.Where(s => s.Enum == pruebaEnum);
             }
-            
+
             if (cantidadDetalle.HasValue)
             {
                 datos = datos.Where(s => s.CantidadDetalles == cantidadDetalle);
@@ -69,10 +75,9 @@ namespace WebApplicationMvc.Controllers
         }
 
 
-        
         // el usuario que accede debe ser miembro de todos los roles especificados;
         // el siguiente ejemplo requiere que un usuario sea miembro del rol Admin y Usuario.
-        
+
         // [Authorize(Roles = Rol.Admin)]
         // [Authorize(Roles = Rol.Usuario)]
         public IActionResult Create()
@@ -187,7 +192,6 @@ namespace WebApplicationMvc.Controllers
             return View(input);
         }
 
-        // Esto para que solo el usuario pueda ver los detalle
         [Authorize(Roles = Rol.Usuario)]
         public IActionResult ShowDetails(int? id)
         {
@@ -206,7 +210,7 @@ namespace WebApplicationMvc.Controllers
             return NotFound();
         }
 
-        // Esto para que solo el admin pueda eliminar
+
         [Authorize(Roles = Rol.Admin)]
         public IActionResult ShowForDelete(int? id)
         {
@@ -221,8 +225,8 @@ namespace WebApplicationMvc.Controllers
 
             return NotFound();
         }
-        
-        // Esto para que solo el admin pueda eliminar
+
+
         [Authorize(Roles = Rol.Admin)]
         public IActionResult Delete(int? id)
         {
@@ -239,6 +243,39 @@ namespace WebApplicationMvc.Controllers
 
             return NotFound();
         }
-    }
 
+
+        public IActionResult PruebaPdfExport()
+        {
+            var document = new HtmlToPdfDocument()
+            {
+                GlobalSettings = new GlobalSettings()
+                {
+                    ColorMode = ColorMode.Color,
+                    Orientation = Orientation.Portrait,
+                    PaperSize = PaperKind.A4,
+                },
+                Objects =
+                {
+                    new ObjectSettings()
+                    {
+                        HtmlContent = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur mauris eget ultrices  iaculis.",
+                        PagesCount = true,
+                        WebSettings = new WebSettings()
+                        {
+                            // DefaultEncoding = System.Text.Encoding.Get
+                            DefaultEncoding = "UTF-8",
+                            UserStyleSheet = ""
+                        }
+                    }
+                }
+            };
+            
+            var fileContent = _converter.Convert(document);
+            
+            return File(fileContent, 
+                MediaTypeNames.Application.Pdf, 
+                $"{Guid.NewGuid().ToString()}.pdf");
+        }
+    }
 }

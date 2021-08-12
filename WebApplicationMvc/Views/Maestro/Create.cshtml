@@ -15,64 +15,38 @@
 <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
+        
+        @* this not worrks when create, check *@
+        
+        @* <hr> *@
+        @* *@
+        @* <abp-dynamic-form abp-model="@Model"> *@
+        @*     <div> *@
+        @*         Some content.... *@
+        @*     </div> *@
+        @*     <div class="input-area"> *@
+        @*         <abp-form-content /> *@
+        @*     </div> *@
+        @*     <div> *@
+        @*         Some more content.... *@
+        @*     </div> *@
+        @* </abp-dynamic-form> *@
+        @* *@
+        @* <hr> *@
+        
         <form asp-controller="Maestro" asp-action="Create">
-            
+
+            @* TODO: use test with form content for render all inputs, without send button *@
+
             <abp-input asp-for="Entero"></abp-input>
             <abp-input asp-for="Flotante"></abp-input>
             <abp-input asp-for="Cadena"></abp-input>
             <abp-select asp-for="Enum"></abp-select>
-            
+
             <abp-input asp-for="FechaHora"></abp-input>
             <abp-input asp-for="Fecha"></abp-input>
             <abp-input asp-for="Hora"></abp-input>
             <abp-input asp-for="Decimal"></abp-input>
-
-            
-            @* <div class="form-group"> *@
-            @*     <label asp-for="Entero" class="control-label"></label> *@
-            @*     <input asp-for="Entero" class="form-control"/> *@
-            @*     <span asp-validation-for="Entero" class="text-danger"></span> *@
-            @* </div> *@
-            @* *@
-            @* <div class="form-group"> *@
-            @*     <label asp-for="Flotante" class="control-label"></label> *@
-            @*     <input asp-for="Flotante" class="form-control"/> *@
-            @*     <span asp-validation-for="Flotante" class="text-danger"></span> *@
-            @* </div> *@
-            @* <div class="form-group"> *@
-            @*     <label asp-for="Cadena" class="control-label"></label> *@
-            @*     <input asp-for="Cadena" class="form-control"/> *@
-            @*     <span asp-validation-for="Cadena" class="text-danger"></span> *@
-            @* </div> *@
-            @* <div class="form-group"> *@
-            @*     <label asp-for="Enum" class="control-label"></label> *@
-            @*     <select asp-for="Enum" asp-items="@Html.GetEnumSelectList<PruebaEnum>()" class="form-control"> *@
-            @*         <option value="">Seleccione una opcion</option> *@
-            @*     </select> *@
-            @*     <span asp-validation-for="Enum" class="text-danger"></span> *@
-            @* </div> *@
-            @* <div class="form-group"> *@
-            @*     <label asp-for="FechaHora" class="control-label"></label> *@
-            @*     <input asp-for="FechaHora" class="form-control"/> *@
-            @*     <span asp-validation-for="FechaHora" class="text-danger"></span> *@
-            @* </div> *@
-            @* <div class="form-group"> *@
-            @*     <label asp-for="Fecha" class="control-label"></label> *@
-            @*     <input asp-for="Fecha" class="form-control"/> *@
-            @*     <span asp-validation-for="Fecha" class="text-danger"></span> *@
-            @* </div> *@
-            @* *@
-            @* <div class="form-group"> *@
-            @*     <label asp-for="Hora" class="control-label"></label> *@
-            @*     <input asp-for="Hora" class="form-control"/> *@
-            @*     <span asp-validation-for="Hora" class="text-danger"></span> *@
-            @* </div> *@
-            @* *@
-            @* <div class="form-group"> *@
-            @*     <label asp-for="Decimal" class="control-label"></label> *@
-            @*     <input asp-for="Decimal" class="form-control"/> *@
-            @*     <span asp-validation-for="Decimal" class="text-danger"></span> *@
-            @* </div> *@
 
 
             <div class="row">

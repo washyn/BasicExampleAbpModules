@@ -12,35 +12,24 @@ using WebApplicationMvc.CustomHandler;
 using WebApplicationMvc.EfCore;
 using WebApplicationMvc.Models;
 using WebApplicationMvc.ViewModels;
+using WkHtmlToPdfDotNet.Contracts;
 
 namespace WebApplicationMvc.Controllers
 {
-    /// <summary>
-    /// Authorize -> esto para que requiera solo usuarios que esten logeados puedan accecder a los metodos
-    /// Los controlladores deben heredar de la clase base, Controller para que sea un controlador, tambien debe de tener
-    /// el sufijo controller, esto se puede cambiar pero por convecion se hace asi. 
-    /// </summary>
     [Authorize]
     public class DetalleController : Controller
     {
         private readonly ApplicationDbContex _dbContex;
+        private readonly IConverter _converter;
 
-        public DetalleController(ApplicationDbContex dbContex)
+        public DetalleController(ApplicationDbContex dbContex,
+            IConverter converter)
         {
             _dbContex = dbContex;
+            _converter = converter;
         }
 
-
-        /// <summary>
-        /// La accion con el nombre Index, es la que hara llamado por default cuando se
-        /// entra a la ruta "/detalle"
-        /// </summary>
-        /// <param name="InputSearch"></param>
-        /// <param name="FloatMin"></param>
-        /// <param name="FloatMax"></param>
-        /// <param name="FechaMin"></param>
-        /// <param name="FechaMax"></param>
-        /// <returns></returns>
+        // obj from URL
         public IActionResult Index(string InputSearch,
             float? FloatMin,
             float? FloatMax,
@@ -54,12 +43,8 @@ namespace WebApplicationMvc.Controllers
 
             ViewData["FechaMin"] = FechaMin;
             ViewData["FechaMax"] = FechaMax;
-
-            // AsNoTracking, normalmente cuando se obtiene datos, EF hace tracking de las entidades, esto para cuando
-            // se modifica propiedades de una entidad y se haga el save changes, EF pueda saber que entidades fueron editadas
-            // y hacer el update,
-            // para este caso se obtiene una lista para visualizar, entonces no es necesario el tracking 
-            // por eso se le pone AsNoTracking
+            
+            
             var datos = _dbContex.Detalles
                 .AsNoTracking()
                 .Select(a => new DetalleListItemViewModel
@@ -73,7 +58,6 @@ namespace WebApplicationMvc.Controllers
                     FechaHora = a.FechaHora,
                     NombreArchivo = a.NombreArchivo
                 })
-                //TODO: create PR with hasValue method, string extenson has value, in abp lib
                 .WhereIf(!string.IsNullOrEmpty(InputSearch),
                     s => s.Cadena.Contains(InputSearch))
                 
