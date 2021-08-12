@@ -206,10 +206,9 @@
                         }
                         @if (User.IsInRole(Rol.Usuario))
                         {
-                            <a class="btn btn-info btn-sm" asp-controller="Maestro" asp-action="ShowDetails" asp-route-id="@item.Id">Detalle</a>
+                            <a class="btn btn-info btn-sm" asp-controller="Maestro" asp-action="ShowDetails" asp-route-detalle="@item.Id">Detalle</a>
                         }
                     </td>
-
                 </tr>
             }
             </tbody>

@@ -193,13 +193,13 @@ namespace WebApplicationMvc.Controllers
         }
 
         [Authorize(Roles = Rol.Usuario)]
-        public IActionResult ShowDetails(int? id)
+        public IActionResult ShowDetails(int? detalle)
         {
-            if (id.HasValue)
+            if (detalle.HasValue)
             {
                 // la cosa es que aqui no se incluye detalles eso es aparte al parecer
                 var detail = _dbContex.Maestros
-                    .FirstOrDefault(a => a.Id == id);
+                    .FirstOrDefault(a => a.Id == detalle);
                 if (detail is not null)
                 {
                     detail.Detalles = _dbContex.Detalles.Where(a => a.MaestroId == detail.Id);
