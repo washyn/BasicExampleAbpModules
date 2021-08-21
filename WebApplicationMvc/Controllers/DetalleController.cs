@@ -150,6 +150,7 @@ namespace WebApplicationMvc.Controllers
                     var ms = new MemoryStream();
                     input.Archivo.CopyTo(ms);
                     fileData = ms.ToArray();
+                    // TODO: change as byte array
                     var fileContent = Convert.ToBase64String(fileData);
 
                     modelEdit.NombreArchivo = input.Archivo.FileName;

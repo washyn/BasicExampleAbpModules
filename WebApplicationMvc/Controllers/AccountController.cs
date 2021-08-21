@@ -23,7 +23,6 @@ namespace WebApplicationMvc.Controllers
             _dbContex = dbContex;
         }
         
-        
         [HttpGet]
         public IActionResult Login()
         {

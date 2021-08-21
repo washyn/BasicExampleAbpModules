@@ -11,6 +11,7 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
+using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
 using WebApplicationMvc.EfCore;
 using WkHtmlToPdfDotNet;
@@ -18,12 +19,17 @@ using WkHtmlToPdfDotNet.Contracts;
 
 namespace WebApplicationMvc
 {
-    // TODO: add autofact
     // TODO: add automapper
     // TODO: add serilog and configs
+    
+    // TODO: add abp front base libs, used by theme
+    // TODO: add localization for test...
+    // TODO: add boostrap default libs for abp-tag-helpers used by tag helpers
+    // TODO: add tempalte renderer
     [DependsOn(typeof(AbpAspNetCoreMvcUiBootstrapModule))]
     [DependsOn(typeof(AbpAspNetCoreMvcUiBundlingModule))]
     [DependsOn(typeof(AbpAspNetCoreMvcModule))]
+    [DependsOn(typeof(AbpAutofacModule))]
     public class AppModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)

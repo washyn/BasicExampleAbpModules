@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
+using Ganss.Excel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -259,7 +260,8 @@ namespace WebApplicationMvc.Controllers
                 {
                     new ObjectSettings()
                     {
-                        HtmlContent = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur mauris eget ultrices  iaculis.",
+                        HtmlContent =
+                            @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In consectetur mauris eget ultrices  iaculis.",
                         PagesCount = true,
                         WebSettings = new WebSettings()
                         {
@@ -270,12 +272,41 @@ namespace WebApplicationMvc.Controllers
                     }
                 }
             };
-            
+
             var fileContent = _converter.Convert(document);
-            
-            return File(fileContent, 
-                MediaTypeNames.Application.Pdf, 
+
+            return File(fileContent,
+                MediaTypeNames.Application.Pdf,
                 $"{Guid.NewGuid().ToString()}.pdf");
+        }
+
+        public IActionResult PruebaExcel()
+        {
+            using var ms = new MemoryStream();
+            var excelMapper = new ExcelMapper();
+
+
+            var datos = _dbContex.Maestros
+                .AsNoTracking()
+                .Select(a => new MaestroListItemViewModel()
+                {
+                    Cadena = a.Cadena,
+                    Enum = a.Enum,
+                    Fecha = a.Fecha,
+                    Flotante = a.Flotante,
+                    Hora = a.Hora,
+                    Id = a.Id,
+                    FechaHora = a.FechaHora,
+                    Booleano = a.Booleano,
+                    Decimal = a.Decimal,
+                    Entero = a.Entero,
+                    FechaActualizacion = a.FechaActualizacion,
+                    FechaCreacion = a.FechaCreacion,
+                })
+                .ToArray();
+            
+            excelMapper.Save(ms, datos, xlsx: true);
+            return File(ms.ToArray(), MediaTypeNames.Application.Octet, $"{Guid.NewGuid().ToString()}.xlsx");
         }
     }
 }
