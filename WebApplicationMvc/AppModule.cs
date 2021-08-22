@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Volo.Abp;
+using Volo.Abp.AspNetCore;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
@@ -28,7 +29,9 @@ namespace WebApplicationMvc
     // TODO: add tempalte renderer
     [DependsOn(typeof(AbpAspNetCoreMvcUiBootstrapModule))]
     [DependsOn(typeof(AbpAspNetCoreMvcUiBundlingModule))]
-    [DependsOn(typeof(AbpAspNetCoreMvcModule))]
+    
+    // [DependsOn(typeof(AbpAspNetCoreMvcModule))] // esto trae cosas de DDD cosa que no se necesita
+    [DependsOn(typeof(AbpAspNetCoreModule))] // esto es mas basico solo trae cosas de asp net core
     [DependsOn(typeof(AbpAutofacModule))]
     public class AppModule : AbpModule
     {

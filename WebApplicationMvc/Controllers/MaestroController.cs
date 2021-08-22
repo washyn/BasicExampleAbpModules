@@ -13,6 +13,7 @@ using WebApplicationMvc.ViewModels;
 using WebApplicationMvc.ViewModels.Maestro;
 using WkHtmlToPdfDotNet;
 using WkHtmlToPdfDotNet.Contracts;
+using System.Text;
 
 namespace WebApplicationMvc.Controllers
 {
@@ -265,8 +266,7 @@ namespace WebApplicationMvc.Controllers
                         PagesCount = true,
                         WebSettings = new WebSettings()
                         {
-                            // DefaultEncoding = System.Text.Encoding.Get
-                            DefaultEncoding = "UTF-8",
+                            DefaultEncoding = Encoding.UTF8.BodyName,
                             UserStyleSheet = ""
                         }
                     }
