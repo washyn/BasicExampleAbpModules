@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Localization\Application\en.json" />
+    <Content Remove="Localization\Application\es.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\Application\en.json" />
+    <EmbeddedResource Include="Localization\Application\es.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.90" />
     <PackageReference Include="Haukcode.WkHtmlToPdfDotNet" Version="1.5.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">

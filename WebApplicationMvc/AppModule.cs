@@ -13,8 +13,11 @@ using Volo.Abp.AspNetCore.Mvc.UI;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.Autofac;
+using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
+using Volo.Abp.VirtualFileSystem;
 using WebApplicationMvc.EfCore;
+using WebApplicationMvc.Localization;
 using WkHtmlToPdfDotNet;
 using WkHtmlToPdfDotNet.Contracts;
 
@@ -33,6 +36,7 @@ namespace WebApplicationMvc
     // [DependsOn(typeof(AbpAspNetCoreMvcModule))] // esto trae cosas de DDD cosa que no se necesita
     [DependsOn(typeof(AbpAspNetCoreModule))] // esto es mas basico solo trae cosas de asp net core
     [DependsOn(typeof(AbpAutofacModule))]
+    [DependsOn(typeof(AbpLocalizationModule))]
     public class AppModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
@@ -40,8 +44,29 @@ namespace WebApplicationMvc
             var configuration = context.Services.GetConfiguration();
             context.Services.AddDbContext<ApplicationDbContex>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            #region Localization
+
+            // para incrustar el arxchivo json de localizacion
+            Configure<AbpVirtualFileSystemOptions>(options =>
+            {
+                options.FileSets.AddEmbedded<AppModule>("WebApplicationMvc");
+            });
             
-            
+            Configure<AbpLocalizationOptions>(options =>
+            {
+                options.Resources
+                    .Add<TestResource>("en")
+                    .AddVirtualJson("/Localization/Application");
+            });            
+
+            // Configure<AbpLocalizationOptions>(options =>
+            // {
+            //     options.DefaultResourceType = typeof(TestResource);
+            // });
+            //
+            #endregion
+
             
             context.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>

@@ -1,8 +1,15 @@
 ﻿@model IEnumerable<WebApplicationMvc.ViewModels.DetalleListItemViewModel>
+@using WebApplicationMvc.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<TestResource> Localizer
 
 @{
     ViewData["Title"] = "Tituloooo";
 }
+
+
+<h1>@Localizer["HelloWorld"]</h1>
+<h1>@Localizer["LongWelcomeMessage"]</h1>
 
 <div class="row">
     <div class="col-12">
