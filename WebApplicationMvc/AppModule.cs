@@ -8,8 +8,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Volo.Abp;
 using Volo.Abp.AspNetCore;
-using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.AspNetCore.Mvc.UI;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.Autofac;
@@ -23,20 +21,21 @@ using WkHtmlToPdfDotNet.Contracts;
 
 namespace WebApplicationMvc
 {
-    // TODO: add automapper
-    // TODO: add serilog and configs
-    
+
+    // TODO: add configs
     // TODO: add abp front base libs, used by theme
-    // TODO: add localization for test...
     // TODO: add boostrap default libs for abp-tag-helpers used by tag helpers
     // TODO: add tempalte renderer
-    [DependsOn(typeof(AbpAspNetCoreMvcUiBootstrapModule))]
-    [DependsOn(typeof(AbpAspNetCoreMvcUiBundlingModule))]
-    
+    [DependsOn(
+        typeof(AbpAspNetCoreMvcUiBootstrapModule),
+        typeof(AbpAspNetCoreMvcUiBundlingModule),
+        typeof(AbpAutofacModule),
+        typeof(AbpAspNetCoreModule),
+        typeof(AbpLocalizationModule))]
+            
     // [DependsOn(typeof(AbpAspNetCoreMvcModule))] // esto trae cosas de DDD cosa que no se necesita
-    [DependsOn(typeof(AbpAspNetCoreModule))] // esto es mas basico solo trae cosas de asp net core
-    [DependsOn(typeof(AbpAutofacModule))]
-    [DependsOn(typeof(AbpLocalizationModule))]
+    // esto es mas basico solo trae cosas de asp net core
+
     public class AppModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
