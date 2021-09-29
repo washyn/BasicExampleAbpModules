@@ -5,9 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplicationMvc.Models
 {
-    /// <summary>
-    /// la tabla en base de datos se genero a partir de este modelo con ef core
-    /// </summary>
     public class Maestro
     {
         public long Id { get; set; }
@@ -17,7 +14,6 @@ namespace WebApplicationMvc.Models
         public float? Flotante { get; set; }
         public PruebaEnum? Enum { get; set; }
         
-        // Ejemplo de Custom column name and value type
         [Column("CualquierNombreDeCadena", TypeName = "nvarchar(max)")]
         public string? Cadena { get; set; }
         public DateTime? FechaHora { get; set; }
@@ -25,11 +21,9 @@ namespace WebApplicationMvc.Models
         public DateTime? Hora { get; set; }
         public decimal? Decimal { get; set; }
         
-        // Valor por defecto fecha de creacion
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
         public DateTime FechaActualizacion { get; set; }
 
-        // Ejemplo de valor por defecto
         public bool? Booleano { get; set; } = false;
 
         [NotMapped]

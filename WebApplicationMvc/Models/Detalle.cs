@@ -8,10 +8,6 @@ using System.Threading.Tasks;
 
 namespace WebApplicationMvc.Models
 {
-    /// <summary>
-    /// La Clase que representa una tabla en la base de datos,
-    /// la tabla en base de datos se genero a partir de este modelo con ef core
-    /// </summary>
     public class Detalle
     {
         public int Id { get; set; }
@@ -27,8 +23,6 @@ namespace WebApplicationMvc.Models
         public string NombreArchivo { get; set; }
         public string Archivo { get; set; }
 
-        
-        
         public int? MaestroId { get; set; }
         public virtual Maestro Maestro { get; set; }
     }

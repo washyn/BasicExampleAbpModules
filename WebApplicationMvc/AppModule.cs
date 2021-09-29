@@ -23,20 +23,15 @@ namespace WebApplicationMvc
 {
 
     // TODO: add configs
-    // TODO: add abp front base libs, used by theme
+    // TODO: add abp front base libs, used by default abp theme or add lepton theme
     // TODO: add boostrap default libs for abp-tag-helpers used by tag helpers
-    // TODO: add tempalte renderer
     [DependsOn(
         typeof(AbpAspNetCoreMvcUiBootstrapModule),
         typeof(AbpAspNetCoreMvcUiBundlingModule),
         typeof(AbpAutofacModule),
         typeof(AbpAspNetCoreModule),
         typeof(AbpLocalizationModule))]
-            
-    
-    // [DependsOn(typeof(AbpAspNetCoreMvcModule))] // esto trae cosas de DDD cosa que no se necesita
-    // esto es mas basico solo trae cosas de asp net core
-
+    // [DependsOn(typeof(AbpAspNetCoreMvcModule))]
     public class AppModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
@@ -47,7 +42,7 @@ namespace WebApplicationMvc
 
             #region Localization
 
-            // para incrustar el arxchivo json de localizacion
+
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
                 options.FileSets.AddEmbedded<AppModule>("WebApplicationMvc");
@@ -80,7 +75,6 @@ namespace WebApplicationMvc
             
             // https://github.com/HakanL/WkHtmlToPdf-DotNet
             context.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
-            
             context.Services.AddControllersWithViews();
         }
 

@@ -54,14 +54,9 @@ namespace WebApplicationMvc.Controllers
                         {
                             new Claim("UserId", user.Identificador.ToString()),
                             new Claim("FullName", $"{user.Nombres} {user.Apellidos}"),
-                            // se agrega el nombre del rol del usaurio para verificar la autorizacion
-                            // TODO: add Rol name and remove custom role checher
                             new Claim(ClaimTypes.Role, user.Rol.Nombre),
                             new Claim(ClaimTypes.Name, user.User),
                         };
-                        // agregar rol y date of bird
-            
-                        // se crea un obj con las propuedades de la Authebticacion
                         var authProps = new AuthenticationProperties()
                         {
                             IsPersistent = true,
@@ -69,19 +64,14 @@ namespace WebApplicationMvc.Controllers
                             AllowRefresh = true,
                         };
             
-                        // se crear un identity claims
                         var identityClaims = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    
-                        // se hace un logout si es que ya habia un sesion anterior
                         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                         
-                        // se hace el login, con los claims, el equema q se usara y las propiedades
                         await HttpContext.SignInAsync(
                             CookieAuthenticationDefaults.AuthenticationScheme, 
                             new ClaimsPrincipal(identityClaims),
                             authProps);
                         
-                        // if returnUrl has val  redirect
                         return RedirectToAction("Index", "Home");
                     }
                     else
