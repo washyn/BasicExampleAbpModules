@@ -33,6 +33,7 @@ namespace WebApplicationMvc
         typeof(AbpAspNetCoreModule),
         typeof(AbpLocalizationModule))]
             
+    
     // [DependsOn(typeof(AbpAspNetCoreMvcModule))] // esto trae cosas de DDD cosa que no se necesita
     // esto es mas basico solo trae cosas de asp net core
 
