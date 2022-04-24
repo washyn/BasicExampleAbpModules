@@ -8,3 +8,6 @@ This is one example of basic use some modules of ABP framework
 - AbpAutofacModule, for DI
 - AbpAspNetCoreModule, base for use ABP 
 - AbpLocalizationModule, for localization
+
+# TODO: 
+- add data seeder
