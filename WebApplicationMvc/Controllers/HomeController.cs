@@ -25,6 +25,7 @@ namespace WebApplicationMvc.Controllers
             return View();
         }
 
+        [Authorize(Roles = Rol.Admin)]
         public IActionResult Privacy()
         {
             return View();
