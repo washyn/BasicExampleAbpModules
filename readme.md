@@ -10,4 +10,7 @@ This is one example of basic use some modules of ABP framework
 - AbpLocalizationModule, for localization
 
 # TODO: 
-- add data seeder
+- Add data seeder
+- Add abp string encriptor for password
+- Improve code
+- Add Basic test
