@@ -33,7 +33,7 @@ namespace WebApplicationMvc
         typeof(AbpAspNetCoreModule),
         typeof(AbpLocalizationModule))]
     // [DependsOn(typeof(AbpAspNetCoreMvcModule))]
-    public class AppModule : AbpModule
+    public class WebModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
@@ -46,7 +46,7 @@ namespace WebApplicationMvc
 
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
-                options.FileSets.AddEmbedded<AppModule>("WebApplicationMvc");
+                options.FileSets.AddEmbedded<WebModule>("WebApplicationMvc");
             });
             
             Configure<AbpLocalizationOptions>(options =>
