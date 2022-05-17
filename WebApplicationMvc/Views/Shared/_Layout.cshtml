@@ -1,5 +1,6 @@
 ﻿@using WebApplicationMvc.CustomHandler
 @using WebApplicationMvc.Views.Shared.Components.UserInfo
+@using WebApplicationMvc.Bundling
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,10 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - WebApplicationMvc</title>
     
-    <abp-style-bundle name="GlobalBundleStyle">
-        <abp-style src="/lib/bootstrap/dist/css/bootstrap.min.css"/>
-        <abp-style src="/css/site.css"/>
-    </abp-style-bundle>
+    @* <abp-style-bundle name="GlobalBundleStyle"> *@
+    @*     <abp-style src="/lib/bootstrap/dist/css/bootstrap.min.css"/> *@
+    @*     <abp-style src="/css/site.css"/> *@
+    @* </abp-style-bundle> *@
+    
+    <abp-style-bundle name="@StandardBundles.Styles.Global" />
+    @* @await Component.InvokeAsync(typeof(WidgetStylesViewComponent)) *@
+    @await RenderSectionAsync("styles", false)
 
 </head>
 <body>
@@ -74,13 +79,21 @@
 </footer>
 
 
-<abp-script-bundle name="ScriptBundleGlobal">
-    <abp-script src="/lib/jquery/dist/jquery.min.js"></abp-script>
-    <abp-script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></abp-script>
-</abp-script-bundle>
+@* <abp-script-bundle name="ScriptBundleGlobal"> *@
+@*     <abp-script src="/lib/jquery/dist/jquery.min.js"></abp-script> *@
+@*     <abp-script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></abp-script> *@
+@* </abp-script-bundle> *@
+@* *@
+@* <script src="~/js/site.js" asp-append-version="true"></script> *@
 
-<script src="~/js/site.js" asp-append-version="true"></script>
 
-@await RenderSectionAsync("Scripts", required: false)
+<abp-script-bundle name="@StandardBundles.Scripts.Global" />
+@* <script src="~/Abp/ApplicationConfigurationScript"></script> *@
+@* <script src="~/Abp/ServiceProxyScript"></script> *@
+@await RenderSectionAsync("scripts", false)
+@* @await Component.InvokeAsync(typeof(WidgetScriptsViewComponent)) *@
+
+
+@* @await RenderSectionAsync("Scripts", required: false) *@
 </body>
 </html>

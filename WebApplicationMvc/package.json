@@ -1,19 +1,8 @@
-﻿
-# Steps
-
-- Add front libs, package, gulp, copy resources
-- Add bundle contributor
-- Add libs in layout
-
-
-This library includes all another libs
-
-    "@abp/aspnetcore.mvc.ui.theme.shared": "^4.4.4"
-
-
-
-
-
+{
+  "name": "webapplicationmvc",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
     "@abp/aspnetcore.mvc.ui":"^4.4.4",
     "@abp/bootstrap":"^4.4.4",
     "@abp/bootstrap-datepicker":"^4.4.4",
@@ -27,9 +16,6 @@ This library includes all another libs
     "@abp/select2":"^4.4.4",
     "@abp/sweetalert":"^4.4.4",
     "@abp/timeago":"^4.4.4",
-    "@abp/toastr":"^4.4.4",
-
-
-
-# TODO:
-- Add library fixes for styles and scripts
+    "@abp/toastr":"^4.4.4"
+  }
+}

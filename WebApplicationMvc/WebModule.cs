@@ -11,10 +11,12 @@ using Volo.Abp.AspNetCore;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
+using Volo.Abp.AspNetCore.Mvc.UI.Packages;
 using Volo.Abp.Autofac;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.VirtualFileSystem;
+using WebApplicationMvc.Bundling;
 using WebApplicationMvc.EfCore;
 using WebApplicationMvc.Localization;
 using WkHtmlToPdfDotNet;
@@ -27,10 +29,11 @@ namespace WebApplicationMvc
     // TODO: add abp front base libs, used by default abp theme or add lepton theme
     // TODO: add boostrap default libs for abp-tag-helpers used by tag helpers
     [DependsOn(
-        typeof(AbpAspNetCoreMvcUiBootstrapModule),
+        typeof(AbpAspNetCoreMvcUiBootstrapModule), // TODO: add this module, dependencies
         typeof(AbpAspNetCoreMvcUiBundlingModule),
         typeof(AbpAutofacModule),
         typeof(AbpAspNetCoreModule),
+        typeof(AbpAspNetCoreMvcUiPackagesModule),
         typeof(AbpLocalizationModule))]
     // [DependsOn(typeof(AbpAspNetCoreMvcModule))]
     public class WebModule : AbpModule
@@ -63,16 +66,8 @@ namespace WebApplicationMvc
             //
             #endregion
 
-            
-            context.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = new PathString("/Account/Login");
-                    options.LogoutPath = new PathString("/Account/Logout");
-                    options.AccessDeniedPath = new PathString("/Account/AccessDenied");
-                    options.ReturnUrlParameter = "ReturnUrl";
-                    options.ExpireTimeSpan = TimeSpan.MaxValue;
-                });
+            ConfigureAuth(context);
+            ConfigureBundles();
             
             // https://github.com/HakanL/WkHtmlToPdf-DotNet
             context.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
@@ -109,6 +104,45 @@ namespace WebApplicationMvc
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
+
+
+        public void ConfigureAuth(ServiceConfigurationContext context)
+        {
+              
+            context.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new PathString("/Account/Login");
+                    options.LogoutPath = new PathString("/Account/Logout");
+                    options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+                    options.ReturnUrlParameter = "ReturnUrl";
+                    options.ExpireTimeSpan = TimeSpan.MaxValue;
+                });
+        }
+
+        public void ConfigureBundles()
+        {
+            Configure<AbpBundlingOptions>(options =>
+            {
+                options.StyleBundles.Configure(
+                    StandardBundles.Styles.Global,
+                    bundle =>
+                    {
+                        // bundle.AddFiles("/global-styles.css");
+                        bundle.Contributors.Add<GlobalStyleContributor>();
+                    }
+                );
+            
+                options.ScriptBundles.Configure(
+                    StandardBundles.Scripts.Global,
+                    bundle =>
+                    {
+                        // bundle.AddFiles("/global-script.js");
+                        bundle.Contributors.Add(typeof(GlobalScriptContributor));
+                    }
+                );
             });
         }
     }
