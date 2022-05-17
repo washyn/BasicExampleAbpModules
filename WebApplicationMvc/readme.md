@@ -1,0 +1,27 @@
+﻿
+
+
+
+This library includes all another libs
+
+    "@abp/aspnetcore.mvc.ui.theme.shared": "^4.4.4"
+
+
+
+
+
+    "@abp/aspnetcore.mvc.ui":"^4.4.4",
+    "@abp/bootstrap":"^4.4.4",
+    "@abp/bootstrap-datepicker":"^4.4.4",
+    "@abp/datatables.net-bs4":"^4.4.4",
+    "@abp/font-awesome":"^4.4.4",
+    "@abp/jquery-form":"^4.4.4",
+    "@abp/jquery-validation-unobtrusive":"^4.4.4",
+    "@abp/lodash":"^4.4.4",
+    "@abp/luxon":"^4.4.4",
+    "@abp/malihu-custom-scrollbar-plugin":"^4.4.4",
+    "@abp/select2":"^4.4.4",
+    "@abp/sweetalert":"^4.4.4",
+    "@abp/timeago":"^4.4.4",
+    "@abp/toastr":"^4.4.4",
+
