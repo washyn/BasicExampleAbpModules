@@ -14,3 +14,7 @@ This is one example of basic use some modules of ABP framework
 - Add abp string encriptor for password
 - Improve code
 - Add Basic test
+
+- Add steps for run
+    - install abp cli
+    
