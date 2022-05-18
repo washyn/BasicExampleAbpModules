@@ -12,6 +12,7 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Packages;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.Autofac;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
@@ -33,7 +34,8 @@ namespace WebApplicationMvc
         typeof(AbpAspNetCoreMvcUiBundlingModule),
         typeof(AbpAutofacModule),
         typeof(AbpAspNetCoreModule),
-        typeof(AbpAspNetCoreMvcUiPackagesModule),
+        // typeof(AbpAspNetCoreMvcUiPackagesModule),
+        typeof(AbpAspNetCoreMvcUiThemeSharedModule), // this include boostrap, widget and packages.
         typeof(AbpLocalizationModule))]
     // [DependsOn(typeof(AbpAspNetCoreMvcModule))]
     public class WebModule : AbpModule

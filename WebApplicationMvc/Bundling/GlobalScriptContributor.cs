@@ -12,25 +12,27 @@ using Volo.Abp.AspNetCore.Mvc.UI.Packages.Select2;
 using Volo.Abp.AspNetCore.Mvc.UI.Packages.SweetAlert;
 using Volo.Abp.AspNetCore.Mvc.UI.Packages.Timeago;
 using Volo.Abp.AspNetCore.Mvc.UI.Packages.Toastr;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Bundling;
 using Volo.Abp.Modularity;
 
 namespace WebApplicationMvc.Bundling
 {
-    [DependsOn(
-        typeof(JQueryScriptContributor),
-        typeof(BootstrapScriptContributor),
-        typeof(LodashScriptContributor),
-        typeof(JQueryValidationUnobtrusiveScriptContributor),
-        typeof(JQueryFormScriptContributor),
-        typeof(Select2ScriptContributor),
-        typeof(DatatablesNetBs4ScriptContributor),
-        typeof(SweetalertScriptContributor),
-        typeof(ToastrScriptBundleContributor),
-        typeof(MalihuCustomScrollbarPluginScriptBundleContributor),
-        typeof(LuxonScriptContributor),
-        typeof(TimeagoScriptContributor),
-        typeof(BootstrapDatepickerScriptContributor)
-    )]
+    // [DependsOn(
+    //     typeof(JQueryScriptContributor),
+    //     typeof(BootstrapScriptContributor),
+    //     typeof(LodashScriptContributor),
+    //     typeof(JQueryValidationUnobtrusiveScriptContributor),
+    //     typeof(JQueryFormScriptContributor),
+    //     typeof(Select2ScriptContributor),
+    //     typeof(DatatablesNetBs4ScriptContributor),
+    //     typeof(SweetalertScriptContributor),
+    //     typeof(ToastrScriptBundleContributor),
+    //     typeof(MalihuCustomScrollbarPluginScriptBundleContributor),
+    //     typeof(LuxonScriptContributor),
+    //     typeof(TimeagoScriptContributor),
+    //     typeof(BootstrapDatepickerScriptContributor)
+    // )]
+    [DependsOn(typeof(SharedThemeGlobalScriptContributor))]
     public class GlobalScriptContributor : BundleContributor
     {
         // TODO: add them share js and test libs and tag helpers

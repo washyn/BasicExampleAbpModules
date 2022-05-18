@@ -1,9 +1,17 @@
 ﻿
 # Steps
 
-- Add front libs, package, gulp, copy resources
-- Add bundle contributor
-- Add libs in layout
+
+
+
+
+
+# TODO
+- Add admin lte as template
+- Add tests 1 test.
+- Check how to work original and improve
+- Removed un used code
+- Add crud, with datatables.
 
 
 This library includes all another libs
@@ -33,3 +41,6 @@ This library includes all another libs
 
 # TODO:
 - Add library fixes for styles and scripts
+- Add front libs, package, gulp, copy resources
+- Add bundle contributor
+- Add libs in layout
