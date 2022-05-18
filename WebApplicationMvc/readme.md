@@ -1,24 +1,16 @@
-﻿
-# Steps
-
-
-
+﻿# Steps
 
 
 
 # TODO
-- Add admin lte as template
-- Add tests 1 test.
-- Check how to work original and improve
-- Removed un used code
-- Add crud, with datatables.
 
-
+- Improve crud with abp tag helpers
+- Remove table roles, and ad as atribute or irmprove
+- Add another proyecto for data seed or receive args for data seed.
+- add instruction for run.
 This library includes all another libs
 
     "@abp/aspnetcore.mvc.ui.theme.shared": "^4.4.4"
-
-
 
 
 
@@ -39,8 +31,16 @@ This library includes all another libs
 
 
 
-# TODO:
+
+# DONE
+- add configs
+- add abp front base libs, used by default abp theme or add lepton theme
+- add boostrap default libs for abp-tag-helpers used by tag helpers
+- add this module, dependencies
 - Add library fixes for styles and scripts
 - Add front libs, package, gulp, copy resources
 - Add bundle contributor
 - Add libs in layout
+- Check how to work original and improve
+- Removed un used code
+- Add admin lte as template
