@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "@abp/aspnetcore.mvc.ui.theme.shared": "^4.4.4"
+    "@abp/aspnetcore.mvc.ui.theme.shared": "^4.4.4",
+    "admin-lte": "3.2"
   }
 }

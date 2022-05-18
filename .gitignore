@@ -277,3 +277,6 @@ __pycache__/
 
 # Use abp install-libs to restore.
 **/wwwroot/libs/*
+
+**/wwwroot/dist/*
+**/wwwroot/plugins/*
