@@ -17,41 +17,12 @@ using Volo.Abp.Modularity;
 
 namespace WebApplicationMvc.Bundling
 {
-    // [DependsOn(
-    //     typeof(JQueryScriptContributor),
-    //     typeof(BootstrapScriptContributor),
-    //     typeof(LodashScriptContributor),
-    //     typeof(JQueryValidationUnobtrusiveScriptContributor),
-    //     typeof(JQueryFormScriptContributor),
-    //     typeof(Select2ScriptContributor),
-    //     typeof(DatatablesNetBs4ScriptContributor),
-    //     typeof(SweetalertScriptContributor),
-    //     typeof(ToastrScriptBundleContributor),
-    //     typeof(MalihuCustomScrollbarPluginScriptBundleContributor),
-    //     typeof(LuxonScriptContributor),
-    //     typeof(TimeagoScriptContributor),
-    //     typeof(BootstrapDatepickerScriptContributor)
-    // )]
     [DependsOn(typeof(SharedThemeGlobalScriptContributor))]
     public class GlobalScriptContributor : BundleContributor
     {
-        // TODO: add them share js and test libs and tag helpers
         public override void ConfigureBundle(BundleConfigurationContext context)
         {
-            // context.Files.AddRange(new[]
-            // {
-            //     "/libs/abp/aspnetcore-mvc-ui-theme-shared/ui-extensions.js",
-            //     "/libs/abp/aspnetcore-mvc-ui-theme-shared/jquery/jquery-extensions.js",
-            //     "/libs/abp/aspnetcore-mvc-ui-theme-shared/jquery-form/jquery-form-extensions.js",
-            //     
-            //     "/libs/abp/aspnetcore-mvc-ui-theme-shared/jquery/widget-manager.js",
-            //     "/libs/abp/aspnetcore-mvc-ui-theme-shared/bootstrap/dom-event-handlers.js",
-            //     "/libs/abp/aspnetcore-mvc-ui-theme-shared/bootstrap/modal-manager.js",
-            //     
-            //     "/libs/abp/aspnetcore-mvc-ui-theme-shared/datatables/datatables-extensions.js",
-            //     "/libs/abp/aspnetcore-mvc-ui-theme-shared/sweetalert/abp-sweetalert.js",
-            //     "/libs/abp/aspnetcore-mvc-ui-theme-shared/toastr/abp-toastr.js"
-            // });
+
         }
     }
 }

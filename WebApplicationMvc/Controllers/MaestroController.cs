@@ -90,17 +90,6 @@ namespace WebApplicationMvc.Controllers
         [HttpPost]
         public IActionResult Create([FromForm] MaestroCreateEditViewModel input)
         {
-            // public int? Entero { get; set; }
-            // public string? Cadena { get; set; }
-            // public DateTime? FechaHora { get; set; }
-
-            // public float? Flotante { get; set; }
-            // public PruebaEnum? Enum { get; set; }
-            // public DateTime? Fecha { get; set; }
-
-            // public DateTime? Hora { get; set; }
-            // public decimal? Decimal { get; set; }
-
             if (ModelState.IsValid)
             {
                 var newModel = new Maestro()
@@ -162,16 +151,6 @@ namespace WebApplicationMvc.Controllers
 
                 var modelEdit = _dbContex.Maestros.FirstOrDefault(a => a.Id == input.Id);
 
-                // public int? Entero { get; set; }
-                // public float? Flotante { get; set; }
-                // public PruebaEnum? Enum { get; set; }
-                //
-                // [MaxLength(250)]
-                // public string? Cadena { get; set; }
-                // public DateTime? FechaHora { get; set; }
-                // public DateTime? Fecha { get; set; }
-                // public DateTime? Hora { get; set; }
-                // public decimal? Decimal { get; set; }
 
                 modelEdit.Entero = input.Entero;
                 modelEdit.Flotante = input.Flotante;

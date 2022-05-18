@@ -25,19 +25,12 @@ using WkHtmlToPdfDotNet.Contracts;
 
 namespace WebApplicationMvc
 {
-
-    // TODO: add configs
-    // TODO: add abp front base libs, used by default abp theme or add lepton theme
-    // TODO: add boostrap default libs for abp-tag-helpers used by tag helpers
     [DependsOn(
-        typeof(AbpAspNetCoreMvcUiBootstrapModule), // TODO: add this module, dependencies
         typeof(AbpAspNetCoreMvcUiBundlingModule),
         typeof(AbpAutofacModule),
         typeof(AbpAspNetCoreModule),
-        // typeof(AbpAspNetCoreMvcUiPackagesModule),
-        typeof(AbpAspNetCoreMvcUiThemeSharedModule), // this include boostrap, widget and packages.
+        typeof(AbpAspNetCoreMvcUiThemeSharedModule),
         typeof(AbpLocalizationModule))]
-    // [DependsOn(typeof(AbpAspNetCoreMvcModule))]
     public class WebModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
