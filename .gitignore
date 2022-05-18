@@ -273,3 +273,10 @@ __pycache__/
 # tools/
 
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore
+
+
+# Use abp install-libs to restore.
+**/wwwroot/libs/*
+
+**/wwwroot/dist/*
+**/wwwroot/plugins/*
