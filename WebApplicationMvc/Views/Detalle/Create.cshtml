@@ -4,33 +4,23 @@
     <div class="col-3"></div>
     <div class="col-6">
         <form asp-controller="Detalle" asp-action="Create">
+            
             <abp-input asp-for="Cadena"></abp-input>
             <abp-input asp-for="Booleano"></abp-input>
             <abp-input asp-for="Decimanl"></abp-input>
             <abp-input asp-for="Entero"></abp-input>
             <abp-input asp-for="Fecha"></abp-input>
-            
             <abp-input asp-for="Hora"></abp-input>
-            
-            @* TODO: test as required *@
-            @* TODO: test with default value *@
             <abp-radio asp-for="Enum" inline="true"></abp-radio>
-
             <abp-input asp-for="FechaHora"></abp-input>
             <abp-input asp-for="Flotante"></abp-input>
-            @* TODO: test with file for abp-input tag helper *@
-            @* TODO: replace all tag helpers *@
-            @* <abp-input asp-for="Archivo"></abp-input> *@
-            @* <abp-input asp-for="Cadena"></abp-input> *@
-            
-          
-            
+
             <div class="form-group">
                 <label asp-for="Archivo" class="control-label"></label>
                 <input asp-for="Archivo" class="form-control"/>
                 <span asp-validation-for="Archivo" class="text-danger"></span>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="MaestroId" class="control-label"></label>
                 <select asp-for="MaestroId" class="form-control" asp-items="ViewBag.SelectList"></select>

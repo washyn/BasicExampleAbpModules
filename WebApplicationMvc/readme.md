@@ -3,11 +3,11 @@
 
 
 # TODO
-
-- Improve crud with abp tag helpers
 - Remove table roles, and ad as atribute or irmprove
 - Add another proyecto for data seed or receive args for data seed.
-- add instruction for run.
+- Add instructions for run.
+
+
 This library includes all another libs
 
     "@abp/aspnetcore.mvc.ui.theme.shared": "^4.4.4"

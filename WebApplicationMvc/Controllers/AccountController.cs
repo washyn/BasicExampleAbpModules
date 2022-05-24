@@ -39,7 +39,7 @@ namespace WebApplicationMvc.Controllers
                     .Usuarios
                     .Include(s => s.Rol)
                     .FirstOrDefault(a => a.User == input.User);
-
+                
                 if (user == null)
                 {
                     ModelState.AddModelError(nameof(input.User),"Usuario no encontrado.");
