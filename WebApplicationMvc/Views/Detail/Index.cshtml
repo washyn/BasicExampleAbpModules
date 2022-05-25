@@ -1,0 +1,40 @@
+﻿@* @model TModel *@
+
+@{
+    // Layout = null;
+}
+
+@* <!DOCTYPE html> *@
+@* *@
+@* <html> *@
+@* <head> *@
+@*     <title>title</title> *@
+@* </head> *@
+@* <body> *@
+@* <div> *@
+@*        *@
+@* </div> *@
+@* </body> *@
+@* </html> *@
+
+@section scripts
+{
+    <abp-script src="/js/Detail/Index.js"></abp-script>
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size="_6">
+                <h3>Example crud</h3>
+            </abp-column>
+            <abp-column size="_6">
+                <abp-button id="createBtn" text="Crear" button-type="Outline_Primary">
+                </abp-button>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" class="nowrap" id="exampleTable"></abp-table>
+    </abp-card-body>
+</abp-card>

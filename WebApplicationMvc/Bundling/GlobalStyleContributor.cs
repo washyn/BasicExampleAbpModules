@@ -22,6 +22,7 @@ namespace WebApplicationMvc.Bundling
         public override void PostConfigureBundle(BundleConfigurationContext context)
         {
             context.Files.Add("/css/site.css");
+            context.Files.Add("/css/site-fixes.css");
         }
     }
 }

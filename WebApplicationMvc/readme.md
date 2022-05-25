@@ -6,8 +6,8 @@
 - Remove table roles, and ad as atribute or irmprove
 - Add another proyecto for data seed or receive args for data seed.
 - Add instructions for run.
-- Add Backend crud for existing table.
-- Add fronted crud for sercice
+- Add fronted crud for sercice(add modal for create, update, and delete)
+
 
 This library includes all another libs
 
@@ -45,3 +45,4 @@ This library includes all another libs
 - Check how to work original and improve
 - Removed un used code
 - Add admin lte as template
+- Add Backend crud for existing table.
