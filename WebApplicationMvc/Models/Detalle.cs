@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Domain.Entities;
 
 namespace WebApplicationMvc.Models
 {
-    public class Detalle
+    public class Detalle : Entity<int>
     {
         public int Id { get; set; }
         public int Entero { get; set; }

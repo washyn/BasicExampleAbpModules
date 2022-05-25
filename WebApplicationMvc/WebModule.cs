@@ -14,6 +14,7 @@ using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Packages;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.Autofac;
+using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.VirtualFileSystem;
@@ -30,6 +31,7 @@ namespace WebApplicationMvc
         typeof(AbpAutofacModule),
         typeof(AbpAspNetCoreModule),
         typeof(AbpAspNetCoreMvcUiThemeSharedModule),
+        typeof(AbpEntityFrameworkCoreModule),
         typeof(AbpLocalizationModule))]
     public class WebModule : AbpModule
     {
@@ -39,6 +41,20 @@ namespace WebApplicationMvc
             context.Services.AddDbContext<ApplicationDbContex>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
+
+            context.Services.AddAbpDbContext<ApplicationDbContex>(builder =>
+            {
+                builder.AddDefaultRepositories(includeAllEntities: true);
+            });
+            
+            Configure<AbpDbContextOptions>(options =>
+            {
+                options.Configure(configurationContext =>
+                {
+                    configurationContext.UseSqlServer();
+                });
+            });
+            
             #region Localization
 
 

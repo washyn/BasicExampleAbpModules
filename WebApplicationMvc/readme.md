@@ -6,7 +6,8 @@
 - Remove table roles, and ad as atribute or irmprove
 - Add another proyecto for data seed or receive args for data seed.
 - Add instructions for run.
-
+- Add Backend crud for existing table.
+- Add fronted crud for sercice
 
 This library includes all another libs
 
