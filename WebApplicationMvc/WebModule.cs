@@ -55,6 +55,13 @@ namespace WebApplicationMvc
                 });
             });
             
+            Configure<AbpAspNetCoreMvcOptions>(options =>
+            {
+                options
+                    .ConventionalControllers
+                    .Create(typeof(WebModule).Assembly);
+            });
+            
             #region Localization
 
 

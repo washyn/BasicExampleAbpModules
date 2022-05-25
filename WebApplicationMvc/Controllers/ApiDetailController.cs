@@ -10,12 +10,17 @@ using WebApplicationMvc.Models;
 using WebApplicationMvc.Models.Dtos;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Volo.Abp;
+using Volo.Abp.Application.Services;
 
 namespace WebApplicationMvc.Controllers
 {
+    // [RemoteService()] // can be use this decorator for mark this as remote service
+    // by default create proxy scripts for call this services
     [Route("api/detail")]
     [ApiController]
     public class ApiDetailController : ControllerBase
+        // , IRemoteService
     {
         private readonly IRepository<Detalle, int> _detalleRepository;
 
@@ -26,7 +31,7 @@ namespace WebApplicationMvc.Controllers
         
         // ok
         [HttpGet]
-        public async Task<PagedResultDto<Detalle>> GetList([FromQuery] DetailsFilter filter)
+        public async Task<PagedResultDto<Detalle>> GetListAsync([FromQuery] DetailsFilter filter)
         {
             var queryable = await _detalleRepository.GetQueryableAsync();
 
@@ -48,7 +53,7 @@ namespace WebApplicationMvc.Controllers
         // ok
         [Route("{id}")]
         [HttpGet]
-        public Task<Detalle> GetList(int id)
+        public Task<Detalle> Get(int id)
         {
             return _detalleRepository.GetAsync(id);
         }
@@ -86,7 +91,7 @@ namespace WebApplicationMvc.Controllers
         // ok
         [HttpDelete]
         [Route("{id}")]
-        public Task DeleteAsync(int id)
+        public Task Delete(int id)
         {
             return _detalleRepository.DeleteAsync(id);
         }
