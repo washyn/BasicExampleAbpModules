@@ -18,4 +18,17 @@
     <PackageReference Include="Volo.Abp.Core" Version="4.3.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Maestro\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Maestro\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Maestro\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Maestro\ShowDetails.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Maestro\ShowForDelete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Detalle\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Detalle\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Detalle\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Detalle\ShowDetails.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Detalle\ShowForDelete.cshtml" />
+  </ItemGroup>
+
 </Project>

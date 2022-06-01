@@ -6,14 +6,14 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - WebApplicationMvc</title>
+    <title>@ViewData["Title"] - Sofware Consulta Medica</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 justify-content-between">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplicationMvc</a>
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sofware Consulta Medica</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,7 @@
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
             <ul class="navbar-nav flex-grow-1">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
                 </li>
                 @if (User.IsInRole(Rol.Admin))
                 {
@@ -30,29 +30,12 @@
                     </li>
                 }
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Detalle" asp-action="Index">Detalle</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Maestro" asp-action="Index">Maestro</a>
-                </li>
-
-                @* align to other *@
-
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Salir</a>
                 </li>
 
             </ul>
         </div>
-        @* ways for show userName *@
-        @* <a class="navbar-text d-none d-sm-block">@User.Identity?.Name</a> *@
-        @* <a class="navbar-text d-none d-sm-block">@User.Claims.FirstOrDefault(a => a.Type == "FullName")?.Value</a> *@
-        @* with claim extensions *@
-        @* <a class="navbar-text d-none d-sm-block">@User.GetLoggedInUserName()</a> *@
-        
-        @* with view component as tag *@
-        @* <vc:user-info></vc:user-info> *@
-        @* with invoke component *@
+
         @await Component.InvokeAsync(typeof(UserInfoViewComponent))
         
     </nav>
@@ -65,7 +48,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2021 - WebApplicationMvc - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; @DateTime.Now.Year - Sofware Consulta Medica - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
