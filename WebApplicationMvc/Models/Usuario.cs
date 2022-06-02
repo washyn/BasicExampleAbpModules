@@ -33,7 +33,8 @@ namespace WebApplicationMvc.Models
         
         
         /// <summary>
-        /// Funciona para comparar la contraseña al iniciar sesion(login)
+        /// Funciona para comparar la contraseña al iniciar sesion(login),
+        /// la contrasena se guarda en base64 para agregarle algo de seguridad basica 
         /// </summary>
         /// <param name="plainPassword"></param>
         /// <returns></returns>

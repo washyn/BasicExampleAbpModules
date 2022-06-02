@@ -65,6 +65,7 @@ namespace WebApplicationMvc.Controllers
                 }
                 else
                 {
+                    // la contrasena se guarda en base64 para agregarle algo de seguridad basica 
                     var resultCOmpare = user.ComparePasswordBase64(input.Password);
                     // si la conraseña es correcta, se hace el login
                     if (resultCOmpare)
