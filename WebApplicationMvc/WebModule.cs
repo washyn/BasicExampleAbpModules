@@ -90,6 +90,8 @@ namespace WebApplicationMvc
             // https://github.com/HakanL/WkHtmlToPdf-DotNet
             context.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             context.Services.AddControllersWithViews();
+            
+            // add backend validation.
         }
 
 
@@ -122,6 +124,7 @@ namespace WebApplicationMvc
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                // endpoints.MapRazorPages();
             });
         }
 
