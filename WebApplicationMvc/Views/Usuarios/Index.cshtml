@@ -1,0 +1,42 @@
+﻿@model List<WebApplicationMvc.ViewModels.Usuarios.UsuarioViewModel>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+  var counter = 1;
+}
+
+
+<div class="row">
+  <div class="col-6"><h2>Usuarios de la aplicacion</h2></div>
+  <div class="col-6 text-right">
+    <a asp-controller="Usuarios" asp-action="Create" class="btn btn-sm btn-outline-primary" id="registrarUsuario">Registrar usuario</a>
+  </div>
+</div>
+
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">User name</th>
+      <th scope="col">Nombres y apellidos</th>
+      <th scope="col">Rol</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model)
+    {
+      <tr>
+        <th scope="row">@(counter++)</th>
+        <td>@item.UserName</td>
+        <td>@item.FullName</td>
+        <td>@item.Rol</td>
+        <td>
+          <a class="btn btn-sm btn-outline-danger" asp-controller="Usuarios" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a>
+          @* <button class="btn btn-sm btn-outline-secondary">Editar</button> *@
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

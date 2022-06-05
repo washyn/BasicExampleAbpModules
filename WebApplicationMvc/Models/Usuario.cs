@@ -29,8 +29,8 @@ namespace WebApplicationMvc.Models
         // TODO: no de deja poner como fk ...
         [ForeignKey("RolId")]
         public int? RolId { get; set; }
-        
-        
+
+        public string Role { get; set; }
         
         /// <summary>
         /// Funciona para comparar la contraseña al iniciar sesion(login),

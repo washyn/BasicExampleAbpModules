@@ -31,4 +31,8 @@
     <_ContentIncludedByDefault Remove="Views\Detalle\ShowForDelete.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages" />
+  </ItemGroup>
+
 </Project>

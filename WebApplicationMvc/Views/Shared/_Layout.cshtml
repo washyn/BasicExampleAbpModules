@@ -13,7 +13,9 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 justify-content-between">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sofware Consulta Medica</a>
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            Sofware Consulta Medica
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -29,9 +31,20 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
                 }
+                
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Salir</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
                 </li>
+                
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                
+                <li class="nav-item">
+                    <a class="nav-link text-danger" asp-area="" asp-controller="Account" asp-action="Logout">Salir</a>
+                </li>
+                
+               
 
             </ul>
         </div>
