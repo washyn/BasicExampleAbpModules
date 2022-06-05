@@ -69,5 +69,50 @@ namespace WebApplicationMvc.Controllers
             _dbContex.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+
+        public IActionResult Update(int id)
+        {
+            var user = _dbContex.Usuarios.FirstOrDefault(a => a.Identificador == id);
+            if (user != null)
+            {
+                var model = new UpdateUserViewModel()
+                {
+                    Apellidos = user.Apellidos,
+                    Id = user.Identificador,
+                    Nombres = user.Nombres,
+                    Password = user.Password,
+                    Rol = user.Role,
+                    UserName = user.User,
+                };
+                return View(model);
+            }
+
+            return NotFound();
+        }
+        
+        [HttpPost]
+        public IActionResult Update(UpdateUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _dbContex.Usuarios.FirstOrDefault(a => a.Identificador == model.Id);
+                if (user != null)
+                {
+                    user.Apellidos = model.Apellidos;
+                    user.Identificador = model.Id;
+                    user.Nombres = model.Nombres;
+                    user.Password = model.Password;
+                    user.Role = model.Rol;
+                    user.User = model.UserName;
+                    
+                    _dbContex.Usuarios.Update(user);
+                    _dbContex.SaveChanges();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(model);
+        }
     }
 }

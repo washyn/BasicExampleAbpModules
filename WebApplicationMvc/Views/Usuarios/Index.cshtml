@@ -34,7 +34,7 @@
         <td>@item.Rol</td>
         <td>
           <a class="btn btn-sm btn-outline-danger" asp-controller="Usuarios" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a>
-          @* <button class="btn btn-sm btn-outline-secondary">Editar</button> *@
+          <a class="btn btn-sm btn-outline-secondary" asp-controller="Usuarios" asp-action="Update" asp-route-id="@item.Id">Editar</a>
         </td>
       </tr>
     }

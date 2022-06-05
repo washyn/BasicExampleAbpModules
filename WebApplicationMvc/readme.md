@@ -4,9 +4,12 @@
 
 
 
-
 # NOTE:
 - Default users
 
     Users: admin 123qwe
         user 123qwe
+
+
+# Done
+- User manangment(crud)
