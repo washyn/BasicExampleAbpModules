@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationMvc.EfCore;
@@ -11,6 +12,7 @@ using WebApplicationMvc.ViewModels.Usuarios;
 
 namespace WebApplicationMvc.Controllers
 {
+    [Authorize(Roles = Rol.Medico)]
     public class UsuariosController : Controller
     {
         private readonly ApplicationDbContex _dbContex;
@@ -114,5 +116,6 @@ namespace WebApplicationMvc.Controllers
 
             return View(model);
         }
+        
     }
 }

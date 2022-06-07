@@ -21,35 +21,57 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
-                </li>
-                @if (User.IsInRole(Rol.Admin))
-                {
+           
+                <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
                     </li>
-                }
-                
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                </li>
-                
-                &nbsp;
-                &nbsp;
-                &nbsp;
-                
-                <li class="nav-item">
-                    <a class="nav-link text-danger" asp-area="" asp-controller="Account" asp-action="Logout">Salir</a>
-                </li>
-                
-               
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        @if (User.IsInRole(Rol.Medico))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                            </li>
+                        }
+                    }
+                    &nbsp;
+                                        &nbsp;
+                    &nbsp;
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" asp-area="" asp-controller="Account" asp-action="Create">Crear cuenta</a>
+                    </li>
+                    
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                    }
+                    
+                    
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
 
-            </ul>
+                   @if (User.Identity.IsAuthenticated)
+                   {
+                       <li class="nav-item">
+                           <a class="nav-link text-danger" asp-area="" asp-controller="Account" asp-action="Logout">Salir</a>
+                       </li>
+                   }
+                </ul>
+            
         </div>
 
-        @await Component.InvokeAsync(typeof(UserInfoViewComponent))
+        @if (User.Identity.IsAuthenticated)
+        {
+            @await Component.InvokeAsync(typeof(UserInfoViewComponent))
+        }
         
     </nav>
 </header>

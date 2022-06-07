@@ -1,28 +1,25 @@
 ﻿@model WebApplicationMvc.ViewModels.Account.LoginViewModel
 
 @{
-    Layout = string.Empty;
+    // Layout = string.Empty;
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Sofware Consulta Medica</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    @* <link rel="stylesheet" href="~/css/site.css"/> *@
-
-    @* @await RenderSectionAsync("Styles", required: false) *@
-
-</head>
-<body>
-
-<div class="container">
-    <main role="main" class="pb-3">
+@* <!DOCTYPE html> *@
+@* <html lang="en"> *@
+@* <head> *@
+@*     <meta charset="utf-8"/> *@
+@*     <meta name="viewport" content="width=device-width, initial-scale=1.0"/> *@
+@*     <title>Sofware Consulta Medica</title> *@
+@*     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/> *@
+@* </head> *@
+@* <body> *@
+@* *@
+@* <div class="container"> *@
+@*     <main role="main" class="pb-3"> *@
+        
         @* @RenderBody() *@
-
         @* ... *@
+
         <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-6 pt-5">
@@ -42,9 +39,13 @@
                                 <input asp-for="Password" class="form-control">
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
-                            
+
                             <div asp-validation-summary="All" class="text-danger"></div>
-                            
+
+                            <div class="mb-2 text-right">
+                                <a asp-controller="Account" asp-action="Create">Crear cuenta</a>
+                            </div>
+
                             <button class="btn btn-primary btn-block" type="submit">
                                 Entrar
                             </button>
@@ -56,15 +57,11 @@
             </div>
             <div class="col-sm-3"></div>
         </div>
-    </main>
-</div>
-
-
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-@* <script src="~/js/site.js" asp-append-version="true"></script> *@
-
-@* @await RenderSectionAsync("Scripts", required: false) *@
-
-</body>
-</html>
+@* *@
+@*     </main> *@
+@* </div> *@
+@* *@
+@* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
+@* </body> *@
+@* </html> *@

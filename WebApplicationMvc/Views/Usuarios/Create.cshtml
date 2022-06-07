@@ -2,37 +2,4 @@
 @{
     // Layout = null;
 }
-
-<h2>Registrar usuario</h2>
-
-<form method="post" asp-controller="Usuarios" asp-action="Create">
-    <form>
-        <div class="form-group">
-            <label asp-for="Nombres"></label>
-            <input asp-for="Nombres" class="form-control">
-            <span class="text-danger" asp-validation-for="Nombres"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Apellidos"></label>
-            <input asp-for="Apellidos" class="form-control">
-            <span class="text-danger" asp-validation-for="Apellidos"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="UserName"></label>
-            <input asp-for="UserName" class="form-control">
-            <span class="text-danger" asp-validation-for="UserName"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Password"></label>
-            <input asp-for="Password" class="form-control">
-            <span class="text-danger" asp-validation-for="Password"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Rol"></label>
-            <select asp-items="@Rol.GetRoles()" asp-for="Rol" class="form-control"></select>
-            <span class="text-danger" asp-validation-for="Rol"></span>
-        </div>
-        <button type="submit" class="btn btn-outline-primary btn-block">Submit</button>
-    </form>
-</form>
+<partial name="Others/_RegisterUser" model="Model"/>

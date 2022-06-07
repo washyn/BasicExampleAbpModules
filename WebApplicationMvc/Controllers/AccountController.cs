@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -9,7 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationMvc.EfCore;
+using WebApplicationMvc.Models;
 using WebApplicationMvc.ViewModels.Account;
+using WebApplicationMvc.ViewModels.Usuarios;
 
 namespace WebApplicationMvc.Controllers
 {
@@ -77,7 +80,7 @@ namespace WebApplicationMvc.Controllers
                             new Claim("FullName", $"{user.Nombres} {user.Apellidos}"),
                             // se agrega el nombre del rol del usaurio para verificar la autorizacion
                             // TODO: add Rol name and remove custom role checher
-                            new Claim(ClaimTypes.Role, user.Rol.Nombre),
+                            new Claim(ClaimTypes.Role, user.Role),
                             new Claim(ClaimTypes.Name, user.User),
                         };
                         // agregar rol y date of bird
@@ -132,5 +135,30 @@ namespace WebApplicationMvc.Controllers
             return View();
         }
         
+        
+        public IActionResult Create()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public IActionResult Create(CreateUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _dbContex.Usuarios
+                    .Add(new Usuario()
+                    {
+                        Apellidos = model.Apellidos,
+                        Nombres = model.Nombres,
+                        Role = model.Rol,
+                        User = model.UserName,
+                        Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(model.Password))
+                    });
+                _dbContex.SaveChanges();
+                return RedirectToAction(nameof(Login));
+            }
+            return View(model);
+        }
     }
 }

@@ -10,7 +10,7 @@ using WebApplicationMvc.Models;
 
 namespace WebApplicationMvc.Controllers
 {
-    [Authorize]
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -25,7 +25,7 @@ namespace WebApplicationMvc.Controllers
             return View();
         }
 
-        [Authorize(Roles = Rol.Admin)]
+        [Authorize(Roles = Rol.Medico)]
         public IActionResult Privacy()
         {
             return View();
