@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -135,27 +136,30 @@ namespace WebApplicationMvc.Controllers
             return View();
         }
         
-        
+        [AllowAnonymous]
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
         
+        [AllowAnonymous]
         [HttpPost]
-        public IActionResult Create(CreateUserViewModel model)
+        public async Task<IActionResult> Create(CreateUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _dbContex.Usuarios
-                    .Add(new Usuario()
+                await _dbContex.Usuarios
+                    .AddAsync(new Usuario()
                     {
                         Apellidos = model.Apellidos,
                         Nombres = model.Nombres,
                         Role = model.Rol,
                         User = model.UserName,
-                        Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(model.Password))
+                        Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(model.Password)),
                     });
-                _dbContex.SaveChanges();
+                await _dbContex.SaveChangesAsync();
+                Thread.Sleep(1000);
                 return RedirectToAction(nameof(Login));
             }
             return View(model);
