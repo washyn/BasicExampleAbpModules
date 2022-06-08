@@ -7,28 +7,32 @@ namespace WebApplicationMvc.Models
 {
     // Este decorador es para especificar en nombre de la tabla que se va ah crear con EF, o 
     // si es qye ya existe una tabla el nombre al cual se hara el mapeo
-    [Table("USUARIOS")]
+    [Table("Usuarios")]
     public class Usuario
     {
         // el decorador KEy  es para especificar el primary key o la clave primaria
-        [Key] public int Identificador { get; set; }
+        [Key] public int Id { get; set; }
 
         // Column -> le especifica el nombre de columna donde se mapeara
-        [Column("STR_NOMB")] public string Nombres { get; set; } = "Sin Nombre";
+        // [Column("STR_NOMB")] 
+        public string Nombres { get; set; } = "Sin Nombre";
 
-        [Column("STR_APE")] public string Apellidos { get; set; } = "No registrado";
+        // [Column("STR_APE")] 
+        public string Apellidos { get; set; } = "No registrado";
 
         
 
-        [Column("STR_USUARIO")] public string User { get; set; }
+        // [Column("STR_USUARIO")] 
+        public string User { get; set; }
 
-        [Column("STR_CONTRA")] public string Password { get; set; }
+        // [Column("STR_CONTRA")] 
+        public string Password { get; set; }
 
-        public Rol Rol { get; set; }
+        // public Rol Rol { get; set; }
         
         // TODO: no de deja poner como fk ...
-        [ForeignKey("RolId")]
-        public int? RolId { get; set; }
+        // [ForeignKey("RolId")]
+        // public int? RolId { get; set; }
 
         public string Role { get; set; }
         

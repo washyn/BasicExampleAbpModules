@@ -58,7 +58,7 @@ namespace WebApplicationMvc.Controllers
             {
                 var user = _dbContex
                     .Usuarios
-                    .Include(s => s.Rol)
+                    // .Include(s => s.Rol)
                     .FirstOrDefault(a => a.User == input.User);
 
                 if (user == null)
@@ -76,7 +76,7 @@ namespace WebApplicationMvc.Controllers
                         // se crea una lista de claims(key par valyes) con datos del usuario
                         var claims = new List<Claim>()
                         {
-                            new Claim("UserId", user.Identificador.ToString()),
+                            new Claim("UserId", user.Id.ToString()),
                             new Claim("FullName", $"{user.Nombres} {user.Apellidos}"),
                             // se agrega el nombre del rol del usaurio para verificar la autorizacion
                             // TODO: add Rol name and remove custom role checher

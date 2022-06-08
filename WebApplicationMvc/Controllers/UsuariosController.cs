@@ -24,12 +24,12 @@ namespace WebApplicationMvc.Controllers
         public IActionResult Index()
         {
             var usersTemp = _dbContex.Usuarios
-                .Include(a => a.Rol)
+                // .Include(a => a.Rol)
                 .Select(b => new UsuarioViewModel()
                 {
                     Rol = b.Role,
                     FullName = b.Apellidos + " " + b.Nombres,
-                    Id = b.Identificador,
+                    Id = b.Id,
                     UserName = b.User
                 })
                 .ToList();
@@ -66,7 +66,7 @@ namespace WebApplicationMvc.Controllers
         
         public IActionResult Eliminar(int id)
         {
-            var user = _dbContex.Usuarios.FirstOrDefault(a => a.Identificador == id);
+            var user = _dbContex.Usuarios.FirstOrDefault(a => a.Id == id);
             _dbContex.Usuarios.Remove(user);
             _dbContex.SaveChanges();
             return RedirectToAction(nameof(Index));
@@ -75,13 +75,13 @@ namespace WebApplicationMvc.Controllers
 
         public IActionResult Update(int id)
         {
-            var user = _dbContex.Usuarios.FirstOrDefault(a => a.Identificador == id);
+            var user = _dbContex.Usuarios.FirstOrDefault(a => a.Id == id);
             if (user != null)
             {
                 var model = new UpdateUserViewModel()
                 {
                     Apellidos = user.Apellidos,
-                    Id = user.Identificador,
+                    Id = user.Id,
                     Nombres = user.Nombres,
                     Password = user.Password,
                     Rol = user.Role,
@@ -98,11 +98,11 @@ namespace WebApplicationMvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _dbContex.Usuarios.FirstOrDefault(a => a.Identificador == model.Id);
+                var user = _dbContex.Usuarios.FirstOrDefault(a => a.Id == model.Id);
                 if (user != null)
                 {
                     user.Apellidos = model.Apellidos;
-                    user.Identificador = model.Id;
+                    user.Id = model.Id;
                     user.Nombres = model.Nombres;
                     user.Password = model.Password;
                     user.Role = model.Rol;

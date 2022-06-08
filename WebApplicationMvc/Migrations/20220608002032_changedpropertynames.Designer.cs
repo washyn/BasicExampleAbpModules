@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplicationMvc.EfCore;
 
 namespace WebApplicationMvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContex))]
-    partial class ApplicationDbContexModelSnapshot : ModelSnapshot
+    [Migration("20220608002032_changedpropertynames")]
+    partial class changedpropertynames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
