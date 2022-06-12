@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationMvc.CustomHandler;
 using WebApplicationMvc.EfCore;
+using WebApplicationMvc.Services;
 
 namespace WebApplicationMvc
 {
@@ -60,6 +61,8 @@ namespace WebApplicationMvc
             
             
             services.AddControllersWithViews();
+            
+            services.AddTransient(typeof(ServiceList));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

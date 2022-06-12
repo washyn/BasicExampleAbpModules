@@ -11,5 +11,12 @@ namespace WebApplicationMvc.CustomHandler
                 throw new ArgumentNullException(nameof(principal));
             return principal.FindFirstValue("FullName");
         }
+        
+        public static string GetRol(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+                throw new ArgumentNullException(nameof(principal));
+            return principal.FindFirstValue(ClaimTypes.Role);
+        }
     }
 }

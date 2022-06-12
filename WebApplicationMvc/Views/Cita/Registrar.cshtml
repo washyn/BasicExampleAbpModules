@@ -1,0 +1,57 @@
+﻿@using WebApplicationMvc.Services
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model WebApplicationMvc.ViewModels.Cita.RegistrarCitaViewModel
+@inject ServiceList _serviceList
+@{
+    // Layout = null;
+    var doctores = _serviceList.GetDoctores();
+    var pacientes = _serviceList.GetPacientes();
+    var categorias = Categorias.GetCategorias();
+}
+
+@* <!DOCTYPE html> *@
+@* *@
+@* <html> *@
+@* <head> *@
+@*     <title>title</title> *@
+@* </head> *@
+@* <body> *@
+@* <div> *@
+@*        *@
+@* </div> *@
+@* </body> *@
+@* </html> *@
+
+
+<h2>Registrar cita</h2>
+
+<form method="post" asp-controller="Cita" asp-action="Registrar">
+
+    <div class="form-group">
+        <label asp-for="Descripcion"></label>
+        <input asp-for="Descripcion" class="form-control">
+        <span class="text-danger" asp-validation-for="Descripcion"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Categoria"></label>
+        <select asp-for="Categoria" asp-items="categorias" class="form-control"></select>
+        <span class="text-danger" asp-validation-for="Categoria"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FechaHora"></label>
+        <input asp-for="FechaHora" class="form-control">
+        <span class="text-danger" asp-validation-for="FechaHora"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DoctorId"></label>
+        <select asp-for="DoctorId" asp-items="doctores" class="form-control"></select>
+        <span class="text-danger" asp-validation-for="DoctorId"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PacienteId"></label>
+        <select asp-for="PacienteId" asp-items="pacientes" class="form-control"></select>
+        <span class="text-danger" asp-validation-for="PacienteId"></span>
+    </div>
+    <button type="submit" class="btn btn-outline-primary btn-block">Registrar</button>
+
+</form>

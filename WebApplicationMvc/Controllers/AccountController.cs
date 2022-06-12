@@ -159,7 +159,7 @@ namespace WebApplicationMvc.Controllers
                         Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(model.Password)),
                     });
                 await _dbContex.SaveChangesAsync();
-                Thread.Sleep(1000);
+               
                 return RedirectToAction(nameof(Login));
             }
             return View(model);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -50,6 +51,12 @@ namespace WebApplicationMvc.Models
             var encodedPlain = Convert.ToBase64String(Encoding.UTF8.GetBytes(plainPassword));
             return encodedPlain == Password;
         }
-        
+
+        public IEnumerable<Cita> CitasDoctor { get; set; }
+        public IEnumerable<Cita> CitasPaciente { get; set; }
+        public override string ToString()
+        {
+            return $"{Nombres} {Apellidos}";
+        }
     }
 }

@@ -13,3 +13,7 @@
 
 # Done
 - User manangment(crud)
+
+
+# Funciones
+- Registrar hora(citas)

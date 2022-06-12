@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplicationMvc.EfCore;
 
 namespace WebApplicationMvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContex))]
-    partial class ApplicationDbContexModelSnapshot : ModelSnapshot
+    [Migration("20220612212235_changedCitas2")]
+    partial class changedCitas2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,17 +40,7 @@ namespace WebApplicationMvc.Migrations
                     b.Property<DateTime>("FechaHora")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UsuarioDoctorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UsuarioPacienteId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UsuarioDoctorId");
-
-                    b.HasIndex("UsuarioPacienteId");
 
                     b.ToTable("Citas");
                 });
@@ -78,32 +70,6 @@ namespace WebApplicationMvc.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("WebApplicationMvc.Models.Cita", b =>
-                {
-                    b.HasOne("WebApplicationMvc.Models.Usuario", "UsuarioDoctor")
-                        .WithMany("CitasDoctor")
-                        .HasForeignKey("UsuarioDoctorId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("WebApplicationMvc.Models.Usuario", "UsuarioPaciente")
-                        .WithMany("CitasPaciente")
-                        .HasForeignKey("UsuarioPacienteId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("UsuarioDoctor");
-
-                    b.Navigation("UsuarioPaciente");
-                });
-
-            modelBuilder.Entity("WebApplicationMvc.Models.Usuario", b =>
-                {
-                    b.Navigation("CitasDoctor");
-
-                    b.Navigation("CitasPaciente");
                 });
 #pragma warning restore 612, 618
         }

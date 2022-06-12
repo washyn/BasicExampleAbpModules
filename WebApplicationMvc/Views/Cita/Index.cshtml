@@ -1,0 +1,64 @@
+﻿@model List<WebApplicationMvc.ViewModels.Cita.CitaViewModel>
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+  var counter = 1;
+  var date = DateTime.Now;
+}
+
+<div class="row">
+  <div class="col-6"><h2>Lista de pacientes con cita</h2></div>
+  <div class="col-6 text-right">
+    @if (User.IsInRole(Rol.Asistente))
+    {
+      <a asp-controller="Cita" asp-action="Registrar" class="btn btn-sm btn-outline-primary" id="registrarUsuario">Registrar cita</a>
+    }
+  </div>
+</div>
+<br>
+<form asp-controller="Cita" asp-action="Index">
+  <div class="row">
+    <div class="col">
+      <input type="date" class="form-control form-control-sm" placeholder="Fecha" value="@date.ToString()">
+    </div>
+  </div>
+  <br>
+  <button class="btn btn-sm btn-block btn-outline-success " type="submit">Buscar</button>
+</form>
+<br>
+<table class="table  table-sm  table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Categoria</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Hora</th>
+      <th scope="col">Paciente</th>
+      <th scope="col">Doctor</th>
+      @if (User.IsInRole(Rol.Asistente))
+      {
+        <th scope="col">Opcion</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var item in Model)
+    {
+      <tr>
+        <th scope="row">@(counter++)</th>
+        <td>@item.Categoria</td>
+        <td>@item.FechaHora.ToShortDateString()</td>
+        <td>@item.FechaHora.ToShortTimeString()</td>
+        <td>@item.Paciente</td>
+        <td>@item.Doctor</td>
+        @if (User.IsInRole(Rol.Asistente))
+        {
+          <td>
+            <a class="btn btn-sm btn-outline-danger" asp-controller="Usuarios" asp-action="Eliminar" asp-route-id="@item.Id">Cancelar cita</a>
+            @* <a class="btn btn-sm btn-outline-secondary" asp-controller="Usuarios" asp-action="Update" asp-route-id="@item.Id">Editar</a> *@
+          </td>
+        }
+      </tr>
+    }
+  </tbody>
+</table>

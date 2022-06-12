@@ -15,6 +15,7 @@ namespace WebApplicationMvc.Views.Shared.Components.UserInfo
             var model = new UserInfoViewModel()
             {
                 UserName = this.UserClaimsPrincipal.GetLoggedInUserName(),
+                Rol = UserClaimsPrincipal.GetRol()
             };
             return View(model);
         }
