@@ -37,6 +37,7 @@ namespace WebApplicationMvc.Controllers
                     FechaHora = a.FechaHora,
                 })
                 .ToList();
+            ViewData["date"] = date;
             return View(model);
         }
         

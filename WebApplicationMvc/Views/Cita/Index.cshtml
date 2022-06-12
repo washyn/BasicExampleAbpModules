@@ -3,7 +3,13 @@
     ViewBag.Title = "title";
     Layout = "_Layout";
   var counter = 1;
-  var date = DateTime.Now;
+  var date = ViewData["date"];
+  var value = string.Empty;
+  if (date != null)
+  {
+    value = date.ToString();
+  }
+  
 }
 
 <div class="row">
@@ -16,10 +22,10 @@
   </div>
 </div>
 <br>
-<form asp-controller="Cita" asp-action="Index">
+<form asp-controller="Cita" asp-action="Index" method="get">
   <div class="row">
     <div class="col">
-      <input type="date" class="form-control form-control-sm" placeholder="Fecha" value="@date.ToString()">
+      <input type="date" class="form-control form-control-sm" placeholder="Fecha" value="@date">
     </div>
   </div>
   <br>
