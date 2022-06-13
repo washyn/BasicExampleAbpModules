@@ -26,7 +26,8 @@ namespace WebApplicationMvc.Models
     public enum EstadoCita
     {
         Atendido,
-        Pendiente
+        Pendiente,
+        Cancelado,
     }
     
     public class Categorias

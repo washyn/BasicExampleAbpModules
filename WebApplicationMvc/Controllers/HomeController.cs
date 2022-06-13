@@ -36,5 +36,12 @@ namespace WebApplicationMvc.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        
+        [Authorize(Roles = Rol.Asistente + "," + Rol.Medico)]
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
+
     }
 }

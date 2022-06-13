@@ -37,11 +37,25 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
                             </li>
                         }
+                        @if (User.IsInRole(Rol.Medico) || User.IsInRole(Rol.Asistente))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Historial" asp-action="Index">Historial</a>
+                            </li>
+                        }
+                        @if (User.IsInRole(Rol.Medico) || User.IsInRole(Rol.Asistente))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
+                            </li>
+                        }
                     }
                     
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-controller="Cita" asp-action="Index">Citas</a>
                     </li>
+                    
+                   
                     
                     
                     &nbsp;

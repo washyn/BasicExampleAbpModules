@@ -1,0 +1,58 @@
+﻿@model List<WebApplicationMvc.ViewModels.Cita.HistoriaPaciente>
+
+@{
+    // Layout = null;
+  var items = (List<SelectListItem>)ViewData["pacientes"];
+  var nombrePaciente = (string)ViewData["nombre"];
+}
+
+@* <!DOCTYPE html> *@
+@* *@
+@* <html> *@
+@* <head> *@
+@*     <title>title</title> *@
+@* </head> *@
+@* <body> *@
+@* <div> *@
+@*        *@
+@* </div> *@
+@* </body> *@
+@* </html> *@
+
+
+<form asp-controller="Historial" asp-action="Index" method="get">
+  <div class="row">
+    <div class="col">
+      <select class="form-control form-control-sm" name="pacienteId" asp-items="items"></select>
+    </div>
+    <div class="col text-right">
+      <button class="btn btn-sm btn-outline-secondary" type="submit">Ver historia clinica</button>
+    </div>
+  </div>
+  <br>
+</form>
+
+<div>
+  <h3> Paciente : 
+    <strong>
+      @nombrePaciente
+    </strong>
+    </h3>
+</div>
+
+<div class="list-group">
+  @foreach (var item in Model)
+  {
+    <div class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Diagnostico: @item.Diagnostico</h5>
+        <small>Fecha atencion: @item.FechaAtencion.ToShortDateString()</small>
+      </div>
+      <p class="mb-1">Some placeholder content in a paragraph. Descripcion de atencion.</p>
+      <small>And some small print. Comentario extra.</small>
+      @* <div class="text-right"> *@
+      @*   <button class="btn btn-sm btn-outline-info">Descargar diagnostico(PDF)</button> *@
+      @* </div> *@
+    </div>
+  }
+</div>

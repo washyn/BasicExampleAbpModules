@@ -22,11 +22,13 @@ namespace WebApplicationMvc.Controllers
         public IActionResult Index(DateTime? date)
         {
             // date = date ?? DateTime.Now;
-
+            ViewData["date"] = date;
+            
             var model = _dbContex.Citas
                 .Include(a => a.UsuarioDoctor)
                 .Include(a => a.UsuarioPaciente)
                 .WhereIf(date.HasValue, cita => cita.FechaHora.Date == date.Value.Date)
+                .Where(a => a.Estado == EstadoCita.Pendiente)
                 .ToList()
                 .Select(a => new CitaViewModel()
                 {
@@ -37,7 +39,7 @@ namespace WebApplicationMvc.Controllers
                     FechaHora = a.FechaHora,
                 })
                 .ToList();
-            ViewData["date"] = date;
+            
             return View(model);
         }
         
@@ -67,6 +69,21 @@ namespace WebApplicationMvc.Controllers
         public IActionResult Registrar()
         {
             return View();
+        }
+        
+        [Authorize(Roles = Rol.Asistente)]
+        [HttpGet]
+        public IActionResult Cancelar(int id)
+        {
+            var user = _dbContex.Citas.FirstOrDefault(a => a.Id == id);
+            if (user != null)
+            {
+                user.Estado = EstadoCita.Cancelado;
+                _dbContex.Citas.Update(user);
+                _dbContex.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            return NotFound();
         }
     }
 }

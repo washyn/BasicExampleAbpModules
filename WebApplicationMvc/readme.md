@@ -17,3 +17,18 @@
 
 # Funciones
 - Registrar hora(citas)
+- Tabla de historia de atencion...
+---
+Historial de atencion de paciente...
+
+mostrar pacientes y ver historial...
+
+historial de pacientes
+
+Historia clienica
+
+Ver historia clinica.
+
+
+...despues
+como doctor atender...
