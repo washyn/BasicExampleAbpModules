@@ -48,11 +48,12 @@
         <h5 class="mb-1">Diagnostico: @item.Diagnostico</h5>
         <small>Fecha atencion: @item.FechaAtencion.ToShortDateString()</small>
       </div>
-      <p class="mb-1">Some placeholder content in a paragraph. Descripcion de atencion.</p>
-      <small>And some small print. Comentario extra.</small>
-      @* <div class="text-right"> *@
-      @*   <button class="btn btn-sm btn-outline-info">Descargar diagnostico(PDF)</button> *@
-      @* </div> *@
+      <hr>
+      <p class="mb-1"> Doctor que atendio:  @item.Doctor</p>
+      <small>Comentario extra.</small>
+      <div class="text-right">
+        <button class="btn btn-sm btn-outline-info">Descargar diagnostico(PDF, prueba...)</button>
+      </div>
     </div>
   }
 </div>

@@ -8,6 +8,7 @@ namespace WebApplicationMvc.EfCore
     {
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Cita> Citas { get; set; }
+        public DbSet<Atencion> Atencions { get; set; }
         // public DbSet<Rol> Roles { get; set; }
         
         
@@ -22,6 +23,7 @@ namespace WebApplicationMvc.EfCore
             base.OnModelCreating(modelBuilder);
             
             new CitaEntityTypeConfiguration().Configure(modelBuilder.Entity<Cita>());
+            new AtencionEntityTypeConfiguration().Configure(modelBuilder.Entity<Atencion>());
         }
     }
     
@@ -35,6 +37,20 @@ namespace WebApplicationMvc.EfCore
             
             builder.HasOne(a => a.UsuarioPaciente)
                 .WithMany(a => a.CitasPaciente)
+                .OnDelete(DeleteBehavior.NoAction);
+        }
+    }
+    
+    public class AtencionEntityTypeConfiguration : IEntityTypeConfiguration<Atencion>
+    {
+        public void Configure(EntityTypeBuilder<Atencion> builder)
+        {
+            builder.HasOne(a => a.UsuarioDoctor)
+                .WithMany(a => a.AtencionDoctor)
+                .OnDelete(DeleteBehavior.NoAction);
+            
+            builder.HasOne(a => a.UsuarioPaciente)
+                .WithMany(a => a.AtencionPaciente)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

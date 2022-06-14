@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApplicationMvc.EfCore;
 using WebApplicationMvc.Models;
 using WebApplicationMvc.Services;
@@ -34,27 +35,19 @@ namespace WebApplicationMvc.Controllers
             {
                 var paciente = _dbContex.Usuarios.FirstOrDefault(a => a.Id == pacienteId.Value);
                 ViewData["nombre"] = paciente.ToString();
-                historia.AddRange(new []
-                {
-                    new HistoriaPaciente()
+
+                var atenciones = _dbContex.Atencions
+                    .Include(a => a.UsuarioDoctor)
+                    .Where(a => a.UsuarioPacienteId == pacienteId.Value)
+                    .Select(a => new HistoriaPaciente()
                     {
-                        Diagnostico = "Inflamacion de cabeza.",
-                        Doctor = "Doctor",
-                        FechaAtencion = DateTime.Now,
-                    },
-                    new HistoriaPaciente()
-                    {
-                        Diagnostico = "Inflamacion de cabeza.",
-                        Doctor = "Doctor",
-                        FechaAtencion = DateTime.Now,
-                    },
-                    new HistoriaPaciente()
-                    {
-                        Diagnostico = "Inflamacion de cabeza.",
-                        Doctor = "Doctor",
-                        FechaAtencion = DateTime.Now,
-                    }
-                });
+                        Diagnostico = a.Diagnostico,
+                        FechaAtencion = a.Fecha,
+                        Doctor = a.UsuarioDoctor.ToString()
+                    })
+                    .ToList();
+                
+                historia.AddRange(atenciones);
             }
             return View(historia);
         }

@@ -16,8 +16,295 @@
 @* </div> *@
 @* </body> *@
 @* </html> *@
-<h2 class="text-center">Dashboard(Tablero de estadisticas)</h2>
 
 
+@* refresh *@
+<div class="row">
+  <div class="col">
+    <h3 class="text-center">Dashboard(Tablero de estadisticas...prueba)</h3>
+  </div><div class="col">
+    <a asp-controller="Home" asp-action="Dashboard" class="btn btn-sm btn-outline-primary">Actualizar</a>
+  </div>
+</div>
+<br>
+@if (true)
+{
+  <div class="row">
+    <div class="col-6">
+      <!-- DONUT CHART -->
+      <div class="card card-danger">
+        <div class="card-header">
+          <strong>Donut Chart prueba de concepto</strong>
+        </div>
+        <div class="card-body">
+          <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <div class="col-6">
+      <!-- BAR CHART -->
+      <div class="card card-success">
+        <div class="card-header">
+          <strong>Bar Chart prueba de concepto</strong>
+        </div>
+        <div class="card-body">
+          <div class="chart">
+            <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+             
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col">
+      <h2 class="text-center">Resumen</h2>
+    </div><div class="col">
+      <button class="btn btn-sm btn-outline-success">Exportar excel(prueba...)</button>
+    </div>
+  </div>
+      <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Header</th>
+        <th>Header</th>
+        <th>Header</th>
+        <th>Header</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>1,001</td>
+        <td>random</td>
+        <td>data</td>
+        <td>placeholder</td>
+        <td>text</td>
+      </tr>
+      <tr>
+        <td>1,002</td>
+        <td>placeholder</td>
+        <td>irrelevant</td>
+        <td>visual</td>
+        <td>layout</td>
+      </tr>
+      <tr>
+        <td>1,003</td>
+        <td>data</td>
+        <td>rich</td>
+        <td>dashboard</td>
+        <td>tabular</td>
+      </tr>
+      <tr>
+        <td>1,003</td>
+        <td>information</td>
+        <td>placeholder</td>
+        <td>illustrative</td>
+        <td>data</td>
+      </tr>
+      <tr>
+        <td>1,004</td>
+        <td>text</td>
+        <td>random</td>
+        <td>layout</td>
+        <td>dashboard</td>
+      </tr>
+      <tr>
+        <td>1,005</td>
+        <td>dashboard</td>
+        <td>irrelevant</td>
+        <td>text</td>
+        <td>placeholder</td>
+      </tr>
+      <tr>
+        <td>1,006</td>
+        <td>dashboard</td>
+        <td>illustrative</td>
+        <td>rich</td>
+        <td>data</td>
+      </tr>
+      <tr>
+        <td>1,007</td>
+        <td>placeholder</td>
+        <td>tabular</td>
+        <td>information</td>
+        <td>irrelevant</td>
+      </tr>
+      <tr>
+        <td>1,008</td>
+        <td>random</td>
+        <td>data</td>
+        <td>placeholder</td>
+        <td>text</td>
+      </tr>
+      <tr>
+        <td>1,009</td>
+        <td>placeholder</td>
+        <td>irrelevant</td>
+        <td>visual</td>
+        <td>layout</td>
+      </tr>
+      <tr>
+        <td>1,010</td>
+        <td>data</td>
+        <td>rich</td>
+        <td>dashboard</td>
+        <td>tabular</td>
+      </tr>
+      <tr>
+        <td>1,011</td>
+        <td>information</td>
+        <td>placeholder</td>
+        <td>illustrative</td>
+        <td>data</td>
+      </tr>
+      <tr>
+        <td>1,012</td>
+        <td>text</td>
+        <td>placeholder</td>
+        <td>layout</td>
+        <td>dashboard</td>
+      </tr>
+      <tr>
+        <td>1,013</td>
+        <td>dashboard</td>
+        <td>irrelevant</td>
+        <td>text</td>
+        <td>visual</td>
+      </tr>
+      <tr>
+        <td>1,014</td>
+        <td>dashboard</td>
+        <td>illustrative</td>
+        <td>rich</td>
+        <td>data</td>
+      </tr>
+      <tr>
+        <td>1,015</td>
+        <td>random</td>
+        <td>tabular</td>
+        <td>information</td>
+        <td>text</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+}
+else
+{
+    <p>En proceso ... </p>
+}
 
-<p>En proceso ... </p>
+
+@section Scripts
+{
+    <script src="~/lib/Chart.js@3.8.0/chart.js"></script>
+    <script>
+      $(function () {
+        /* ChartJS
+         * -------
+         * Here we will create a few charts using ChartJS
+         */
+    
+        //--------------
+        //- AREA CHART -
+        //--------------
+    
+        var areaChartData = {
+          labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          datasets: [
+            {
+              label               : 'Digital Goods',
+              backgroundColor     : 'rgba(60,141,188,0.9)',
+              borderColor         : 'rgba(60,141,188,0.8)',
+              pointRadius          : false,
+              pointColor          : '#3b8bba',
+              pointStrokeColor    : 'rgba(60,141,188,1)',
+              pointHighlightFill  : '#fff',
+              pointHighlightStroke: 'rgba(60,141,188,1)',
+              data                : [28, 48, 40, 19, 86, 27, 90]
+            },
+            {
+              label               : 'Electronics',
+              backgroundColor     : 'rgba(210, 214, 222, 1)',
+              borderColor         : 'rgba(210, 214, 222, 1)',
+              pointRadius         : false,
+              pointColor          : 'rgba(210, 214, 222, 1)',
+              pointStrokeColor    : '#c1c7d1',
+              pointHighlightFill  : '#fff',
+              pointHighlightStroke: 'rgba(220,220,220,1)',
+              data                : [65, 59, 80, 81, 56, 55, 40]
+            },
+          ]
+        }
+    
+        
+
+    
+        //-------------
+        //- DONUT CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+        var donutData        = {
+          labels: [
+              'Chrome',
+              'IE',
+              'FireFox',
+              'Safari',
+              'Opera',
+              'Navigator',
+          ],
+          datasets: [
+            {
+              data: [700,500,400,600,300,100],
+              backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+            }
+          ]
+        }
+        var donutOptions     = {
+          maintainAspectRatio : false,
+          responsive : true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(donutChartCanvas, {
+          type: 'doughnut',
+          data: donutData,
+          options: donutOptions
+        })
+    
+        
+    
+        //-------------
+        //- BAR CHART -
+        //-------------
+        var barChartCanvas = $('#barChart').get(0).getContext('2d')
+        var barChartData = $.extend(true, {}, areaChartData)
+        var temp0 = areaChartData.datasets[0]
+        var temp1 = areaChartData.datasets[1]
+        barChartData.datasets[0] = temp1
+        barChartData.datasets[1] = temp0
+    
+        var barChartOptions = {
+          responsive              : true,
+          maintainAspectRatio     : false,
+          datasetFill             : false
+        }
+    
+        new Chart(barChartCanvas, {
+          type: 'bar',
+          data: barChartData,
+          options: barChartOptions
+        })
+    
+        
+      })
+    </script>
+}

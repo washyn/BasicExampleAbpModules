@@ -1,0 +1,48 @@
+﻿@model WebApplicationMvc.ViewModels.Cita.RegistrarAtencionViewModel
+
+@{
+    // Layout = null;
+    var paciente = (int)ViewData["pacienteId"];
+    var citaId = (int)ViewData["citaId"];
+}
+
+@* <!DOCTYPE html> *@
+@* *@
+@* <html> *@
+@* <head> *@
+@*     <title>title</title> *@
+@* </head> *@
+@* <body> *@
+@* <div> *@
+@*        *@
+@* </div> *@
+@* </body> *@
+@* </html> *@
+
+<div class="card">
+    <div class="card-header">
+        <strong>Registrar diagnostico(atencion) : @ViewData["nombrePaciente"] </strong>
+    </div>
+    <div class="card-body">
+        <form asp-controller="Atencion" asp-action="Registrar" asp-route-pacienteId="@paciente" asp-route-citaId="@citaId" method="post">
+            <div class="form-group">
+                <label asp-for="Diagnostico"></label>
+                <input class="form-control" asp-for="Diagnostico">
+                <span class="text-danger" asp-validation-for="Diagnostico"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Receta"></label>
+                <input class="form-control" asp-for="Receta">
+                <span class="text-danger" asp-validation-for="Receta"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recomendaciones"></label>
+                <input class="form-control" asp-for="Recomendaciones">
+                <span class="text-danger" asp-validation-for="Recomendaciones"></span>
+            </div>
+            <input name="PacienteId" value="@paciente" type="hidden">
+            <input name="CitaId" value="@citaId" type="hidden">
+            <button class="btn btn-sm btn-block btn-outline-warning" type="submit">Guardar</button>
+        </form>
+    </div>
+</div>

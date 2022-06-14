@@ -49,6 +49,12 @@
                                 <a class="nav-link text-dark" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
                             </li>
                         }
+                        @if (User.IsInRole(Rol.Medico))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Atencion" asp-action="Index">Mis pacientes</a>
+                            </li>
+                        }
                     }
                     
                     <li class="nav-item">

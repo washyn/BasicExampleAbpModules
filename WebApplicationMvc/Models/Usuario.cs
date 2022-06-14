@@ -54,6 +54,10 @@ namespace WebApplicationMvc.Models
 
         public IEnumerable<Cita> CitasDoctor { get; set; }
         public IEnumerable<Cita> CitasPaciente { get; set; }
+        
+        public IEnumerable<Atencion> AtencionPaciente { get; set; }
+        public IEnumerable<Atencion> AtencionDoctor { get; set; }
+        
         public override string ToString()
         {
             return $"{Nombres} {Apellidos}";

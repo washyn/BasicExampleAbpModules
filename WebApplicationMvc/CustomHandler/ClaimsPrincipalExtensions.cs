@@ -18,5 +18,12 @@ namespace WebApplicationMvc.CustomHandler
                 throw new ArgumentNullException(nameof(principal));
             return principal.FindFirstValue(ClaimTypes.Role);
         }
+        
+        public static string GetUserId(this ClaimsPrincipal principal)
+        {
+            if (principal == null)
+                throw new ArgumentNullException(nameof(principal));
+            return principal.FindFirstValue("UserId");
+        }
     }
 }

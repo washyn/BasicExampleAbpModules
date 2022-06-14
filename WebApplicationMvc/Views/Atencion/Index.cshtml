@@ -1,0 +1,47 @@
+﻿@model List<Cita>
+
+@{
+    // Layout = null;
+}
+
+@* <!DOCTYPE html> *@
+@* *@
+@* <html> *@
+@* <head> *@
+@*     <title>title</title> *@
+@* </head> *@
+@* <body> *@
+@* <div> *@
+@*        *@
+@* </div> *@
+@* </body> *@
+@* </html> *@
+
+<h2 class="text-center">Mis pacientes</h2>
+
+@if (Model.Any())
+{
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-header">
+                <strong>Paciente: @item.UsuarioPaciente.ToString() </strong>
+            </div>
+            <div class="card-body">
+                Sintomas : @item.Descripcion<br>
+                @item.Categoria <br>
+                Fecha cita: @item.FechaHora.ToShortDateString()
+                @* https://localhost:5001/Atencion/Registrar?pacienteId=3 *@
+                <hr>
+                <a asp-controller="Atencion" asp-action="Registrar" asp-route-pacienteId="@item.UsuarioPacienteId" asp-route-citaId="@item.Id" class="btn btn-sm btn-block btn-outline-info">Registrar atencion</a>
+            </div>
+        </div>
+        <br/>
+    }
+}
+else
+{
+    <div>
+        No tiene pacientes pendientes de antencion.
+    </div>
+}
