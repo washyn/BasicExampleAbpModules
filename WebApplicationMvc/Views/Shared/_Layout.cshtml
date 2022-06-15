@@ -55,6 +55,13 @@
                                 <a class="nav-link text-dark" asp-controller="Atencion" asp-action="Index">Mis pacientes</a>
                             </li>
                         }
+                        
+                        @if (User.IsInRole(Rol.Paciente))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Receta" asp-action="Index">Mis recetas</a>
+                            </li>
+                        }
                     }
                     
                     <li class="nav-item">

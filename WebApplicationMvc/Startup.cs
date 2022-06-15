@@ -87,7 +87,7 @@ namespace WebApplicationMvc
             app.UseAuthentication(); 
             
             // se agrega, autorizacion, rol
-            // verificacion de permisos
+            // verificacion de permisos(roles)
             app.UseAuthorization(); 
 
             

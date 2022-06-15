@@ -49,7 +49,12 @@ namespace WebApplicationMvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                if (ExisteCitaPendiente(model.FechaHora, model.DoctorId))
+                {
+                    ModelState.AddModelError(nameof(model.FechaHora), 
+                        "Ya existe un paciente registrado para esta fecha y hora.");
+                    return View(model);
+                }
                 _dbContex.Citas.Add(new Cita()
                 {
                     Categoria = model.Categoria,
@@ -84,6 +89,16 @@ namespace WebApplicationMvc.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return NotFound();
+        }
+
+        [NonAction]
+        private bool ExisteCitaPendiente(DateTime dateTime, int doctorId)
+        {
+            // return _dbContex.Citas.Any(a => a.FechaHora == dateTime && a.UsuarioDoctorId == doctorId && a.Estado == EstadoCita.Pendiente);
+            return _dbContex.Citas.Any(a => a.UsuarioDoctorId == doctorId && 
+                                            a.Estado == EstadoCita.Pendiente &&
+                                            a.FechaHora.Date == dateTime.Date &&
+                                            a.FechaHora.Hour == dateTime.Hour);
         }
     }
 }
