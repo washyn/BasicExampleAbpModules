@@ -30,5 +30,10 @@ Historia clienica
 Ver historia clinica.
 
 
-...despues
-como doctor atender...
+imprimier pdf se hara con iframe, print
+
+
+------------------------------------------------------------
+- Como paciente puedo ver mi receta.... Ok
+- Corregir que no se pueda atender a 2 personas a la vez. OK...
+

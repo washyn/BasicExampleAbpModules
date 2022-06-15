@@ -1,0 +1,41 @@
+﻿@model WebApplicationMvc.Controllers.RecetaViewModel
+
+@{
+    // Layout = null;
+}
+
+@* <!DOCTYPE html> *@
+@* *@
+@* <html> *@
+@* <head> *@
+@*     <title>title</title> *@
+@* </head> *@
+@* <body> *@
+@* <div> *@
+@*        *@
+@* </div> *@
+@* </body> *@
+@* </html> *@
+
+<h2 class="text-center">Mi ultima receta</h2>
+
+@if (Model != null)
+{
+    <div class="card">
+        <div class="card-header">
+            <strong>
+                Receta N: @Model.Id Fecha: @Model.Fecha.ToString() Doctor: @Model.Doctor
+            </strong>
+        </div>
+        <div class="card-body">
+            Receta (Retalles y recomendaciones). <br>
+            @Model.Receta
+        </div>
+    </div>
+}
+else
+{
+    <p>
+        No hay recetas recientes.
+    </p>
+}
