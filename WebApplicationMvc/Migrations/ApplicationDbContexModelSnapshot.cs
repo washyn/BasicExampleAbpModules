@@ -26,6 +26,9 @@ namespace WebApplicationMvc.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CitaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Diagnostico")
                         .HasColumnType("nvarchar(max)");
 
@@ -60,6 +63,9 @@ namespace WebApplicationMvc.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AtencionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Categoria")
                         .HasColumnType("nvarchar(max)");
 
@@ -79,6 +85,10 @@ namespace WebApplicationMvc.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AtencionId")
+                        .IsUnique()
+                        .HasFilter("[AtencionId] IS NOT NULL");
 
                     b.HasIndex("UsuarioDoctorId");
 
@@ -135,6 +145,11 @@ namespace WebApplicationMvc.Migrations
 
             modelBuilder.Entity("WebApplicationMvc.Models.Cita", b =>
                 {
+                    b.HasOne("WebApplicationMvc.Models.Atencion", "Atencion")
+                        .WithOne("Cita")
+                        .HasForeignKey("WebApplicationMvc.Models.Cita", "AtencionId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("WebApplicationMvc.Models.Usuario", "UsuarioDoctor")
                         .WithMany("CitasDoctor")
                         .HasForeignKey("UsuarioDoctorId")
@@ -147,9 +162,16 @@ namespace WebApplicationMvc.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.Navigation("Atencion");
+
                     b.Navigation("UsuarioDoctor");
 
                     b.Navigation("UsuarioPaciente");
+                });
+
+            modelBuilder.Entity("WebApplicationMvc.Models.Atencion", b =>
+                {
+                    b.Navigation("Cita");
                 });
 
             modelBuilder.Entity("WebApplicationMvc.Models.Usuario", b =>

@@ -15,5 +15,9 @@ namespace WebApplicationMvc.Models
         
         public int UsuarioPacienteId { get; set; }
         public Usuario UsuarioPaciente { get; set; }
+
+        // TODO: improve as required
+        public Cita Cita { get; set; }
+        public int CitaId { get; set; }
     }
 }

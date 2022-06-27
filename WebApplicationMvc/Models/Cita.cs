@@ -21,6 +21,9 @@ namespace WebApplicationMvc.Models
         
         public Usuario UsuarioDoctor { get; set; }
         public int UsuarioDoctorId { get; set; }
+
+        public Atencion Atencion { get; set; }
+        public int? AtencionId { get; set; }
     }
 
     public enum EstadoCita

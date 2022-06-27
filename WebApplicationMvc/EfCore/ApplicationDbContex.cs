@@ -38,6 +38,11 @@ namespace WebApplicationMvc.EfCore
             builder.HasOne(a => a.UsuarioPaciente)
                 .WithMany(a => a.CitasPaciente)
                 .OnDelete(DeleteBehavior.NoAction);
+            
+            builder.HasOne(a => a.Atencion)
+                .WithOne(a => a.Cita)
+                .HasForeignKey<Atencion>(b => b.CitaId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
     
@@ -51,6 +56,11 @@ namespace WebApplicationMvc.EfCore
             
             builder.HasOne(a => a.UsuarioPaciente)
                 .WithMany(a => a.AtencionPaciente)
+                .OnDelete(DeleteBehavior.NoAction);
+            
+            builder.HasOne(a => a.Cita)
+                .WithOne(a => a.Atencion)
+                .HasForeignKey<Cita>(b => b.AtencionId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

@@ -75,6 +75,7 @@ namespace WebApplicationMvc.Controllers
                     Recomendaciones = model.Recomendaciones,
                     UsuarioPacienteId = pacienteId,
                     UsuarioDoctorId = user,
+                    CitaId = citaId,
                 });
                 var cita = _dbContex.Citas.FirstOrDefault(a => a.Id == citaId);
                 cita.Estado = EstadoCita.Atendido;

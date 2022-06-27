@@ -1,0 +1,24 @@
+﻿@model WebApplicationMvc.ViewModels.AtencionPdfViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<div>
+    @* @Model.Data *@
+    <h2>Receta N: @Model.Numero</h2>
+    <p>Fecha : @Model.Fecha.ToShortDateString() @Model.Fecha.ToShortTimeString() </p>
+    <p><strong>Diagnostico: </strong>@Model.Diagnostico</p>
+    <p><strong>Receta: </strong>@Model.Receta</p>
+    <p><strong>Recomendaciones : </strong>@Model.Recomendaciones</p>
+    <p><strong>Doctor: </strong>@Model.UsuarioDoctor</p>
+</div>
+</body>
+</html>

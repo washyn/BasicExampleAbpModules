@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using WebApplicationMvc.EfCore;
 using WebApplicationMvc.Models;
 using WebApplicationMvc.Services;
+using WebApplicationMvc.ViewModels;
 using WebApplicationMvc.ViewModels.Cita;
+using WkHtmlToPdfDotNet;
+using WkHtmlToPdfDotNet.Contracts;
 
 namespace WebApplicationMvc.Controllers
 {
@@ -15,12 +21,21 @@ namespace WebApplicationMvc.Controllers
     public class HistorialController : Controller
     {
         private readonly ServiceList _serviceList;
+        private readonly IConverter _converter;
+        private readonly ILogger<HistorialController> _logger;
+        private readonly IViewRenderService _renderService;
         private readonly ApplicationDbContex _dbContex;
 
-        public HistorialController(Services.ServiceList serviceList, 
+        public HistorialController(Services.ServiceList serviceList,
+            IConverter converter,
+            ILogger<HistorialController> logger,
+            IViewRenderService renderService,
             ApplicationDbContex dbContex)
         {
             _serviceList = serviceList;
+            _converter = converter;
+            _logger = logger;
+            _renderService = renderService;
             _dbContex = dbContex;
         }
 
@@ -35,15 +50,18 @@ namespace WebApplicationMvc.Controllers
             {
                 var paciente = _dbContex.Usuarios.FirstOrDefault(a => a.Id == pacienteId.Value);
                 ViewData["nombre"] = paciente.ToString();
-
+                // categoria is missed
                 var atenciones = _dbContex.Atencions
+                    .Include(a => a.Cita)
                     .Include(a => a.UsuarioDoctor)
                     .Where(a => a.UsuarioPacienteId == pacienteId.Value)
                     .Select(a => new HistoriaPaciente()
                     {
                         Diagnostico = a.Diagnostico,
                         FechaAtencion = a.Fecha,
-                        Doctor = a.UsuarioDoctor.ToString()
+                        Doctor = a.UsuarioDoctor.ToString(),
+                        Id = a.Id,
+                        Categoria = a.Cita.Categoria
                     })
                     .ToList();
                 
@@ -51,5 +69,90 @@ namespace WebApplicationMvc.Controllers
             }
             return View(historia);
         }
+
+        public IActionResult PruebaRender(int id)
+        {
+            // TODO:
+            // fix why not include cita ???
+            var data = _dbContex.Atencions
+                .Include(a => a.Cita)
+                .Include(a => a.UsuarioDoctor)
+                .Include(a => a.UsuarioPaciente)
+                .FirstOrDefault(c => c.Id == id);
+            
+            var model = new AtencionPdfViewModel()
+            {
+                // Categoria = data.Cita.Categoria,
+                Numero = data.Id,
+                Diagnostico = data.Diagnostico,
+                Fecha = data.Fecha,
+                Receta = data.Receta,
+                Recomendaciones = data.Recomendaciones,
+                UsuarioDoctor = data.UsuarioDoctor.ToString(),
+                UsuarioPaciente = data.UsuarioPaciente.ToString()
+            };
+            return View("/Views/Historial/AtencionPdf.cshtml", model);
+        }
+        
+        public async Task<IActionResult> PruebaPdfExport(int historiaId)
+        {
+            _logger.LogInformation(historiaId.ToString());
+            _logger.LogInformation(System.Text.Encoding.UTF8.BodyName);
+            var fechaAtencion = DateTime.Now.ToShortDateString();
+
+            var data = _dbContex.Atencions
+                .Include(a => a.Cita)
+                .Include(a => a.UsuarioDoctor)
+                .Include(a => a.UsuarioPaciente)
+                .FirstOrDefault(c => c.Id == historiaId);
+            
+            var model = new AtencionPdfViewModel()
+            {
+                // Categoria = data.Cita.Categoria,
+                Numero = data.Id,
+                Diagnostico = data.Diagnostico,
+                Fecha = data.Fecha,
+                Receta = data.Receta,
+                Recomendaciones = data.Recomendaciones,
+                UsuarioDoctor = data.UsuarioDoctor.ToString(),
+                UsuarioPaciente = data.UsuarioPaciente.ToString()
+            };
+            
+            // WebApplicationMvc/Views/Historial/AtencionPdf.cshtml
+            // var html = await _renderService.RederToStringAsync(@"\Historial\AtencionPdf.cshtml", model);
+            var html = await _renderService.RederToStringAsync(@"/Views/Historial/AtencionPdf.cshtml", model);
+            
+            var document = new HtmlToPdfDocument()
+            {
+                GlobalSettings = new GlobalSettings()
+                {
+                    ColorMode = ColorMode.Color,
+                    Orientation = Orientation.Portrait,
+                    PaperSize = PaperKind.A4,
+                },
+                Objects =
+                {
+                    new ObjectSettings()
+                    {
+                        HtmlContent = html,
+                        PagesCount = true,
+                        WebSettings = new WebSettings()
+                        {
+                            // DefaultEncoding = System.Text.Encoding.Get
+                            DefaultEncoding = System.Text.Encoding.UTF8.BodyName,
+                            // DefaultEncoding = System.Text.Encoding.UTF8.EncodingName,
+                            UserStyleSheet = ""
+                        }
+                    }
+                }
+            };
+            
+            var fileContent = _converter.Convert(document);
+            
+            return File(fileContent, 
+                MediaTypeNames.Application.Pdf, 
+                $"{fechaAtencion}.pdf");
+        }
+        
     }
 }
