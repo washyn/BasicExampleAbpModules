@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using WebApplicationMvc.CustomHandler;
 using WebApplicationMvc.EfCore;
 using WebApplicationMvc.Services;
+using WkHtmlToPdfDotNet;
+using WkHtmlToPdfDotNet.Contracts;
 
 namespace WebApplicationMvc
 {
@@ -63,6 +65,8 @@ namespace WebApplicationMvc
             services.AddControllersWithViews();
             
             services.AddTransient(typeof(ServiceList));
+            services.AddScoped<IViewRenderService, ViewRenderService>();
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
