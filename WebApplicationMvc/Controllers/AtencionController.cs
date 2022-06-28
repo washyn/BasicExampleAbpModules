@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Hosting;
 using WebApplicationMvc.CustomHandler;
 using WebApplicationMvc.EfCore;
 using WebApplicationMvc.Models;
@@ -15,10 +16,13 @@ namespace WebApplicationMvc.Controllers
     public class AtencionController : Controller
     {
         private readonly ApplicationDbContex _dbContex;
+        private readonly IHostEnvironment _hostEnvironment;
 
-        public AtencionController(ApplicationDbContex dbContex)
+        public AtencionController(ApplicationDbContex dbContex,
+            IHostEnvironment hostEnvironment)
         {
             _dbContex = dbContex;
+            _hostEnvironment = hostEnvironment;
         }
         
         // public IActionResult Pacientes()

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WebApplicationMvc.EfCore;
 using WebApplicationMvc.Models;
@@ -24,18 +26,21 @@ namespace WebApplicationMvc.Controllers
         private readonly IConverter _converter;
         private readonly ILogger<HistorialController> _logger;
         private readonly IViewRenderService _renderService;
+        private readonly IHostEnvironment _hostEnvironment;
         private readonly ApplicationDbContex _dbContex;
 
         public HistorialController(Services.ServiceList serviceList,
             IConverter converter,
             ILogger<HistorialController> logger,
             IViewRenderService renderService,
+            IHostEnvironment hostEnvironment,
             ApplicationDbContex dbContex)
         {
             _serviceList = serviceList;
             _converter = converter;
             _logger = logger;
             _renderService = renderService;
+            _hostEnvironment = hostEnvironment;
             _dbContex = dbContex;
         }
 
@@ -121,7 +126,9 @@ namespace WebApplicationMvc.Controllers
             // WebApplicationMvc/Views/Historial/AtencionPdf.cshtml
             // var html = await _renderService.RederToStringAsync(@"\Historial\AtencionPdf.cshtml", model);
             var html = await _renderService.RederToStringAsync(@"/Views/Historial/AtencionPdf.cshtml", model);
-            
+            // D:\github\MVC\WebApplicationMvc\wwwroot\lib\bootstrap\dist\css\bootstrap.css
+            var cssPath = Path.Combine(_hostEnvironment.ContentRootPath, @"lib\bootstrap\dist\css\bootstrap.css");
+            _logger.LogInformation(cssPath);
             var document = new HtmlToPdfDocument()
             {
                 GlobalSettings = new GlobalSettings()
@@ -141,7 +148,7 @@ namespace WebApplicationMvc.Controllers
                             // DefaultEncoding = System.Text.Encoding.Get
                             DefaultEncoding = System.Text.Encoding.UTF8.BodyName,
                             // DefaultEncoding = System.Text.Encoding.UTF8.EncodingName,
-                            UserStyleSheet = ""
+                            // UserStyleSheet = cssPath
                         }
                     }
                 }
