@@ -7,7 +7,7 @@
 - Add another proyecto for data seed or receive args for data seed.
 - Add instructions for run.
 - Add fronted crud for sercice(add modal for create, update, and delete)
-
+- add Db script for login...
 
 This library includes all another libs
 
