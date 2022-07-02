@@ -42,7 +42,7 @@
         @*     <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p> *@
         @*     <small>Donec id elit non mi porta.</small> *@
         @* </a> *@
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Receta N: @Model.Id </h5>
                 <small class="text-muted">Fecha: @Model.Fecha.ToString()</small>
@@ -50,8 +50,12 @@
             <p class="mb-1">Doctor que atendio(receto): @Model.Doctor</p>
             <small class="text-muted">Receta (Retalles y recomendaciones). <br>
                 @Model.Receta
-                </small>
-        </a>
+            </small>
+            <hr>
+            <div class="col-12">
+                <a class="btn btn-sm btn-outline-primary btn-block" asp-controller="Historial" asp-action="PruebaPdfExport" asp-route-historiaId="@Model.Id">Descargar PDF</a>
+            </div>
+        </div>
         @* <a href="#" class="list-group-item list-group-item-action flex-column align-items-start"> *@
         @*     <div class="d-flex w-100 justify-content-between"> *@
         @*         <h5 class="mb-1">List group item heading</h5> *@

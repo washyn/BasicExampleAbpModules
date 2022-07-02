@@ -99,6 +99,7 @@ namespace WebApplicationMvc.Controllers
             return View("/Views/Historial/AtencionPdf.cshtml", model);
         }
         
+        [AllowAnonymous]
         public async Task<IActionResult> PruebaPdfExport(int historiaId)
         {
             _logger.LogInformation(historiaId.ToString());
