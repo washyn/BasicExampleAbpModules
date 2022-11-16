@@ -2,9 +2,9 @@
   "version": "1.0",
   "defaultProvider": "cdnjs",
   "libraries": [
-    {
-      "library": "Chart.js@3.8.0",
-      "destination": "wwwroot/lib/Chart.js@3.8.0"
-    }
+//    {
+//      "library": "Chart.js@3.8.0",
+//      "destination": "wwwroot/lib/Chart.js@3.8.0"
+//    }
   ]
 }
