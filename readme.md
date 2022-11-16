@@ -16,3 +16,7 @@
 - Uso de ef core
 
 Incluye comentarios con proposito de enseñanza y explicacion para novatos.
+
+
+### TODO:
+Add screenshots for show in readme.
