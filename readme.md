@@ -14,3 +14,5 @@
     - Listar
 - Export excel
 - Uso de ef core
+
+Incluye comentarios con proposito de enseñanza y explicacion para novatos.
