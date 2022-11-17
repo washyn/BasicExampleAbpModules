@@ -1,22 +1,17 @@
 # Ejemplo de crud in asp net core mvc
 
-- Tabla maestro
-    - Busqueda por campos
-    - Crear registro
-    - Eliminar registro
-    - Actualizar
-    - Listar
 - Tabla detalle
-    - Busqueda por campos
     - Crear registro
     - Eliminar registro
     - Actualizar
     - Listar
-- Export excel
 - Uso de ef core
 
-Incluye comentarios con proposito de enseñanza y explicacion para novatos.
+
+Se hace uso de todos los tipo de datos en el crud(Flotante,	Enum,	Cadena,	Fecha Hora,	Fecha,	Hora,	Archivo), incluye comentarios con proposito de enseñanza y explicacion.
 
 
-### TODO:
-Add screenshots for show in readme.
+![alt](/images/Screenshot_256.png)
+
+# Para ejecutar
+- Ejecutar la migracion
