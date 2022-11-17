@@ -1,4 +1,4 @@
-# # Ejemplo de crud in asp net core mvc, login and authorization.
+# Ejemplo de crud in asp net core mvc, login and authorization.
 
 
 - Tabla maestro
@@ -40,7 +40,7 @@ Some modules added.
 
 
 
-
+![alt](/screenshot.png)
 
 
 
